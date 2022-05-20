@@ -58,4 +58,10 @@ function desactivaCookies()
         } 
     }
 }
+
+function properText($str){
+    $str = mb_convert_encoding($str, "HTML-ENTITIES", "UTF-8");
+    $str = preg_replace('[a-zA-Z áéíóúÁÉÍÓÚñÑ.]+',htmlentities('${1}'),$str);
+    return($str); 
+}
 ?>

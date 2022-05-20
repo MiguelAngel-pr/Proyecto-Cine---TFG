@@ -165,15 +165,6 @@
             <li class="dropdown"><a href="#"><span>Negocios</span> <i class="bi bi-chevron-down"></i></a>
               <ul>
                 <li><a href="#">Hola</a></li>
-                <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
-                  <ul>
-                    <li><a href="#">Deep Drop Down 1</a></li>
-                    <li><a href="#">Deep Drop Down 2</a></li>
-                    <li><a href="#">Deep Drop Down 3</a></li>
-                    <li><a href="#">Deep Drop Down 4</a></li>
-                    <li><a href="#">Deep Drop Down 5</a></li>
-                  </ul>
-                </li>
               </ul>
             </li>
           </ul>
@@ -187,16 +178,16 @@
     <div id="novedades" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img src="assets/img/slider1.jpg" class="d-block w-100">
+          <a value="3" id="pelicula_slider0" href="#"><img id="" src="assets/img/slider1.jpg" class="d-block w-100" href="#" alt="Doctor Strange en el Multiverso de la Locura"></a>
         </div>
         <div class="carousel-item">
-          <img src="assets/img/slider2.jpg" class="d-block w-100">
+          <a value="4" id="pelicula_slider1" href="#"><img src="assets/img/slider2.jpg" class="d-block w-100" href="#" alt="Sonic 2: La Película"></a>
         </div>
         <div class="carousel-item">
-          <img src="assets/img/slider3.jpg" class="d-block w-100">
+          <a value="5" id="pelicula_slider2" href="#"><img src="assets/img/slider3.jpg" class="d-block w-100" href="#" alt="Los Tipos Malos"></a>
         </div>
         <div class="carousel-item">
-          <img src="assets/img/slider4.jpg" class="d-block w-100">
+          <a value="2" id="pelicula_slider3" href="#"><img src="assets/img/slider4.jpg" class="d-block w-100" href="#" alt="The Batman"></a>
         </div>
       </div>
       <a class="carousel-control-prev" href="#" data-bs-target="#novedades" data-bs-slide="prev">
@@ -215,55 +206,55 @@
           <div class="carousel-inner" role="listbox">
             <div class="carousel-item active">
               <div class="img_container">
-                <a href="pelicula.php"><img src="assets/img/pelicula1.jpg" href="https://www.qries.com/" alt="Extended carousel demo image"></a>
+                <a class="pelicula_cartelera0" href="#" value="2"><img src="assets/img/pelicula1.jpg" alt="The Batman"></a>
                 <div class="overlay">The Batman</div>
               </div>
             </div>
             <div class="carousel-item">
               <div class="img_container">
-                <a href="pelicula.php"><img src="assets/img/pelicula2.jpg" href="#" alt="Extended carousel demo image"></a>
+                <a class="pelicula_cartelera1" href="#" value="3"><img src="assets/img/pelicula2.jpg" alt="Doctor Strange en el Multiverso de la Locura"></a>
                 <div class="overlay">Doctor Strange en el Multiverso de la Locura</div>
               </div>
             </div>
             <div class="carousel-item">
               <div class="img_container">
-                <a href="#"><img src="assets/img/pelicula3.jpg" href="#" alt="Extended carousel demo image"></a>
+                <a class="pelicula_cartelera2" href="#" value="7"><img src="assets/img/pelicula3.jpg" alt="Animales Fantásticos: Los Secretos de Dumbledore"></a>
                 <div class="overlay">Animales Fantásticos: Los Secretos de Dumbledore</div>
               </div>
             </div>
             <div class="carousel-item">
               <div class="img_container">
-                <a href="#"><img src="assets/img/pelicula4.jpg" href="#" alt="Extended carousel demo image"></a>
+                <a class="pelicula_cartelera3" href="#" value="4"><img src="assets/img/pelicula4.jpg" alt="Sonic 2: La Película"></a>
                 <div class="overlay">Sonic 2: La Película</div>
               </div>
             </div>
             <div class="carousel-item">
               <div class="img_container">
-                <a href="#"><img src="assets/img/pelicula5.jpg" href="#" alt="Extended carousel demo image"></a>
+                <a class="pelicula_cartelera4" href="#" value="5"><img src="assets/img/pelicula5.jpg" alt="Los Tipos Malos"></a>
                 <div class="overlay">Los Tipos Malos</div>
               </div>
             </div>
             <div class="carousel-item">
               <div class="img_container">
-                <a href="#"><img src="assets/img/pelicula6.jpg" href="#" alt="Extended carousel demo image"></a>
+                <a class="pelicula_cartelera5" href="#" value="1"><img src="assets/img/pelicula6.jpg" alt="El Hombre del Norte"></a>
                 <div class="overlay">El Hombre del Norte</div>
               </div>
             </div>
             <div class="carousel-item">
               <div class="img_container">
-                <a href="#"><img src="assets/img/pelicula7.jpg" href="#" alt="Extended carousel demo image"></a>
+                <a class="pelicula_cartelera6" href="#" value="8"><img src="assets/img/pelicula7.jpg" alt="Morbius"></a>
                 <div class="overlay">Morbius</div>
               </div>
             </div>
             <div class="carousel-item">
               <div class="img_container">
-                <a href="#"><img src="assets/img/pelicula8.jpg" href="#" alt="Extended carousel demo image"></a>
+                <a class="pelicula_cartelera7" href="#" value="9"><img src="assets/img/pelicula8.jpg" alt="La Ciudad Perdida"></a>
                 <div class="overlay">La Ciudad Perdida</div>
               </div>
             </div>
             <div class="carousel-item">
               <div class="img_container">
-                <a href="#"><img src="assets/img/pelicula9.jpg" href="#" alt="Extended carousel demo image"></a>
+                <a class="pelicula_cartelera8" href="#" value="6"><img src="assets/img/pelicula9.jpg" alt="El Juego de la Llaves" onclick="fuction"></a>
                 <div class="overlay">El Juego de la Llaves</div>
               </div>
             </div>
@@ -359,10 +350,21 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
 
   <script>
-      $(document).ready(function(){
-        comprobarSesion();  
+    $(document).ready(function(){
+      comprobarSesion(); 
+      for(let i=0; i < $('#carrusel .carousel-item').length; i++) //Aplicamos la función onclick en todos los botones con un bucle
+      {
+        var idpelicula = $('.pelicula_cartelera'+(i+'')).attr('value');
+        $('.pelicula_cartelera'+(i+'')).attr("href", "pelicula.php?pelicula=" + idpelicula);
+      }
 
-        $('#boton_registro').click(function(){
+      for(let i=0; i < $('#novedades .carousel-item').length; i++) //Aplicamos la función onclick en todos los botones con un bucle
+      {
+        var idpelicula = $('#pelicula_slider'+(i+'')).attr('value');
+        $('#pelicula_slider'+(i+'')).attr("href", "pelicula.php?pelicula=" + idpelicula);
+      }
+
+      $('#boton_registro').click(function(){
         $('#error').css('display','none');
         var newusername = $('#newusername').val();
         var newemail = $('#newemail').val();

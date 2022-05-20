@@ -132,7 +132,7 @@ function consultaTabla()
     {
         $msg = array($user_email, $user_name, $user_gender, $user_country, $user_birthday, $user_bio, $user_avatar);
     }
-    echo json_encode($msg);
+    echo json_encode($msg, JSON_UNESCAPED_UNICODE);
 }
 
 function actualizaContraseña()

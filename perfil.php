@@ -312,9 +312,6 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
         var newbio = $('#cuadro_descripcion').val();
         var newavatar = document.getElementById('img_perfil').getAttribute("src");
 
-        //console.log(newgender);
-        //console.log(newbio);
-        //console.log(newbirthday);
         $.ajax(
         {  
           url:"login.php",  
