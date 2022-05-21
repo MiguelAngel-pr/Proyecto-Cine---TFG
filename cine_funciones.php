@@ -15,13 +15,17 @@ function consultaPelicula()
     $consulta = $mysqli ->prepare("SELECT * FROM pelicula WHERE id_pelicula = $id_pelicula");
     $consulta -> execute();
     $consulta -> store_result();
-    $consulta -> bind_result($film_id, $film_title, $film_title2, $film_language, $film_language2, $film_country, $film_releasedate, $film_synopsis, $film_image, $film_trailer, $film_billboard, $film_director, $film_distributor);
+    $consulta -> bind_result($film_id, $film_title, $film_title2, $film_language, $film_language2, $film_country, $film_releasedate, $film_length, $film_synopsis, $film_trailer, $film_billboard, $film_imbd, $film_director);
     $consulta->fetch();
     $numPeliculas = $consulta -> num_rows;
 
     if($numPeliculas > 0)
     {
-        $msg = array($film_title, $film_title2, $film_language, $film_language2, $film_releasedate, $film_synopsis, $film_image, $film_trailer, $film_billboard, $film_director, $film_distributor);
+        $msg = array($film_title, $film_title2, $film_language, $film_language2, $film_releasedate, $film_length, $film_synopsis, $film_trailer, $film_billboard, $film_imbd, $film_director);
+    }
+    else
+    {
+        $msg = 'no';
     }
     echo json_encode($msg, JSON_UNESCAPED_UNICODE);
 }

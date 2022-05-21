@@ -164,7 +164,10 @@
             <li><a class="nav-link scrollto" href="">Promociones</a></li>
             <li class="dropdown"><a href="#"><span>Negocios</span> <i class="bi bi-chevron-down"></i></a>
               <ul>
-                <li><a href="#">Hola</a></li>
+                <li><a href="#">Colaboradores</a></li>
+              </ul>
+              <ul>
+                <li><a href="#">Unete a nosotros!</a></li>
               </ul>
             </li>
           </ul>
@@ -178,16 +181,16 @@
     <div id="novedades" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <a value="3" id="pelicula_slider0" href="#"><img id="" src="assets/img/slider1.jpg" class="d-block w-100" href="#" alt="Doctor Strange en el Multiverso de la Locura"></a>
+          <a value="3" id="pelicula_slider0" href="#"><img src="assets/img/slider_default.jpg" class="d-block w-100" href="#" alt="Doctor Strange en el Multiverso de la Locura"></a>
         </div>
         <div class="carousel-item">
-          <a value="4" id="pelicula_slider1" href="#"><img src="assets/img/slider2.jpg" class="d-block w-100" href="#" alt="Sonic 2: La Película"></a>
+          <a value="4" id="pelicula_slider1" href="#"><img src="assets/img/slider_default.jpg" class="d-block w-100" href="#" alt="Sonic 2: La Película"></a>
         </div>
         <div class="carousel-item">
-          <a value="5" id="pelicula_slider2" href="#"><img src="assets/img/slider3.jpg" class="d-block w-100" href="#" alt="Los Tipos Malos"></a>
+          <a value="5" id="pelicula_slider2" href="#"><img src="assets/img/slider_default.jpg" class="d-block w-100" href="#" alt="Los Tipos Malos"></a>
         </div>
         <div class="carousel-item">
-          <a value="2" id="pelicula_slider3" href="#"><img src="assets/img/slider4.jpg" class="d-block w-100" href="#" alt="The Batman"></a>
+          <a value="2" id="pelicula_slider3" href="#"><img src="assets/img/slider_default.jpg" class="d-block w-100" href="#" alt="The Batman"></a>
         </div>
       </div>
       <a class="carousel-control-prev" href="#" data-bs-target="#novedades" data-bs-slide="prev">
@@ -206,64 +209,64 @@
           <div class="carousel-inner" role="listbox">
             <div class="carousel-item active">
               <div class="img_container">
-                <a class="pelicula_cartelera0" href="#" value="2"><img src="assets/img/pelicula1.jpg" alt="The Batman"></a>
+                <a class="pelicula_cartelera0" href="#" value="2"><img src="assets/img/pelicula_default.jpg" alt="The Batman"></a>
                 <div class="overlay">The Batman</div>
               </div>
             </div>
             <div class="carousel-item">
               <div class="img_container">
-                <a class="pelicula_cartelera1" href="#" value="3"><img src="assets/img/pelicula2.jpg" alt="Doctor Strange en el Multiverso de la Locura"></a>
+                <a class="pelicula_cartelera1" href="#" value="3"><img src="assets/img/pelicula_default.jpg" alt="Doctor Strange en el Multiverso de la Locura"></a>
                 <div class="overlay">Doctor Strange en el Multiverso de la Locura</div>
               </div>
             </div>
             <div class="carousel-item">
               <div class="img_container">
-                <a class="pelicula_cartelera2" href="#" value="7"><img src="assets/img/pelicula3.jpg" alt="Animales Fantásticos: Los Secretos de Dumbledore"></a>
+                <a class="pelicula_cartelera2" href="#" value="7"><img src="assets/img/pelicula_default.jpg" alt="Animales Fantásticos: Los Secretos de Dumbledore"></a>
                 <div class="overlay">Animales Fantásticos: Los Secretos de Dumbledore</div>
               </div>
             </div>
             <div class="carousel-item">
               <div class="img_container">
-                <a class="pelicula_cartelera3" href="#" value="4"><img src="assets/img/pelicula4.jpg" alt="Sonic 2: La Película"></a>
+                <a class="pelicula_cartelera3" href="#" value="4"><img src="assets/img/pelicula_default.jpg" alt="Sonic 2: La Película"></a>
                 <div class="overlay">Sonic 2: La Película</div>
               </div>
             </div>
             <div class="carousel-item">
               <div class="img_container">
-                <a class="pelicula_cartelera4" href="#" value="5"><img src="assets/img/pelicula5.jpg" alt="Los Tipos Malos"></a>
+                <a class="pelicula_cartelera4" href="#" value="5"><img src="assets/img/pelicula_default.jpg" alt="Los Tipos Malos"></a>
                 <div class="overlay">Los Tipos Malos</div>
               </div>
             </div>
             <div class="carousel-item">
               <div class="img_container">
-                <a class="pelicula_cartelera5" href="#" value="1"><img src="assets/img/pelicula6.jpg" alt="El Hombre del Norte"></a>
+                <a class="pelicula_cartelera5" href="#" value="1"><img src="assets/img/pelicula_default.jpg" alt="El Hombre del Norte"></a>
                 <div class="overlay">El Hombre del Norte</div>
               </div>
             </div>
             <div class="carousel-item">
               <div class="img_container">
-                <a class="pelicula_cartelera6" href="#" value="8"><img src="assets/img/pelicula7.jpg" alt="Morbius"></a>
+                <a class="pelicula_cartelera6" href="#" value="8"><img src="assets/img/pelicula_default.jpg" alt="Morbius"></a>
                 <div class="overlay">Morbius</div>
               </div>
             </div>
             <div class="carousel-item">
               <div class="img_container">
-                <a class="pelicula_cartelera7" href="#" value="9"><img src="assets/img/pelicula8.jpg" alt="La Ciudad Perdida"></a>
+                <a class="pelicula_cartelera7" href="#" value="9"><img src="assets/img/pelicula_default.jpg" alt="La Ciudad Perdida"></a>
                 <div class="overlay">La Ciudad Perdida</div>
               </div>
             </div>
             <div class="carousel-item">
               <div class="img_container">
-                <a class="pelicula_cartelera8" href="#" value="6"><img src="assets/img/pelicula9.jpg" alt="El Juego de la Llaves" onclick="fuction"></a>
+                <a class="pelicula_cartelera8" href="#" value="6"><img src="assets/img/pelicula_default.jpg" alt="El Juego de la Llaves" onclick="fuction"></a>
                 <div class="overlay">El Juego de la Llaves</div>
               </div>
             </div>
           </div>
           <a class="carousel-control-prev" href="#carrusel" role="button" data-bs-slide="prev">
-            <span class="bi bi-arrow-left-short" aria-hidden="true"></span>
+            <span class="bi bi-arrow-left-circle-fill" aria-hidden="true"></span>
           </a>
           <a class="carousel-control-next" href="#carrusel" role="button" data-bs-slide="next">
-            <span class="bi bi-arrow-right-short" aria-hidden="true"></span>
+            <span class="bi bi-arrow-right-circle-fill" aria-hidden="true"></span>
           </a>
         </div>
       </div>
@@ -352,16 +355,18 @@
   <script>
     $(document).ready(function(){
       comprobarSesion(); 
-      for(let i=0; i < $('#carrusel .carousel-item').length; i++) //Aplicamos la función onclick en todos los botones con un bucle
+      for(let i=0; i < $('#carrusel .carousel-item').length; i++)
       {
         var idpelicula = $('.pelicula_cartelera'+(i+'')).attr('value');
         $('.pelicula_cartelera'+(i+'')).attr("href", "pelicula.php?pelicula=" + idpelicula);
+        $('.pelicula_cartelera'+(i+'')).find('img').attr("src", "assets/img/pelicula" + idpelicula + ".jpg");
       }
 
-      for(let i=0; i < $('#novedades .carousel-item').length; i++) //Aplicamos la función onclick en todos los botones con un bucle
+      for(let i=0; i < $('#novedades .carousel-item').length; i++)
       {
         var idpelicula = $('#pelicula_slider'+(i+'')).attr('value');
         $('#pelicula_slider'+(i+'')).attr("href", "pelicula.php?pelicula=" + idpelicula);
+        $('#pelicula_slider'+(i+'')).find('img').attr("src", "assets/img/slider" + idpelicula + ".jpg");
       }
 
       $('#boton_registro').click(function(){

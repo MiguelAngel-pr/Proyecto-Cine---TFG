@@ -523,23 +523,8 @@ div#botones
 # Cartelera
 --------------------------------------------------------------*/
 #cartelera
-  {
-    margin: 0px 25px;
-  }
-@media (max-width: 767px) {
-  #cartelera img
-  {
-    width: 350px;
-  }
-  #cartelera
-  {
-    margin: 0;
-    max-width: 500px;
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
-  }
+{
+  margin: 0px 25px;
 }
 
 #carrusel
@@ -578,6 +563,165 @@ a.carousel-control-prev, a.carousel-control-next
 
 .img_container:hover .overlay {
   opacity: 1;
+}
+
+#cartelera img
+{
+  width: 300px;
+}
+
+@media (max-width: 767px) {
+  #cartelera img
+  {
+    width: 400px;
+  }
+  #cartelera
+  {
+    margin: 0;
+    max-width: 500px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+  }
+}
+
+/*--------------------------------------------------------------
+# Película
+--------------------------------------------------------------*/
+#pelicula
+{
+  display: flex;
+  flex-direction: row;
+  justify-content:center;
+}
+
+#pelicula_datos_img
+{
+  margin-right: 65px;
+  width: 450px;
+}
+
+#pelicula_datos
+{
+  margin-top: 50px;
+  width: 550px;
+}
+
+.seccion_cine
+{
+  margin: 10px 0px;
+}
+
+.seccion_cine label
+{
+  margin-right: 15px;
+}
+
+#img_trailer
+{
+  border: #ff7f50 5px solid;
+  position: relative;
+  width: fit-content;
+  display: flex;
+  justify-content: center;
+  height: 625px;
+}
+
+#boton_trailer
+{
+  background-color:#ffa343; 
+  position: absolute;
+  opacity: 0;
+  border-radius: 50%;
+  height: 60px;
+  width: 60px;
+}
+
+#img_trailer:hover #boton_trailer {
+  opacity: 1;
+}
+
+#iframeVideo
+{
+  width: 100%;
+  height: 500px;
+}
+
+#fecha_estreno_pelicula
+{
+  border: #ffa343 3px solid;
+  background-color: #ffc87c;
+  padding: 5px;
+  width: 135px;
+  text-align: center;
+}
+
+#compra_entradas, #info_pelicula
+{
+  padding: 20px;
+  border: #ffa343 3px solid;
+}
+
+#seleccion_entradas
+{
+  margin: 20px 0px;
+}
+
+#cuadro_cine
+{
+  min-width: 300px;
+}
+
+@media (max-width: 1200px) 
+{
+  #pelicula_datos_img
+  {
+    width: 350px;
+  }
+
+  #titulo_pelicula h4
+  {
+    font-size: 18px;
+  }
+
+  #img_trailer
+  {
+    height: 450px;
+  }
+
+  #boton_trailer
+  {
+    height: 45px;
+    width: 45px;
+  }
+
+  #cuadro_cine
+  {
+    min-width: 220px;
+  }
+}
+
+@media (max-width: 880px) 
+{
+  #pelicula
+  {
+    flex-direction: column;
+    align-items:center;
+  }
+
+  #pelicula_datos, div#pelicula_datos_img
+  {
+    margin-right: 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #img_trailer img, #img_trailer
+  {
+    width: 300px;
+  }
 }
 
 /*--------------------------------------------------------------
@@ -713,4 +857,3 @@ a.carousel-control-prev, a.carousel-control-next
   color: #fff;
   text-decoration: none;
 }
-

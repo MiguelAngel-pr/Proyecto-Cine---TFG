@@ -163,7 +163,14 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
             <li><a class="nav-link scrollto " href="#contact">Contacto</a></li>
             <li><a class="nav-link scrollto" href="#team">Lista de Cines</a></li>
             <li><a class="nav-link scrollto" href="">Promociones</a></li>
-            <li class="dropdown"><a href="#"><span>Negocios</span> <i class="bi bi-chevron-down"></i></a></li>
+            <li class="dropdown"><a href="#"><span>Negocios</span> <i class="bi bi-chevron-down"></i></a>
+              <ul>
+                <li><a href="#">Colaboradores</a></li>
+              </ul>
+              <ul>
+                <li><a href="#">Unete a nosotros!</a></li>
+              </ul>
+            </li>
           </ul>
           <i class="bi bi-list mobile-nav-toggle"></i>
         </nav>
@@ -173,6 +180,66 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
   <!-- ======= Película ======= -->
     <div id="fondo2"></div>
     <div id="contenedor">
+      <div id="pelicula">
+        <div id="pelicula_datos_img">
+          <div id="titulo_pelicula" class="seccion_cine"><h4>-</h4></div>
+          <div id="img_trailer" class="seccion_cine">
+            <img src="assets/img/pelicula_default.jpg">
+            <button id="boton_trailer" type="button" class="btn btn-success" data-bs-toggle="modal" href="#modal_trailer"><i class="bi bi-play-fill"></i></button>
+            <div class="modal fade" id="modal_trailer" role="dialog" tabindex="-1" aria-hidden="true">
+              <form>
+                <div class="modal-dialog modal-dialog-centered modal-xl">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button id="cerrar" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <iframe frameborder="0" id="iframeVideo" src="" allow="accelerometer; autoplay; encrypted-media;" allowfullscreen></iframe>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div>
+            <div id="botones">
+              <div class="seccion_cine">
+                <span class="imdbRatingPlugin" data-user="ur153070837" data-title="" data-style="p1">
+                  <a href=""><img src="https://ia.media-imdb.com/images/G/01/imdb/plugins/rating/images/imdb_46x22.png"/></a>
+                </span>
+              </div>
+              <div id="fecha_estreno_pelicula" class="seccion_cine" ><b>-</b></div>
+            </div>  
+          </div>  
+          
+        </div>
+        <div id="pelicula_datos">
+          <div id="compra_entradas" class="seccion_cine">
+            <div class="seccion_cine"><h4>Compra de Entradas</h4></div>
+            <div id="seleccion_entradas">
+              <div class="seccion_cine">
+                <label for="name">Selecciona el Cine: </label>
+                <select class="editSelector" id="cuadro_cine" name="cine">
+                  <option value=0>-</option>
+                  <option value=1></option>
+                </select>
+              </div>
+              <div class="seccion_cine">
+                <label for="name">Selecciona la Hora: </label>
+                <select class="editSelector" id="cuadro_cine" name="cine">
+                  <option value=0>-</option>
+                  <option value=1></option>
+                </select>
+              </div>
+            </div>
+            <button type="button" class="btn btn-warning">Comprar</button>   
+          </div>
+          <div id="info_pelicula" class="seccion_cine">
+
+          </div>   
+        </div>
+      </div>
+       
       
     </div>
     <div id="fondo2"></div>
@@ -359,6 +426,11 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
           }
         });
       });
+
+      $('.modal').on('hidden.bs.modal', function (e){
+        $iframe = $(this).find("iframe");
+        $iframe.attr("src", $iframe.attr("src"));
+      });
     });
 
     function getCookie(cname) 
@@ -377,49 +449,6 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
         }
       }
       return "";
-    }
-
-    function cambioImagen(target) 
-    {
-      var imagen = target.files[0];
-      var peso = target.files[0].size;
-      console.log(peso);
-      if(peso < 3000000)
-      {
-        loadImage(imagen);
-      }
-      else
-      {
-        alert("La imagen no puede superar los 3 Mb");
-        document.getElementById("input_img").value = "";
-      }
-    }
-
-    function loadImage(imagen) 
-    {
-      var _url = window.URL || window.webkitURL;
-      var img = new Image();
-      img.src = _url.createObjectURL(imagen);
-      var proporcion = 0;
-      img.onload = function(){
-        var ancho = img.width;
-        var alto = img.height;
-        var tamaño = img.size;
-        console.log(ancho + ' ' + alto + ' ' + ancho/alto + ' ' + tamaño);
-        proporcion = (ancho/alto).toFixed(2);
-        if(proporcion < 1.20 && proporcion > 0.80 && alto > 150)
-        {
-          var reader = new FileReader();
-          reader.readAsDataURL(imagen);
-          reader.onloadend = function () {
-            document.getElementById("img_perfil").src = reader.result;
-          }
-        }
-        else
-        {
-          alert("La imagen no puede tener menos de 150px de ancho y de alto y debe tener una proporcion de 1,2 o 0,8");
-        }
-      } 
     }
 
     function comprobarSesion(){
@@ -450,9 +479,30 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
         type:"POST",
         data: {funcion:"consulta_pelicula", idpelicula:idpelicula},
         success:function(msg) 
-        {             
-          //let datos = $.parseJSON(msg);//Me paso el array con los datos
-          console.log(msg);
+        {  
+          if($.parseJSON(msg) == 'no')
+          {
+            document.getElementById('boton_inicio').click();
+            alert("La pelicula no se encuentra disponible");
+          }   
+          else
+          {
+            let datos = $.parseJSON(msg);//Me paso el array con los datos
+            $('#titulo_pelicula h4').text(datos[0]);
+
+            //fecha_estreno_pelicula
+            $('#fecha_estreno_pelicula').find('b').text(datos[4]);
+
+            document.getElementById('iframeVideo').src = "https://www.youtube.com/embed/" + datos[7];
+            $('#img_trailer').find('img').attr("src", "assets/img/pelicula" + idpelicula + ".jpg");
+
+            //IMBD
+            $('.imdbRatingPlugin').find('a').attr("href", "https://www.imdb.com/title/" + datos[9] + "/?ref_=plg_rt_1");
+            $('.imdbRatingPlugin').attr("data-title", ""+datos[9]);
+            actualizaValorImbd();
+            
+            //console.log(msg);
+          }        
         }
       });
     }
@@ -468,6 +518,11 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
           document.getElementById(nombre).options[i].selected = true; 
         }
       }
+    }
+    function actualizaValorImbd()
+    {
+      (function(d,s,id){var js,stags=d.getElementsByTagName(s)[0];if(d.getElementById(id)){return;}js=d.createElement(s);js.id=id;js.src="https://ia.media-imdb.com/images/G/01/imdb/plugins/rating/js/rating.js";stags.parentNode.insertBefore(js,stags);})
+      (document,"script","imdb-rating-api");
     }
   </script>
 </body>
