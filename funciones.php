@@ -38,9 +38,8 @@ function comprobarExistencia($tabla,$campo,$valor)//Comprueba si el valor esta r
     $msg = "no";
     if($numFilas > 0)
     {
-        $msg = "ok";
+        $msg = "si";
     }
-
     return $msg;
 }
 
@@ -57,11 +56,5 @@ function desactivaCookies()
             setcookie($name, '', time()-1000, '/'); 
         } 
     }
-}
-
-function properText($str){
-    $str = mb_convert_encoding($str, "HTML-ENTITIES", "UTF-8");
-    $str = preg_replace('[a-zA-Z áéíóúÁÉÍÓÚñÑ.]+',htmlentities('${1}'),$str);
-    return($str); 
 }
 ?>

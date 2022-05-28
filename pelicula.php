@@ -46,16 +46,16 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
           <i class="bi bi-envelope d-flex align-items-center"><a href="mailto:cinegalaxy@gmail.com">cinegalaxy@gmail.com</a></i>
           <i style="margin-right:5px;" class="bi bi-phone d-flex align-items-center ms-4"><span>+34 916738191</span></i>
         </div>
-        <button id="menu_usuario" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu" data-bs-toggle="dropdown" aria-expanded="false"><div id="cuadro_usuario"><h6><?php echo $_SESSION['username']?></h6><img id="avatar" src="assets/img/avatar.png" alt="Avatar"></div></button>
+        <button id="menu_usuario" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu" data-bs-toggle="dropdown" aria-expanded="false"><div id="cuadro_usuario"><h6><?php  if (isset($_SESSION['username'])){ echo $_SESSION['username']; } ?></h6><img id="avatar" src="assets/img/avatar.png" alt="Avatar"></div></button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
-          <li><button class="dropdown-item" type="button">Mi Perfil</button></li>
-          <li><button id="boton_logout" class="dropdown-item" type="button">Logout</button></li>
+          <li><a href="perfil.php"><button class="dropdown-item" type="button"><i class="bi bi-person-lines-fill"></i>  Mi Perfil</button></a></li>
+          <li><button id="boton_logout" class="dropdown-item" type="button"><i class="bi bi-box-arrow-left"></i>  Logout</button></li>
         </ul>
         <button id="boton_modal" type="button" class="btn btn-success" style="background:#ffa343; margin-left: 20px; border-radius: 0;" data-bs-toggle="modal" href="#login">Iniciar Sesión</button>
 
         <!-- Modal Login -->
           <div class="modal fade" id="login" tabindex="-1" aria-hidden="true">
-            <form>
+            <form onsubmit="return false">
               <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -90,20 +90,20 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
 
         <!-- Modal Registro -->
           <div class="modal fade" id="registro" role="dialog" tabindex="-1" aria-hidden="true">
-            <form>
+            <form onsubmit="return false">
               <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                   <div class="modal-header">
                     <h5 style="color:black" class="modal-title">Registro</h5>
-                    <button id="cerrar" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button id="cerrar2" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
-                    <div id="error" class="alert alert-danger" role="alert"></div>
+                    <div id="error2" class="alert alert-danger" role="alert"></div>
                     <div id="ok" class="alert alert-success" role="alert"></div>
 
                     <div class="mb-3">
                         <label style="color:black" for="newusername">Nombre de Usuario<span class="text-danger">*</span></label>
-                        <input type="name" name="newusername" class="form-control" id="newusername" placeholder="Introduce tu nombre de usuario" maxlength="30" pattern="[a-zA-Z0-9]+.{5,}" title="El usuario debe tener 5 o más carácteres" required>
+                        <input type="name" name="newusername" class="form-control" id="newusername" placeholder="Introduce tu nombre de usuario" maxlength="30" pattern="[a-zA-Z0-9].{5,}" title="El usuario debe tener entre 5 y 30 carácteres, y no puede contener carácteres especiales" required>
                     </div>
 
                     <div class="mb-3">
@@ -132,6 +132,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
 
         <!-- Modal Recuperación Contraseña -->
           <div class="modal fade" id="olvidado" tabindex="-1" aria-hidden="true">
+            <form>
               <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -148,7 +149,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
                   </div>
                 </div>
               </div>
-            </div>
+            </form>
           </div>
     </section>
 
@@ -158,7 +159,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
         <a id="boton_inicio" href="index.php"><img style="width:75px" src="assets/img/cineGalaxy.png" alt=""></a>
         <nav id="navbar" class="navbar">
           <ul>
-            <li><a class="nav-link scrollto" href="#about">Cartelera</a></li>
+            <li><a class="nav-link scrollto" href="#about">Todas las Películas</a></li>
             <li><a class="nav-link scrollto" href="#services">Proximos Estrenos</a></li>
             <li><a class="nav-link scrollto " href="#contact">Contacto</a></li>
             <li><a class="nav-link scrollto" href="#team">Lista de Cines</a></li>
@@ -182,7 +183,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
     <div id="contenedor">
       <div id="pelicula">
         <div id="pelicula_datos_img">
-          <div id="titulo_pelicula" class="seccion_cine"><h4>-</h4></div>
+          <div id="titulo_pelicula" class="seccion_cine text-center"><h4>-</h4></div>
           <div id="img_trailer" class="seccion_cine">
             <img src="assets/img/pelicula_default.jpg">
             <button id="boton_trailer" type="button" class="btn btn-success" data-bs-toggle="modal" href="#modal_trailer"><i class="bi bi-play-fill"></i></button>
@@ -191,7 +192,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
                 <div class="modal-dialog modal-dialog-centered modal-xl">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <button id="cerrar" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                       <iframe frameborder="0" id="iframeVideo" src="" allow="accelerometer; autoplay; encrypted-media;" allowfullscreen></iframe>
@@ -202,45 +203,48 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
             </div>
           </div>
           <div>
-            <div id="botones">
+            <div class="seccion_horizontal">
               <div class="seccion_cine">
                 <span class="imdbRatingPlugin" data-user="ur153070837" data-title="" data-style="p1">
                   <a href=""><img src="https://ia.media-imdb.com/images/G/01/imdb/plugins/rating/images/imdb_46x22.png"/></a>
                 </span>
               </div>
-              <div id="fecha_estreno_pelicula" class="seccion_cine" ><b>-</b></div>
+              <div id="fecha_estreno_pelicula" class="seccion_cine" ><i class="bi bi-calendar"></i>&nbsp;&nbsp;<b>-</b></div>
             </div>  
-          </div>  
-          
+          </div>    
         </div>
         <div id="pelicula_datos">
-          <div id="compra_entradas" class="seccion_cine">
-            <div class="seccion_cine"><h4>Compra de Entradas</h4></div>
-            <div id="seleccion_entradas">
-              <div class="seccion_cine">
-                <label for="name">Selecciona el Cine: </label>
-                <select class="editSelector" id="cuadro_cine" name="cine">
-                  <option value=0>-</option>
-                  <option value=1></option>
-                </select>
-              </div>
-              <div class="seccion_cine">
-                <label for="name">Selecciona la Hora: </label>
-                <select class="editSelector" id="cuadro_cine" name="cine">
-                  <option value=0>-</option>
-                  <option value=1></option>
-                </select>
-              </div>
-            </div>
-            <button type="button" class="btn btn-warning">Comprar</button>   
-          </div>
+          <br>
           <div id="info_pelicula" class="seccion_cine">
-
-          </div>   
+            <div class="seccion_horizontal2"><label><b>Título Original: </b></label><p id="tit_original">-</p></div>
+            <div class="seccion_horizontal2"><label><b>País de Origen: </b></label><p id="pais_origen">-</p></div>
+            <div class="seccion_horizontal2"><label><i class="bi bi-clock"></i>&nbsp;&nbsp;<b>Duración: </b></label><p id="duracion">-</p></div>
+            <div class="seccion_horizontal2"><label><i class="bi bi-caret-right"></i>&nbsp;&nbsp;<b>Dirección: </b></label><p id="direccion">-</p></div>
+            <div class="seccion_cine"><label><b>Sinopsis:</b></label><textarea id="descripcion_pelicula" readonly>-</textarea></div>
+          </div> 
+          
+          <div id="compra_entradas" class="seccion_cine">
+            <form onsubmit="return false">
+              <div class="seccion_cine"><h4>Compra de Entradas</h4></div>
+              <div id="seleccion_entradas">
+                <div class="seccion_cine">
+                  <label for="name">Selecciona el Cine:&nbsp;</label>
+                  <select id="cuadro_cine" name="cine" onchange="cambiaHorario()">
+                    <option value=0>-</option>
+                  </select>
+                </div>
+                <div class="seccion_cine">
+                  <label for="name">Selecciona la Hora:</label>
+                  <select id="cuadro_horario" name="horario">
+                    <option value=0>-</option>
+                  </select>
+                </div>
+              </div>
+              <div class="text-center"><button type="button" id="boton_comprar" class="btn btn-warning">Comprar</button></div> 
+            </form>
+          </div>
         </div>
-      </div>
-       
-      
+      </div>  
     </div>
     <div id="fondo2"></div>
 
@@ -324,13 +328,17 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
   <script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
 
   <script>
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    var idpelicula = urlParams.get('pelicula');
+
     $(document).ready(function(){
       comprobarSesion();
       //console.log(getCookie("sesion_activa[usuario_nombre]"));
       //document.getElementById('cuadro_nombre').value = getCookie("sesion_activa[usuario_nombre]");
     
       $('#boton_registro').click(function(){
-        $('#error').css('display','none');
+        $('#error2').css('display','none');
         var newusername = $('#newusername').val();
         var newemail = $('#newemail').val();
         var newpassword = $('#newpassword').val();
@@ -338,36 +346,39 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
         console.log('Datos: ' + newusername + ' ' + newemail + ' ' + newpassword + ' ' + newpassword2 + '');
         if(newpassword != newpassword2)
         {
-          $('#error').css('display','block'); 
-          setTimeout(function(){$('#error').css('display','none');}, 6000);
-          document.getElementById('error').textContent = 'Las contraseñas deben coincidir';
+          $('#error2').css('display','block'); 
+          setTimeout(function(){$('#error2').css('display','none');}, 6000);
+          document.getElementById('error2').textContent = 'Las contraseñas deben coincidir';
         }
         else
         {
           $.ajax(
           {  
-            url:"registro.php",  
+            url:"login.php",  
             type:"POST",  
-            data: {newusername:newusername, newemail:newemail, newpassword:newpassword},  
+            data: {newusername:newusername, newemail:newemail, newpassword:newpassword, funcion:"registro"},  
             success:function(msg) 
             { 
               console.log(msg);
+              $('#ok').css('display','none'); 
+              $('#error2').css('display','none'); 
               if(msg == 'ok')
               {
                 $('#ok').css('display','block'); 
                 setTimeout(
                   function(){$('#ok').css('display','none'); 
-                  document.getElementById('cerrar').click();
-                }, 3000);
+                  document.getElementById('cerrar2').click();
+                  location.reload();
+                }, 6000);
                 document.getElementById('ok').textContent = 'El usuario se ha añadido correctamente';
                 $('#boton_modal').css('display','none'); 
                 $('#menu_usuario').css('display','flex'); 
               }
               else
               {
-                $('#error').css('display','block'); 
-                setTimeout(function(){$('#error').css('display','none');}, 6000);
-                document.getElementById('error').textContent = msg;
+                $('#error2').css('display','block'); 
+                setTimeout(function(){$('#error2').css('display','none');}, 6000);
+                document.getElementById('error2').textContent = msg;
               }
             }
           });
@@ -396,7 +407,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
             {
               document.getElementById('cerrar').click();
               $('#boton_modal').css('display','none'); 
-              $('#menu_usuario').css('display','flex'); 
+              $('#menu_usuario').css('display','flex');  
               location.reload();
             }
             else
@@ -405,6 +416,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
               setTimeout(function(){$('#error').css('display','none');}, 6000);
               document.getElementById('error').textContent = msg;
             }
+            console.log(idpelicula);
           }
         });
       });
@@ -427,6 +439,58 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
         });
       });
 
+      $('#boton_comprar').click(function(){
+        var id_cine = $('#cuadro_cine option:selected').val();
+        var id_sala = $('#cuadro_horario option:selected').val();
+        var seleccion_horario = $('#cuadro_horario option:selected').text();
+
+        let separacion = seleccion_horario.indexOf(" | ");
+        let dia = seleccion_horario.substring(0, 1);
+        let hora = seleccion_horario.substring(separacion+3, seleccion_horario.length);
+
+        const hoy = new Date(Date.now());
+        let hoy2 = new Date(hoy.getTime() - 30*60000);//La fecha de hoy 30 min antes
+        const diaActual = 9 //hoy.getDay();
+        const horaLimite = hoy2.toLocaleTimeString();
+        console.log(hora+", "+horaLimite+", "+dia+", "+diaActual);
+        
+        if(seleccion_horario != "-" && seleccion_horario.includes(" | "))
+        {
+          if(diaActual == dia && horaLimite > hora)
+          {
+            alert("La sesión ya esta en curso");
+          }
+          else
+          {
+            console.log("BIEN")
+            $.ajax(
+            {  
+              url:"entradas_funciones.php",  
+              type:"POST",  
+              data: {funcion:"preparar_compra", cine:id_cine, hora:hora, sala:id_sala, pelicula:idpelicula},  
+              success:function(msg) 
+              { 
+                console.log(msg);
+                if(msg == 'ok')
+                {
+                  $('#boton_modal').css('display','block'); 
+                  $('#menu_usuario').css('display','none'); 
+                  location.href = "entradas.php";
+                }
+                else
+                {
+                  alert("Por el momento la compra de entradas no esta disponible");
+                }
+              }
+            });
+          }
+        }
+        else
+        {
+          alert("Debes seleccionar una hora!");
+        }
+      });
+
       $('.modal').on('hidden.bs.modal', function (e){
         $iframe = $(this).find("iframe");
         $iframe.attr("src", $iframe.attr("src"));
@@ -435,20 +499,26 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
 
     function getCookie(cname) 
     {
-      
-      let name = cname + "=";
-      let decodedCookie = decodeURIComponent(document.cookie);
-      let ca = decodedCookie.split(';');
-      for(let i = 0; i <ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) == ' ') {
-          c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-          return c.substring(name.length, c.length);
+      try
+      {
+        let name = cname + "=";
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(';');
+        for(let i = 0; i <ca.length; i++) {
+          let c = ca[i];
+          while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+          }
         }
       }
-      return "";
+      catch (e)
+      {
+        return "no";
+      }   
+      return "no";
     }
 
     function comprobarSesion(){
@@ -464,14 +534,24 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
           {
             $('#boton_modal').css('display','none'); 
             $('#menu_usuario').css('display','flex'); 
+            
+            $.ajax(
+            {  
+              url:"login.php",  
+              type:"POST",
+              data: {funcion:"obtener_avatar"},
+              success:function(msg) 
+              {
+                if(msg != "no")
+                {
+                  document.getElementById('avatar').src = msg;
+                }
+              }
+            });
           }
         }
       });
-
-      const queryString = window.location.search;
-      const urlParams = new URLSearchParams(queryString);
-      var idpelicula = urlParams.get('pelicula');
-      console.log(idpelicula);
+  
       $.ajax(
       { 
         
@@ -488,10 +568,19 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
           else
           {
             let datos = $.parseJSON(msg);//Me paso el array con los datos
-            $('#titulo_pelicula h4').text(datos[0]);
-
-            //fecha_estreno_pelicula
+            $('#titulo_pelicula h4').text(datos[1]);
+            if(datos[2] != null)
+            {
+              $('#tit_original').text(datos[2]);
+            }
+            
+            $('#pais_origen').text(datos[3]);
+            $('#duracion').text(datos[5] + " min");
+            $('#direccion').text(datos[10]);
             $('#fecha_estreno_pelicula').find('b').text(datos[4]);
+
+            $('#descripcion_pelicula').text(datos[6]);
+            $('#descripcion_pelicula').css('height', $('#descripcion_pelicula').get(0).scrollHeight + "px");
 
             document.getElementById('iframeVideo').src = "https://www.youtube.com/embed/" + datos[7];
             $('#img_trailer').find('img').attr("src", "assets/img/pelicula" + idpelicula + ".jpg");
@@ -501,6 +590,21 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
             $('.imdbRatingPlugin').attr("data-title", ""+datos[9]);
             actualizaValorImbd();
             
+            console.log(datos[8]);
+            if(datos[8] != 0)
+            {
+              console.log("HOLA");
+              if(datos[8] == 2)
+              {
+                $('#compra_entradas').find('h4').text("Reserva de Entradas");
+                $('#boton_comprar').text("Reservar");
+              }
+              obtenerLista(idpelicula);
+            }
+            else
+            {
+              deshabilitarPelicula();
+            }
             //console.log(msg);
           }        
         }
@@ -509,7 +613,6 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
 
     function seleccionaOpcionActual(nombre, valor)
     {
-      
       var lg_selector = document.getElementById(nombre).length;
       for(var i=0; i<lg_selector; i++)
       {
@@ -519,10 +622,106 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
         }
       }
     }
+
     function actualizaValorImbd()
     {
       (function(d,s,id){var js,stags=d.getElementsByTagName(s)[0];if(d.getElementById(id)){return;}js=d.createElement(s);js.id=id;js.src="https://ia.media-imdb.com/images/G/01/imdb/plugins/rating/js/rating.js";stags.parentNode.insertBefore(js,stags);})
       (document,"script","imdb-rating-api");
+    }
+
+    function obtenerLista(idpelicula)
+    {
+      $.ajax(
+      { 
+        url:"cine_funciones.php",  
+        type:"POST",
+        data: {funcion:"obtener_cines", idpelicula:idpelicula},
+        success:function(msg) 
+        {
+          console.log("DATOS CINE: " + msg);
+          if($.parseJSON(msg) != "no")
+          {
+            let datos = $.parseJSON(msg);
+
+            console.log(datos.length);
+            for(let i=0; i<datos.length; i++)
+            {
+              var opt = document.createElement('option');
+              var info = datos[i]['ciudad'];
+              if(datos[i]['nombre'] != null)
+              {
+                info = datos[i]['ciudad'] + " - " + datos[i]['nombre'];
+              }
+              opt.appendChild(document.createTextNode(info));
+              opt.value = (datos[i]['id_cine']) + ''; 
+
+              document.getElementById('cuadro_cine').appendChild(opt);
+            }
+          }
+          else
+          {
+            deshabilitarPelicula();
+          }
+        }  
+      });
+    }
+
+    function cambiaHorario()
+    {
+      var seleccionValor = $('#cuadro_cine option:selected').val();
+      var opcionSeleccionada = $('#cuadro_cine option:selected').text();
+      console.log(seleccionValor);
+
+      $('#cuadro_horario').empty();
+      $('#cuadro_horario').append('<option selected="selected" value="0">-</option>');
+      if(opcionSeleccionada != "-")
+      {
+        $.ajax(
+        { 
+          url:"cine_funciones.php",  
+          type:"POST",
+          data: {funcion:"obtener_horarios", idcine:seleccionValor, idpelicula:idpelicula},
+          success:function(msg) 
+          {
+            console.log("DATOS HORARIO: " + msg);
+            if($.parseJSON(msg) != 'no')
+            {
+              let datos = $.parseJSON(msg);
+
+              console.log(datos.length);
+              for(let i=0; i<datos.length; i++)
+              {
+                var fecha = (new Date (datos[i]['fecha']));
+                fecha = fecha.toLocaleDateString("es-ES", { month: 'long', day: 'numeric' });
+                var opt = document.createElement('option');
+                var info = fecha + " | " + datos[i]['hora'];
+                opt.appendChild(document.createTextNode(info));
+                opt.value = (datos[i]['sala']) + ''; 
+
+                // console.log("Dato1: " + fecha);
+                // console.log("Dato2: " + datos[i]['hora']);
+                // console.log("Dato3: " + datos[i]['sala']);
+                document.getElementById('cuadro_horario').appendChild(opt);
+              }
+            }
+            else
+            {
+              $('#cuadro_horario').prop('disabled', true);
+              $('#cuadro_horario option').text("No hay sesiones próximas en este cine");
+              console.log("No hay sesiones próximas en este cine");
+            }
+          }  
+        });
+      }
+    }
+
+    function deshabilitarPelicula()
+    {
+      $('#boton_comprar').prop('disabled', true);
+      $('#cuadro_cine').prop('disabled', true);
+      $('#cuadro_horario').prop('disabled', true);
+      $('#cuadro_cine option').text("La película no esta disponible");
+      console.log("La película no esta disponible");
     }
   </script>
 </body>

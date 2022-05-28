@@ -160,7 +160,7 @@
           <ul>
             <li><a class="nav-link scrollto" href="#about">Todas las Películas</a></li>
             <li><a class="nav-link scrollto" href="#services">Proximos Estrenos</a></li>
-            <li><a class="nav-link scrollto " href="#contact">Contacto</a></li>
+            <li><a class="nav-link scrollto " href="contacto.php">Contacto</a></li>
             <li><a class="nav-link scrollto" href="lista_cines.php">Lista de Cines</a></li>
             <li><a class="nav-link scrollto" href="">Promociones</a></li>
             <li class="dropdown"><a href="#"><span>Negocios</span> <i class="bi bi-chevron-down"></i></a>
@@ -177,94 +177,16 @@
       </div>
     </header>
 
-  <!-- ======= Novedades ======= -->
-    <div id="fondo"></div>
-    <div id="novedades" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <a value="3" id="pelicula_slider0" href="#"><img src="assets/img/slider_default.jpg" class="d-block w-100" href="#" alt="Doctor Strange en el Multiverso de la Locura"></a>
-        </div>
-        <div class="carousel-item">
-          <a value="4" id="pelicula_slider1" href="#"><img src="assets/img/slider_default.jpg" class="d-block w-100" href="#" alt="Sonic 2: La Película"></a>
-        </div>
-        <div class="carousel-item">
-          <a value="5" id="pelicula_slider2" href="#"><img src="assets/img/slider_default.jpg" class="d-block w-100" href="#" alt="Los Tipos Malos"></a>
-        </div>
-        <div class="carousel-item">
-          <a value="2" id="pelicula_slider3" href="#"><img src="assets/img/slider_default.jpg" class="d-block w-100" href="#" alt="The Batman"></a>
-        </div>
-      </div>
-      <a class="carousel-control-prev" href="#" data-bs-target="#novedades" data-bs-slide="prev">
-        <span class="bi bi-chevron-left" aria-hidden="true"></span>
-      </a>
-      <a class="carousel-control-next" href="#" data-bs-target="#novedades" data-bs-slide="next">
-        <span class="bi bi-chevron-right" aria-hidden="true"></span>
-      </a>
-    </div>
-    <div id="fondo"></div>
-  <!-- ======= Cartelera ======= -->
+    <!-- ======= Lista Cines ======= -->
+    <div id="fondo2"></div>
     <div id="contenedor">
-      <div class="row mt-20" id="cartelera">
-      <h2><i class="bi bi-bookmark-star" style="color:#ff5821"></i> Cartelera:</h2>
-        <div id="carrusel" class="carousel slide" data-ec-toggle="responsive-carousel" data-ec-size="5">
-          <div class="carousel-inner" role="listbox">
-            <div class="carousel-item active">
-              <div class="img_container">
-                <a class="pelicula_cartelera0" href="#" value="2"><img src="assets/img/pelicula_default.jpg" alt="The Batman"></a>
-                <div class="overlay">The Batman</div>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="img_container">
-                <a class="pelicula_cartelera1" href="#" value="3"><img src="assets/img/pelicula_default.jpg" alt="Doctor Strange en el Multiverso de la Locura"></a>
-                <div class="overlay">Doctor Strange en el Multiverso de la Locura</div>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="img_container">
-                <a class="pelicula_cartelera2" href="#" value="7"><img src="assets/img/pelicula_default.jpg" alt="Animales Fantásticos: Los Secretos de Dumbledore"></a>
-                <div class="overlay">Animales Fantásticos: Los Secretos de Dumbledore</div>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="img_container">
-                <a class="pelicula_cartelera3" href="#" value="4"><img src="assets/img/pelicula_default.jpg" alt="Sonic 2: La Película"></a>
-                <div class="overlay">Sonic 2: La Película</div>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="img_container">
-                <a class="pelicula_cartelera4" href="#" value="5"><img src="assets/img/pelicula_default.jpg" alt="Los Tipos Malos"></a>
-                <div class="overlay">Los Tipos Malos</div>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="img_container">
-                <a class="pelicula_cartelera5" href="#" value="1"><img src="assets/img/pelicula_default.jpg" alt="El Hombre del Norte"></a>
-                <div class="overlay">El Hombre del Norte</div>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="img_container">
-                <a class="pelicula_cartelera6" href="#" value="9"><img src="assets/img/pelicula_default.jpg" alt="La Ciudad Perdida"></a>
-                <div class="overlay">La Ciudad Perdida</div>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="img_container">
-                <a class="pelicula_cartelera7" href="#" value="6"><img src="assets/img/pelicula_default.jpg" alt="El Juego de la Llaves"></a>
-                <div class="overlay">El Juego de la Llaves</div>
-              </div>
-            </div>
-          </div>
-          <a class="carousel-control-prev" href="#carrusel" role="button" data-bs-slide="prev">
-            <span class="bi bi-arrow-left-circle-fill" aria-hidden="true"></span>
-          </a>
-          <a class="carousel-control-next" href="#carrusel" role="button" data-bs-slide="next">
-            <span class="bi bi-arrow-right-circle-fill" aria-hidden="true"></span>
-          </a>
+        <div class="seccion_cine">
+            <label for="name">Selecciona el Cine:&nbsp;</label>
+            <select id="eleccion_cine" name="cine" onchange="cambiaUbicacion()">
+            </select>
         </div>
-      </div>
+        <br>
+        <iframe id="cuadro_ubicacion" src="" width="100%" height="500px" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
     <div id="fondo2"></div>
 
@@ -350,21 +272,9 @@
   <script>
     console.log("INICIO");
     comprobarSesion(); 
+    obtenerListaCines();  
     $(document).ready(function(){
-      for(let i=0; i < $('#carrusel .carousel-item').length; i++)
-      {
-        var idpelicula = $('.pelicula_cartelera'+(i+'')).attr('value');
-        $('.pelicula_cartelera'+(i+'')).attr("href", "pelicula.php?pelicula=" + idpelicula);
-        $('.pelicula_cartelera'+(i+'')).find('img').attr("src", "assets/img/pelicula" + idpelicula + ".jpg");
-      }
-
-      for(let i=0; i < $('#novedades .carousel-item').length; i++)
-      {
-        var idpelicula = $('#pelicula_slider'+(i+'')).attr('value');
-        $('#pelicula_slider'+(i+'')).attr("href", "pelicula.php?pelicula=" + idpelicula);
-        $('#pelicula_slider'+(i+'')).find('img').attr("src", "assets/img/slider" + idpelicula + ".jpg");
-      }
-
+      
       $('#boton_registro').click(function(){
         $('#error2').css('display','none');
         var newusername = $('#newusername').val();
@@ -476,7 +386,7 @@
         data: {funcion:"comprobar_sesion"},
         success:function(msg) 
         {
-          console.log("COOKIE: " + msg);
+          //console.log("COOKIE: " + msg);
           if(msg == 'si')
           {
             $('#boton_modal').css('display','none'); 
@@ -491,7 +401,6 @@
               {
                 if(msg != "no")
                 {
-                  console.log(msg);
                   document.getElementById('avatar').src = msg;
                 }
               }
@@ -499,6 +408,50 @@
           }
         }
       });
+    }
+
+    function obtenerListaCines(){
+        $.ajax(
+        {  
+            url:"cine_funciones.php",  
+            type:"POST",
+            data: {funcion:"obtener_lista_cines"},
+            success:function(msg) 
+            {
+                //console.log("DATOS CINE: " + msg);
+                if($.parseJSON(msg) != "no")
+                {
+                    let datos = $.parseJSON(msg);
+                    for(let i=0; i<datos.length; i++)
+                    {
+                        var opt = document.createElement('option');
+                        var info = datos[i]['ciudad'];
+                        if(datos[i]['nombre'] != null)
+                        {
+                            info = datos[i]['ciudad'] + " - " + datos[i]['nombre'];
+                        }
+                        opt.appendChild(document.createTextNode(info));
+                        opt.value = (datos[i]['ubicacion']) + ''; 
+                        document.getElementById('eleccion_cine').appendChild(opt);
+                    }
+                    $('#cuadro_ubicacion').attr("src", "https://www.google.com/maps/embed?pb=" + datos[0]['ubicacion']);
+                }
+                else
+                {
+                    alert("No hay cines disponibles");
+                    document.getElementById('boton_inicio').click();
+                }
+            }  
+        });
+    }
+
+    function cambiaUbicacion()
+    {
+        var seleccionUbicacion = $('#eleccion_cine option:selected').val();
+        if(seleccionUbicacion != "")
+        {
+            $('#cuadro_ubicacion').attr("src", "https://www.google.com/maps/embed?pb=" + seleccionUbicacion);
+        }
     }
   </script>
 </body>

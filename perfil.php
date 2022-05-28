@@ -59,7 +59,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
         <a id="boton_inicio" href="index.php"><img style="width:75px" src="assets/img/cineGalaxy.png" alt=""></a>
         <nav id="navbar" class="navbar">
           <ul>
-            <li><a class="nav-link scrollto" href="#about">Cartelera</a></li>
+            <li><a class="nav-link scrollto" href="#about">Todas las Películas</a></li>
             <li><a class="nav-link scrollto" href="#services">Proximos Estrenos</a></li>
             <li><a class="nav-link scrollto " href="#contact">Contacto</a></li>
             <li><a class="nav-link scrollto" href="#team">Lista de Cines</a></li>
@@ -83,14 +83,14 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
     <div id="contenedor">
       <h3><i class="bi bi-person-fill"></i>Perfil</h3>
       <div id="perfil">
-        <form>
+        <form onsubmit="return false">
           <div id="datos_img">
             <img id="img_perfil" src="assets/img/avatar.png" alt="">
             <div><label for="name">Avatar: </label><input class="editSelector" id="input_img" type="file" name="imagen_elegida" accept="image/png, image/jpeg" onchange="cambioImagen(this)"/></div>
           </div>
           <div id="datos">
-            <div><label for="name">Usuario:</label><span class="text-danger">*</span><input id="cuadro_nombre" type="text" class="editField" maxlength="30" value="" readonly pattern="[a-zA-Z0-9]+.{5,}" title="El usuario debe tener entre 5 y 30 carácteres" required></div>
-            <div><label for="name">Email: </label><span class="text-danger">*</span><input id="cuadro_email" type="email" class="editField" maxlength="50" value="" readonly pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{5,}$" title="El email debe tener entre 5 y 50 carácteres" required></div>
+            <div><label for="name">Usuario:</label><span class="text-danger">*</span><input id="cuadro_nombre" type="text" class="editField" maxlength="30" value="" readonly pattern="[a-zA-Z0-9].{5,}" title="El usuario debe tener entre 5 y 30 carácteres, y no puede contener carácteres especiales" required></div>
+            <div><label for="name">Email: </label><span class="text-danger">*</span><input id="cuadro_email" type="email" class="editField" maxlength="50" value="" readonly pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{5,}$" required></div>
             <div>
               <label for="name">Género: </label>
               <select class="editSelector" id="cuadro_genero" name="pais">
@@ -136,16 +136,16 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
               </select>
             </div>
             <div><label for="name">Fecha Nacimiento: </label><input type="date" class="editSelector" id="cuadro_fecha" name="date" min="1922-01-01" max="2022-05-20" disabled></div>
-            <div id="descripcion"><label for="name">Descripción: </label><textarea id="cuadro_descripcion" type="text" class="editField" maxlength="250" value="" pattern="[a-zA-Z0-9]" title="La descripción puede tener como máximo 250 carácteres" readonly></textarea></div>
+            <div id="descripcion"><label for="name">Descripción: </label><textarea id="cuadro_descripcion" type="text" class="editField" maxlength="250" value="" pattern="[a-zA-Z0-9]" title="La descripción puede tener como máximo 250 carácteres, y no puede contener carácteres especiales" readonly></textarea></div>
             <div>
               <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" href="#cambio_contraseña">Cambiar Contraseña</button>
               <div class="modal fade" id="cambio_contraseña" tabindex="-1" aria-hidden="true">
-                <form>
+                <form onsubmit="return false">
                   <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                       <div class="modal-header">
                         <h3 style="color:black" class="modal-title">Cambio de Contraseña</h3>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button id="cerrar_modal" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div class="modal-body">
                         <div id="error" class="alert alert-danger" role="alert"></div>
@@ -167,7 +167,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
                 </form>
               </div>
             </div>
-            <div id="botones"><a class="btn btn-danger editBtn" style="margin-right: 10px;" >Editar</a><button id="btn_guardar" type="button" href="#" class="btn btn-success">Guardar Cambios</button></div>
+            <div class="seccion_horizontal"><a class="btn btn-danger editBtn" style="margin-right: 10px;" >Editar</a><button id="btn_guardar" type="button" href="#" class="btn btn-success">Guardar Cambios</button></div>
           </div>
         </form>   
       </div>
@@ -274,8 +274,8 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
         });
 
         comprobarSesion();
-        console.log(getCookie("sesion_activa[usuario_nombre]"));
-        //document.getElementById('cuadro_nombre').value = getCookie("sesion_activa[usuario_nombre]");
+        //console.log(getCookie("sesion_activa[usuario_nombre]"));
+        document.getElementById('cuadro_nombre').value = getCookie("sesion_activa[usuario_nombre]");
       
       $('#boton_logout').click(function(){
         $.ajax(
@@ -314,6 +314,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
             if(msg == 'ok')
             {
               alert("Se han actualizado los valores");
+              location.reload();
             }
             else
             {
@@ -329,41 +330,39 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
         var newpassword = $('#newpass').val();
         var newpassword2 = $('#newpass2').val();
 
-        if(newpassword != newpassword2 && oldpassword != newpassword)
-        {
-          $('#error').css('display','block'); 
-          setTimeout(function(){$('#error').css('display','none');}, 6000);
-          if(oldpassword != newpassword)
-          {
-            document.getElementById('error').textContent = 'La nueva contraseña no puede ser igual que la actual';
-          }
-          else
-          {
-            document.getElementById('error').textContent = 'Las contraseñas deben coincidir';
-          }
-        }
-        else
+        if((newpassword == newpassword2 && !newpassword.includes(oldpassword)))
         {
           console.log('PASS OK');
           $.ajax(
           {  
             url:"login.php",  
             type:"POST",  
-            data: {oldpassword:oldpassword, newpassword:newpassword, funcion:"actualiza_contrasena"},  
+            data: {oldpassword:oldpassword, newpassword:newpassword, funcion:"actualiza_contraseña"},  
             success:function(msg) 
             { 
               console.log(msg);
               if(msg == 'ok')
               {
-                console.log("OK");
+                alert("La contraseña se ha actualizado correctamente");
+                document.getElementById('cerrar_modal').click();
+                location.reload();
               }
               else
               {
-                console.log("Ha habido un error al actualizar la contraseña");
+                $('#error').css('display','block'); 
+                setTimeout(function(){$('#error').css('display','none');}, 6000);
+                document.getElementById('error').textContent = "Ha habido un error al actualizar la contraseña";
               }
             }
           });
         } 
+
+        else
+        {
+          $('#error').css('display','block'); 
+          setTimeout(function(){$('#error').css('display','none');}, 6000);
+          document.getElementById('error').textContent = 'Las contraseñas deben coincidir y no ser similares a la antigua';  
+        }
       });
     });
 
@@ -410,8 +409,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
       img.onload = function(){
         var ancho = img.width;
         var alto = img.height;
-        var tamaño = img.size;
-        console.log(ancho + ' ' + alto + ' ' + ancho/alto + ' ' + tamaño);
+        console.log(ancho + ' ' + alto + ' ' + ancho/alto);
         proporcion = (ancho/alto).toFixed(2);
         if(proporcion < 1.20 && proporcion > 0.80 && alto > 150)
         {
@@ -460,7 +458,12 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
                 document.getElementById('cuadro_fecha').value = datos[4];
                 $('.editSelector').prop('disabled', true);
                 document.getElementById('cuadro_descripcion').value = datos[5];
-                document.getElementById('img_perfil').src = datos[6];
+                
+                if(datos[6] != null)
+                {
+                  document.getElementById('img_perfil').src = datos[6];
+                  document.getElementById('avatar').src = datos[6];
+                }      
               }
             });
           }

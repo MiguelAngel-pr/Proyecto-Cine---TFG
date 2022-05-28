@@ -8,6 +8,7 @@
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
+
 html, body {
   max-width: 100% !important;
   overflow-x: hidden !important;
@@ -174,7 +175,7 @@ hr
   z-index: 3;
 }
 
-#error, #ok
+#error, #ok, #error2
 {
   display: none;
 }
@@ -457,7 +458,7 @@ div#datos
   margin-bottom: 35px;
 }
 
-.input_contraseña
+.input_contraseña, .seccion_horizontal2
 {
   display: flex;
   flex-direction: row;
@@ -483,7 +484,7 @@ div#descripcion
   min-height: 25px;
 }
 
-div#botones
+.seccion_horizontal
 {
   display: flex;
   flex-direction: row;
@@ -508,7 +509,7 @@ div#botones
   }
 }
 
-@media (max-width: 780px) 
+@media (max-width: 790px) 
 {
   div#perfil, #perfil form
   {
@@ -568,6 +569,7 @@ a.carousel-control-prev, a.carousel-control-next
 #cartelera img
 {
   width: 300px;
+  height: 100%;
 }
 
 @media (max-width: 767px) {
@@ -604,13 +606,13 @@ a.carousel-control-prev, a.carousel-control-next
 
 #pelicula_datos
 {
-  margin-top: 50px;
+  margin-top: 10px;
   width: 550px;
 }
 
 .seccion_cine
 {
-  margin: 10px 0px;
+  margin: 5px 0px;
 }
 
 .seccion_cine label
@@ -661,6 +663,7 @@ a.carousel-control-prev, a.carousel-control-next
 {
   padding: 20px;
   border: #ffa343 3px solid;
+  background-color: #ffdead;
 }
 
 #seleccion_entradas
@@ -668,16 +671,27 @@ a.carousel-control-prev, a.carousel-control-next
   margin: 20px 0px;
 }
 
-#cuadro_cine
+#cuadro_cine, #cuadro_horario
 {
   min-width: 300px;
 }
 
-@media (max-width: 1200px) 
+#descripcion_pelicula
+{
+  width:100%; 
+  resize:none; 
+  box-sizing: border-box; 
+  padding: 10px;
+  background-color:#ffc87c;
+  font-size: 14px;
+}
+
+@media (max-width: 1300px) 
 {
   #pelicula_datos_img
   {
-    width: 350px;
+    margin-right: 35px;
+    width: 325px;
   }
 
   #titulo_pelicula h4
@@ -687,7 +701,7 @@ a.carousel-control-prev, a.carousel-control-next
 
   #img_trailer
   {
-    height: 450px;
+    height: 475px;
   }
 
   #boton_trailer
@@ -696,21 +710,31 @@ a.carousel-control-prev, a.carousel-control-next
     width: 45px;
   }
 
-  #cuadro_cine
+  #cuadro_cine, #cuadro_horario
   {
     min-width: 220px;
   }
+  #descripcion_pelicula
+  {
+    font-size: 12px;
+  }
 }
 
-@media (max-width: 880px) 
+@media (max-width: 925px) 
 {
+
   #pelicula
   {
     flex-direction: column;
     align-items:center;
   }
 
-  #pelicula_datos, div#pelicula_datos_img
+  #pelicula_datos_img
+  {
+    margin-right: 0px;
+  }
+
+  #pelicula_datos
   {
     margin-right: 0px;
     display: flex;
@@ -718,10 +742,277 @@ a.carousel-control-prev, a.carousel-control-next
     align-items: center;
   }
 
-  #img_trailer img, #img_trailer
+  #img_trailer img
   {
-    width: 300px;
+    width: 325px;
   }
+
+  #info_pelicula
+  {
+    width: 420px;
+    margin-bottom: 25px;
+  }
+}
+
+/*--------------------------------------------------------------
+# Lista Cines
+--------------------------------------------------------------*/
+
+#cuadro_ubicacion
+{
+  border:0;
+}
+
+/*--------------------------------------------------------------
+# Entradas
+--------------------------------------------------------------*/
+
+#entradas
+{
+  box-sizing: border-box;
+  background-color: #242333;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: fit-content;
+  padding: 10px;
+}
+
+.movie-container {
+  margin: 20px 0;
+}
+
+.movie-container select {
+  background-color: #fff;
+  border: 0;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-left: 10px;
+  padding: 5px 15px 5px 15px;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.container_seats {
+  perspective: 1000px;
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.seat {
+  background-color: #444451;
+  height: 50px;
+  width: 80px;
+  margin: 6px;
+  font-size: 50px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.seat.selected {
+  background-color: green;
+}
+
+.seat.sold {
+  background-color: #ff774a;
+}
+
+.seat:nth-of-type(2) {
+  margin-right: 20px;
+}
+
+.seat:nth-last-of-type(2) {
+  margin-left: 20px;
+}
+
+.seat:not(.sold):hover {
+  cursor: pointer;
+  transform: scale(1.2);
+}
+
+.showcase .seat:not(.sold):hover {
+  cursor: default;
+  transform: scale(1);
+}
+
+.showcase {
+  background: rgba(0, 0, 0, 0.1);
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: #777;
+  list-style-type: none;
+  display: flex;
+  justify-content: space-between;
+}
+
+.showcase li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 10px;
+}
+.showcase li small {
+  margin-left: 2px;
+}
+
+.row {
+  display: flex;
+}
+
+.screen {
+  background-color: #fff;
+  height: 120px;
+  width: 90%;
+  margin: 15px 0;
+  transform: rotateX(-48deg);
+  box-shadow: 0 3px 10px rgba(255, 255, 255, 0.7);
+}
+
+p.text{
+    margin: 5px 0;
+}
+
+p.text span{
+    color: rgb(158, 248, 158);
+}
+
+@media (max-width: 1425px) 
+{
+  .seat 
+  {
+    margin: 4px;
+    height: 40px;
+    width: 55px;
+  }
+}
+
+@media (max-width: 990px) 
+{
+  .seat:nth-of-type(2) {
+    margin-right: 12px;
+  }
+  
+  .seat:nth-last-of-type(2) {
+    margin-left: 12px;
+  }
+  .seat 
+  {
+    height: 30px;
+    width: 40px;
+  }
+  .movie-container option, .movie-container
+  {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 745px) 
+{
+  .seat 
+  {
+    height: 15px;
+    width: 26px;
+  }
+}
+
+/*--------------------------------------------------------------
+# Contact
+--------------------------------------------------------------*/
+.contact .info-box {
+  color: #313030;
+  box-shadow: 0 0 30px rgba(214, 215, 216, 0.6);
+  padding: 20px;
+}
+.contact .info-box i {
+  font-size: 32px;
+  color: #ff5821;
+  border-radius: 50%;
+  padding: 8px;
+  border: 2px dotted #ffded4;
+  float: left;
+}
+.contact .info-box h3 {
+  font-size: 20px;
+  color: #656262;
+  font-weight: 700;
+  margin: 10px 0 10px 68px;
+}
+.contact .info-box p {
+  padding: 0;
+  line-height: 24px;
+  font-size: 14px;
+  margin: 0 0 0 68px;
+}
+.contact .php-email-form {
+  box-shadow: 0 0 30px rgba(214, 215, 216, 0.6);
+  padding: 30px;
+}
+.contact .php-email-form .error-message {
+  display: none;
+  color: #fff;
+  background: #ed3c0d;
+  text-align: left;
+  padding: 15px;
+  font-weight: 600;
+}
+.contact .php-email-form .error-message br + br {
+  margin-top: 25px;
+}
+.contact .php-email-form .sent-message {
+  display: none;
+  color: #fff;
+  background: #18d26e;
+  text-align: center;
+  padding: 15px;
+  font-weight: 600;
+}
+.contact .php-email-form .loading {
+  display: none;
+  background: #fff;
+  text-align: center;
+  padding: 15px;
+}
+.contact .php-email-form .loading:before {
+  content: "";
+  display: inline-block;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  margin: 0 10px -6px 0;
+  border: 3px solid #18d26e;
+  border-top-color: #eee;
+  -webkit-animation: animate-loading 1s linear infinite;
+  animation: animate-loading 1s linear infinite;
+}
+.contact .php-email-form input, .contact .php-email-form textarea {
+  border-radius: 0;
+  box-shadow: none;
+  font-size: 14px;
+}
+.contact .php-email-form input:focus, .contact .php-email-form textarea:focus {
+  border-color: #ff5821;
+}
+.contact .php-email-form input {
+  padding: 10px 15px;
+}
+.contact .php-email-form textarea {
+  padding: 12px 15px;
+}
+.contact .php-email-form button[type=submit] {
+  background: #ff5821;
+  border: 0;
+  padding: 10px 24px;
+  color: #fff;
+  transition: 0.4s;
+}
+.contact .php-email-form button[type=submit]:hover {
+  background: #ff7e54;
 }
 
 /*--------------------------------------------------------------

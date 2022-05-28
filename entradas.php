@@ -1,8 +1,8 @@
 <?php
-  if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión esta iniciada ya
-  {
+if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión esta iniciada ya
+{
     session_start();
-  }
+}
 ?>
 
 <!DOCTYPE html>
@@ -10,6 +10,7 @@
 
 <head>
   <meta charset="utf-8">
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
   <title>Galaxy Cinema</title>
@@ -45,7 +46,7 @@
           <i class="bi bi-envelope d-flex align-items-center"><a href="mailto:cinegalaxy@gmail.com">cinegalaxy@gmail.com</a></i>
           <i style="margin-right:5px;" class="bi bi-phone d-flex align-items-center ms-4"><span>+34 916738191</span></i>
         </div>
-        <button id="menu_usuario" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu" data-bs-toggle="dropdown" aria-expanded="false"><div id="cuadro_usuario"><h6><?php if (isset($_SESSION['username'])){ echo $_SESSION['username']; }?></h6><img id="avatar" src="assets/img/avatar.png" alt="Avatar"></div></button>
+        <button id="menu_usuario" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu" data-bs-toggle="dropdown" aria-expanded="false"><div id="cuadro_usuario"><h6><?php  if (isset($_SESSION['username'])){ echo $_SESSION['username']; } ?></h6><img id="avatar" src="assets/img/avatar.png" alt="Avatar"></div></button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
           <li><a href="perfil.php"><button class="dropdown-item" type="button"><i class="bi bi-person-lines-fill"></i>  Mi Perfil</button></a></li>
           <li><button id="boton_logout" class="dropdown-item" type="button"><i class="bi bi-box-arrow-left"></i>  Logout</button></li>
@@ -99,9 +100,10 @@
                   <div class="modal-body">
                     <div id="error2" class="alert alert-danger" role="alert"></div>
                     <div id="ok" class="alert alert-success" role="alert"></div>
+
                     <div class="mb-3">
                         <label style="color:black" for="newusername">Nombre de Usuario<span class="text-danger">*</span></label>
-                        <input type="name" name="newusername" class="form-control" id="newusername" placeholder="Introduce tu nombre de usuario" maxlength="30" pattern="[a-zA-Z0-9].{4,}" title="El usuario debe tener 5 o más carácteres, y no puede contener carácteres especiales" required>
+                        <input type="name" name="newusername" class="form-control" id="newusername" placeholder="Introduce tu nombre de usuario" maxlength="30" pattern="[a-zA-Z0-9].{5,}" title="El usuario debe tener entre 5 y 30 carácteres, y no puede contener carácteres especiales" required>
                     </div>
 
                     <div class="mb-3">
@@ -149,7 +151,6 @@
               </div>
             </form>
           </div>
-      </div>
     </section>
 
   <!-- ======= Header ======= -->
@@ -161,9 +162,9 @@
             <li><a class="nav-link scrollto" href="#about">Todas las Películas</a></li>
             <li><a class="nav-link scrollto" href="#services">Proximos Estrenos</a></li>
             <li><a class="nav-link scrollto " href="#contact">Contacto</a></li>
-            <li><a class="nav-link scrollto" href="lista_cines.php">Lista de Cines</a></li>
+            <li><a class="nav-link scrollto" href="#team">Lista de Cines</a></li>
             <li><a class="nav-link scrollto" href="">Promociones</a></li>
-            <li class="dropdown"><a href="#"><span>Negocios</span> <i class="bi bi-chevron-down"></i></a>
+            <li class="dropdown"><a href="lista_cines.php"><span>Negocios</span> <i class="bi bi-chevron-down"></i></a>
               <ul>
                 <li><a href="#">Colaboradores</a></li>
               </ul>
@@ -177,94 +178,39 @@
       </div>
     </header>
 
-  <!-- ======= Novedades ======= -->
-    <div id="fondo"></div>
-    <div id="novedades" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <a value="3" id="pelicula_slider0" href="#"><img src="assets/img/slider_default.jpg" class="d-block w-100" href="#" alt="Doctor Strange en el Multiverso de la Locura"></a>
-        </div>
-        <div class="carousel-item">
-          <a value="4" id="pelicula_slider1" href="#"><img src="assets/img/slider_default.jpg" class="d-block w-100" href="#" alt="Sonic 2: La Película"></a>
-        </div>
-        <div class="carousel-item">
-          <a value="5" id="pelicula_slider2" href="#"><img src="assets/img/slider_default.jpg" class="d-block w-100" href="#" alt="Los Tipos Malos"></a>
-        </div>
-        <div class="carousel-item">
-          <a value="2" id="pelicula_slider3" href="#"><img src="assets/img/slider_default.jpg" class="d-block w-100" href="#" alt="The Batman"></a>
-        </div>
-      </div>
-      <a class="carousel-control-prev" href="#" data-bs-target="#novedades" data-bs-slide="prev">
-        <span class="bi bi-chevron-left" aria-hidden="true"></span>
-      </a>
-      <a class="carousel-control-next" href="#" data-bs-target="#novedades" data-bs-slide="next">
-        <span class="bi bi-chevron-right" aria-hidden="true"></span>
-      </a>
-    </div>
-    <div id="fondo"></div>
-  <!-- ======= Cartelera ======= -->
+  <!-- ======= Película ======= -->
+    <div id="fondo2"></div>
     <div id="contenedor">
-      <div class="row mt-20" id="cartelera">
-      <h2><i class="bi bi-bookmark-star" style="color:#ff5821"></i> Cartelera:</h2>
-        <div id="carrusel" class="carousel slide" data-ec-toggle="responsive-carousel" data-ec-size="5">
-          <div class="carousel-inner" role="listbox">
-            <div class="carousel-item active">
-              <div class="img_container">
-                <a class="pelicula_cartelera0" href="#" value="2"><img src="assets/img/pelicula_default.jpg" alt="The Batman"></a>
-                <div class="overlay">The Batman</div>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="img_container">
-                <a class="pelicula_cartelera1" href="#" value="3"><img src="assets/img/pelicula_default.jpg" alt="Doctor Strange en el Multiverso de la Locura"></a>
-                <div class="overlay">Doctor Strange en el Multiverso de la Locura</div>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="img_container">
-                <a class="pelicula_cartelera2" href="#" value="7"><img src="assets/img/pelicula_default.jpg" alt="Animales Fantásticos: Los Secretos de Dumbledore"></a>
-                <div class="overlay">Animales Fantásticos: Los Secretos de Dumbledore</div>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="img_container">
-                <a class="pelicula_cartelera3" href="#" value="4"><img src="assets/img/pelicula_default.jpg" alt="Sonic 2: La Película"></a>
-                <div class="overlay">Sonic 2: La Película</div>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="img_container">
-                <a class="pelicula_cartelera4" href="#" value="5"><img src="assets/img/pelicula_default.jpg" alt="Los Tipos Malos"></a>
-                <div class="overlay">Los Tipos Malos</div>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="img_container">
-                <a class="pelicula_cartelera5" href="#" value="1"><img src="assets/img/pelicula_default.jpg" alt="El Hombre del Norte"></a>
-                <div class="overlay">El Hombre del Norte</div>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="img_container">
-                <a class="pelicula_cartelera6" href="#" value="9"><img src="assets/img/pelicula_default.jpg" alt="La Ciudad Perdida"></a>
-                <div class="overlay">La Ciudad Perdida</div>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="img_container">
-                <a class="pelicula_cartelera7" href="#" value="6"><img src="assets/img/pelicula_default.jpg" alt="El Juego de la Llaves"></a>
-                <div class="overlay">El Juego de la Llaves</div>
-              </div>
-            </div>
-          </div>
-          <a class="carousel-control-prev" href="#carrusel" role="button" data-bs-slide="prev">
-            <span class="bi bi-arrow-left-circle-fill" aria-hidden="true"></span>
-          </a>
-          <a class="carousel-control-next" href="#carrusel" role="button" data-bs-slide="next">
-            <span class="bi bi-arrow-right-circle-fill" aria-hidden="true"></span>
-          </a>
+      <div id="entradas">
+        <h3 id="n_sala" class="text-center">Sala nº</h3>
+        <div class="seccion_horizontal"><h6 id="idioma">Idioma: </h6>&nbsp;<p>|</p>&nbsp;&nbsp;<h6 id="subs">Subtitulos: </h6></div>
+        <div class="movie-container text-center">
+          <label>Película Seleccionada:</label>
+          <select id="movie">
+          </select>
         </div>
-      </div>
+
+        <ul class="showcase">
+          <li>
+            <div class="seat"></div>
+            <small>Disponible</small>
+          </li>
+          <li>
+            <div class="seat selected"></div>
+            <small>Seleccionado</small>
+          </li>
+          <li>
+            <div class="seat sold"></div>
+            <small>Vendido</small>
+          </li>
+        </ul>
+        <div class="container_seats">
+          
+        </div>
+
+        <p class="text">Has elegido <span id="count">0</span> asientos por el precio de <span id="total">0</span> €</p>  
+        <div class="text-center"><button type="button" id="boton_compra" class="btn btn-outline-warning">Comprar</button></div> 
+      </div>  
     </div>
     <div id="fondo2"></div>
 
@@ -348,30 +294,20 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
 
   <script>
-    console.log("INICIO");
-    comprobarSesion(); 
     $(document).ready(function(){
-      for(let i=0; i < $('#carrusel .carousel-item').length; i++)
-      {
-        var idpelicula = $('.pelicula_cartelera'+(i+'')).attr('value');
-        $('.pelicula_cartelera'+(i+'')).attr("href", "pelicula.php?pelicula=" + idpelicula);
-        $('.pelicula_cartelera'+(i+'')).find('img').attr("src", "assets/img/pelicula" + idpelicula + ".jpg");
-      }
-
-      for(let i=0; i < $('#novedades .carousel-item').length; i++)
-      {
-        var idpelicula = $('#pelicula_slider'+(i+'')).attr('value');
-        $('#pelicula_slider'+(i+'')).attr("href", "pelicula.php?pelicula=" + idpelicula);
-        $('#pelicula_slider'+(i+'')).find('img').attr("src", "assets/img/slider" + idpelicula + ".jpg");
-      }
-
+      
+      comprobarSesion();
+      obtenerDatosCompra();
+      //console.log(getCookie("sesion_activa[usuario_nombre]"));
+      //document.getElementById('cuadro_nombre').value = getCookie("sesion_activa[usuario_nombre]");
+    
       $('#boton_registro').click(function(){
         $('#error2').css('display','none');
         var newusername = $('#newusername').val();
         var newemail = $('#newemail').val();
         var newpassword = $('#newpassword').val();
         var newpassword2 = $('#newpassword2').val();
-        //console.log('Datos: ' + newusername + ' ' + newemail + ' ' + newpassword + ' ' + newpassword2 + '');
+        console.log('Datos: ' + newusername + ' ' + newemail + ' ' + newpassword + ' ' + newpassword2 + '');
         if(newpassword != newpassword2)
         {
           $('#error2').css('display','block'); 
@@ -387,7 +323,7 @@
             data: {newusername:newusername, newemail:newemail, newpassword:newpassword, funcion:"registro"},  
             success:function(msg) 
             { 
-              //console.log(msg);
+              console.log(msg);
               $('#ok').css('display','none'); 
               $('#error2').css('display','none'); 
               if(msg == 'ok')
@@ -404,7 +340,6 @@
               }
               else
               {
-                console.log("ERROR");
                 $('#error2').css('display','block'); 
                 setTimeout(function(){$('#error2').css('display','none');}, 6000);
                 document.getElementById('error2').textContent = msg;
@@ -436,7 +371,7 @@
             {
               document.getElementById('cerrar').click();
               $('#boton_modal').css('display','none'); 
-              $('#menu_usuario').css('display','flex'); 
+              $('#menu_usuario').css('display','flex');  
               location.reload();
             }
             else
@@ -466,6 +401,59 @@
           }
         });
       });
+
+      $('#boton_compra').click(function(){
+        var asientosSeleccionados = JSON.parse(localStorage.getItem("selectedSeats")).length;
+        if(asientosSeleccionados == 0)
+        {
+          alert("Debes seleccionar al menos un asiento");
+        }
+        else
+        {
+          //Conseguir asientos seleccionados
+          var filas = $('.row').length;
+          var filaSeleccionada = document.querySelectorAll(".row");
+          let array_asientos = [[],[]];
+          let x = 0;
+          for(let i = 0; i < filas; i++)
+          {
+            var asientos = filaSeleccionada[i].querySelectorAll(".seat").length;
+            var asientoSeleccionado = filaSeleccionada[i].querySelectorAll(".seat");
+            for(let j = 0; j < asientos; j++)
+            {
+              //console.log(asientoSeleccionado[j].className);
+              if(asientoSeleccionado[j].className == 'seat selected')
+              {
+                array_asientos[x][0] = i;
+                array_asientos[x][1] = j;
+                x++;
+                console.log("Asiento Seleccionado: " + i + ", " + j);
+              }
+            }
+          }
+          for(let i = 0; i < asientosSeleccionados; i++)
+          {
+            $.ajax(
+            {  
+              url:"entradas_funciones.php",  
+              type:"POST",  
+              data: {funcion:"añadir_entradas", fila_asiento:array_asientos[i][0], fila_asiento:array_asientos[i][1]},  
+              success:function(msg) 
+              { 
+                if(msg == 'ok')
+                {
+                  alert("La entrada se ha tramitado correctamente");
+                  document.getElementById('boton_inicio').click();       
+                }
+                else
+                {
+                  alert("Ha habido un problema al introducir los datos");
+                }
+              }
+            });
+          }
+        }
+      }); 
     });
 
     function comprobarSesion(){
@@ -481,7 +469,7 @@
           {
             $('#boton_modal').css('display','none'); 
             $('#menu_usuario').css('display','flex'); 
-
+            
             $.ajax(
             {  
               url:"login.php",  
@@ -491,7 +479,6 @@
               {
                 if(msg != "no")
                 {
-                  console.log(msg);
                   document.getElementById('avatar').src = msg;
                 }
               }
@@ -500,6 +487,135 @@
         }
       });
     }
+
+    function obtenerDatosCompra()
+    {
+      $.ajax(
+      {  
+        url:"entradas_funciones.php",  
+        type:"POST",
+        data: {funcion:"obtener_valores"},
+        success:function(msg) 
+        {
+          console.log("MSG: " + msg);
+          if(msg == 'no')
+          {
+            alert("La sesión no esta disponible");
+            document.getElementById('boton_inicio').click();            
+          }
+          else
+          {      
+            let datos = $.parseJSON(msg);
+            $('#n_sala').append(datos[1]);
+            $('#idioma').append(datos[5]);
+            $('#subs').append(datos[6]);
+
+            var opt = document.createElement('option');
+            opt.appendChild(document.createTextNode(datos[0]));
+            opt.value = datos[7]; 
+            movieSelect.appendChild(opt);
+            ticketPrice = + movieSelect.value;
+
+            var asiento = "";
+            //Formación de la sala asientos
+            var total_html = "<div class='screen'></div>";
+            for(let i = 0; i < datos[3]; i++)
+            {
+              var row = "<div class='row'>";
+              var seat_html = "";
+              for(let j = 0; j < datos[2]; j++)
+              {
+                seat_html = seat_html + "<div class='seat'></div>";  
+              }
+              row = row + seat_html + "</div>";
+              if(datos[3] >= 7)
+              {
+                if(i==1 || i == datos[3] - 3)
+                {
+                  row = row + "<br>";
+                }
+              }
+              total_html = total_html + row;
+            }
+            container.insertAdjacentHTML("afterbegin",total_html);
+
+            populateUI();
+            updateSelectedCount();
+          }           
+        }
+      });
+    }
+
+    const container = document.querySelector(".container_seats");
+    const seats = document.querySelectorAll(".row .seat:not(.sold)");
+    const count = document.getElementById("count");
+    const total = document.getElementById("total");
+    const movieSelect = document.getElementById("movie");
+    let ticketPrice = + movieSelect.value;
+    //Seleccion Asientos
+    populateUI();
+
+    
+
+    // Save selected movie index and price
+    function setMovieData(movieIndex, moviePrice) {
+      localStorage.setItem("selectedMovieIndex", movieIndex);
+      localStorage.setItem("selectedMoviePrice", moviePrice);
+    }
+
+    // Update total and count
+    function updateSelectedCount() {
+      const selectedSeats = document.querySelectorAll(".row .seat.selected");
+      const seatsIndex = [...selectedSeats].map((seat) => [...seats].indexOf(seat));
+
+      localStorage.setItem("selectedSeats", JSON.stringify(seatsIndex));
+      const selectedSeatsCount = selectedSeats.length;
+      count.innerText = selectedSeatsCount;
+      total.innerText = selectedSeatsCount * ticketPrice;
+
+      setMovieData(movieSelect.selectedIndex, movieSelect.value);
+    }
+
+
+    function populateUI() {
+      const selectedSeats = JSON.parse(localStorage.getItem("selectedSeats"));
+
+      if (selectedSeats !== null && selectedSeats.length > 0) {
+        seats.forEach((seat, index) => {
+          if (selectedSeats.indexOf(index) > -1) {
+            //console.log(seat.classList.add("selected"));
+          }
+        });
+      }
+
+      const selectedMovieIndex = localStorage.getItem("selectedMovieIndex");
+
+      if (selectedMovieIndex !== null) {
+        movieSelect.selectedIndex = selectedMovieIndex;
+        //console.log(selectedMovieIndex)
+      }
+    }
+    // Movie select event
+    movieSelect.addEventListener("change", (e) => {
+      ticketPrice = +e.target.value;
+      setMovieData(e.target.selectedIndex, e.target.value);
+      updateSelectedCount();
+    });
+
+    // Seat click event
+    container.addEventListener("click", (e) => {
+      if (
+        e.target.classList.contains("seat") &&
+        !e.target.classList.contains("sold")
+      ) {
+        e.target.classList.toggle("selected");
+
+        updateSelectedCount();
+      }
+    });
+
+    // Initial count and total set
+    updateSelectedCount();
   </script>
 </body>
 </html>
