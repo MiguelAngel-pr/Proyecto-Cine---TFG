@@ -30,10 +30,7 @@ function comprobarExistencia($tabla,$campo,$valor)//Comprueba si el valor esta r
     
     $mysqli = conectaBBDD(); //me conecto a la base de datos
     $sql = "SELECT * FROM $tabla WHERE $campo = '$valor'";
-    $consulta = $mysqli ->prepare($sql);
-    $consulta -> execute();
-    $consulta -> store_result();
-    $consulta->fetch();
+    $consulta = mysqli_query($mysqli, $sql);
     $numFilas = $consulta -> num_rows;
     $msg = "no";
     if($numFilas > 0)

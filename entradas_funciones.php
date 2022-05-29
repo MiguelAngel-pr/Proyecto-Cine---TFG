@@ -8,6 +8,7 @@ switch ($funcion)
     case "preparar_compra":prepararCompra(); break;
     case "obtener_valores":obtenerValores(); break;
     case "añadir_entradas":añadirEntrada(); break;
+    case "obtener_asientos_vendidos":obtenerAsientosVendidos(); break;
 }
 
 function prepararCompra()
@@ -19,7 +20,7 @@ function prepararCompra()
     $id_pelicula = limpiaPalabra($_POST['pelicula']);
     $mysqli = conectaBBDD(); 
 
-    $query = "SELECT p.titulo,s.n_sala, s.filas_butacas, s.columnas_butacas, s.tipo, h.idioma, h.subtitulos, h.precio, h.fecha, h.hora, h.cine FROM horario h, sala s, pelicula p WHERE h.cine = $id_cine AND h.hora = '$hora' AND s.id_sala = $id_sala AND p.id_pelicula = $id_pelicula";
+    $query = "SELECT p.titulo,s.n_sala, s.filas_butacas, s.columnas_butacas, s.tipo, h.* FROM horario h, sala s, pelicula p WHERE h.cine = $id_cine AND h.hora = '$hora' AND s.id_sala = $id_sala AND p.id_pelicula = $id_pelicula";
     $consulta = mysqli_query($mysqli, $query);
     $numConsulta = $consulta -> num_rows;
     
@@ -31,6 +32,29 @@ function prepararCompra()
     }
 
     echo $msg;
+}
+
+function obtenerAsientosVendidos()
+{
+    $id_horario = limpiaPalabra($_POST['horario']);
+    $mysqli = conectaBBDD(); 
+    $query = "SELECT asiento_fila, asiento_columna FROM entradas WHERE id_horario = '$id_horario' ORDER BY asiento_fila asc, asiento_columna asc;";
+    $consulta = mysqli_query($mysqli, $query);
+    $numEntradas = $consulta -> num_rows;
+    
+    if($numEntradas > 0)
+    {
+        for ($i = 0; $i < $numEntradas; $i++)
+        {
+            $msg[] = mysqli_fetch_assoc($consulta);
+        }
+        echo json_encode($msg, JSON_UNESCAPED_UNICODE);
+    }
+    else
+    {
+        echo "no";
+    }
+    
 }
 
 function obtenerValores()
@@ -47,18 +71,73 @@ function obtenerValores()
 
 function añadirEntrada()
 {
-    $mysqli = conectaBBDD(); 
-    $array_entrada = var_dump(json_decode($_COOKIE['entrada_valores'],true));
-    $id_cine = limpiaPalabra($_POST['cine']);
-    $actualizaUsuario = $mysqli ->prepare("INSERT INTO entradas VALUES (NULL, '$array_entrada[8]', '$array_entrada[9]', '$array_entrada[7]', '', '', '$array_entrada[0]', '$array_entrada[10]', NULL, '$array_entrada[1]')");
-    $actualizaUsuario -> execute();
-    $usuariosAfectados = $mysqli -> affected_rows;         
-    if($usuariosAfectados > 0)
+    $msg = "no";
+    $usuario = 'NULL';
+    $n_sala = "";
+    if(isset($_COOKIE['entrada_valores']))
     {
-        $msg = "ok";
-        if ($_COOKIE['sesion_activa'] && !password_verify($_SESSION['username'] ,$_COOKIE['sesion_activa']['usuario_nombre_pass'])) 
+        if(isset($_SESSION['username']))
         {
-            $user_name_pass = password_hash($_SESSION['username'], PASSWORD_BCRYPT);
-        }            
+            $usuario = obtenerUsuarioId();
+        }
+
+        $array_entrada = json_decode($_COOKIE['entrada_valores'],true);
+        $n_sala = limpiaPalabra($array_entrada[1]);
+        $id_horario = limpiaPalabra($array_entrada[5]);
+        $id_pelicula =  limpiaPalabra($array_entrada[6]);
+        $id_cine = limpiaPalabra($array_entrada[7]);
+        $fila_asiento = limpiaPalabra($_POST['fila_asiento']);
+        $columna_asiento = limpiaPalabra($_POST['columna_asiento']);
+        $mysqli = conectaBBDD(); 
+
+        if(comprobarExistenciaEntrada($id_horario, $fila_asiento, $columna_asiento) == "no")
+        {
+            $query = "INSERT INTO entradas VALUES (NULL, '$n_sala', '$fila_asiento', '$columna_asiento', '$id_cine', '$id_pelicula', '$id_horario', $usuario)";
+            $añadeEntrada = $mysqli ->prepare($query);
+            $añadeEntrada -> execute();
+            $filasAfectadas = $mysqli -> affected_rows;         
+            if($filasAfectadas > 0)
+            {
+                $msg = "ok";      
+            }
+        }
+        else
+        {
+            $mysqli -> rollback();
+        }
+    }
+
+    echo $msg;
+}
+
+function comprobarExistenciaEntrada($id_horario, $fila, $columna)
+{
+    $mysqli = conectaBBDD(); //me conecto a la base de datos
+    $query = "SELECT cod_entrada FROM entradas WHERE id_horario = '$id_horario' AND asiento_fila = '$fila' AND asiento_columna = '$columna'";
+    $consulta = mysqli_query($mysqli, $query);
+    $numFilas = $consulta -> num_rows;
+    $msg = "no";
+    if($numFilas > 0)
+    {
+        $msg = "si";
+    }
+    return $msg;
+}
+
+function obtenerUsuarioId()
+{
+    $mysqli = conectaBBDD(); 
+    $usuario_actual = limpiaPalabra($_SESSION['username']);
+    $resultado = mysqli_query($mysqli,"SELECT id_usuario FROM usuarios WHERE nombre_usuario = '$usuario_actual'");
+    $msg = $resultado->fetch_assoc();
+    if($msg["id_usuario"] == null)
+    {
+        return NULL;
+    }
+    else
+    {
+        return $msg["id_usuario"];
     }
 }
+
+?>

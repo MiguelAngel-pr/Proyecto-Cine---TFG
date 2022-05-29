@@ -47,8 +47,9 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
         </div>
         <button id="menu_usuario" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu" data-bs-toggle="dropdown" aria-expanded="false"><div id="cuadro_usuario"><h6><?php echo $_SESSION['username']?></h6><img id="avatar" src="assets/img/avatar.png" alt="Avatar"></div></button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
-          <li><button class="dropdown-item" type="button">Mi Perfil</button></li>
-          <li><button id="boton_logout" class="dropdown-item" type="button">Logout</button></li>
+          <li><a href="perfil.php"><button class="dropdown-item" type="button"><i class="bi bi-person-lines-fill"></i>  Mi Perfil</button></a></li>
+          <li><a href="entradas_usuario.php"><button class="dropdown-item" type="button"><i class="bi bi-card-checklist"></i>  Mis Entradas</button></a></li>
+          <li><button id="boton_logout" class="dropdown-item" type="button"><i class="bi bi-box-arrow-left"></i>  Logout</button></li>
         </ul>
       </div>
     </section>
@@ -59,17 +60,17 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
         <a id="boton_inicio" href="index.php"><img style="width:75px" src="assets/img/cineGalaxy.png" alt=""></a>
         <nav id="navbar" class="navbar">
           <ul>
-            <li><a class="nav-link scrollto" href="#about">Todas las Películas</a></li>
-            <li><a class="nav-link scrollto" href="#services">Proximos Estrenos</a></li>
-            <li><a class="nav-link scrollto " href="#contact">Contacto</a></li>
-            <li><a class="nav-link scrollto" href="#team">Lista de Cines</a></li>
+            <li><a class="nav-link scrollto" href="">Todas las Películas</a></li>
+            <li><a class="nav-link scrollto" href="">Proximos Estrenos</a></li>
+            <li><a class="nav-link scrollto " href="contacto.php">Contacto</a></li>
+            <li><a class="nav-link scrollto" href="lista_cines.php">Lista de Cines</a></li>
             <li><a class="nav-link scrollto" href="">Promociones</a></li>
-            <li class="dropdown"><a href="#"><span>Negocios</span> <i class="bi bi-chevron-down"></i></a>
+            <li class="dropdown"><a href=""><span>Negocios</span> <i class="bi bi-chevron-down"></i></a>
               <ul>
-                <li><a href="#">Colaboradores</a></li>
+                <li><a href="">Colaboradores</a></li>
               </ul>
               <ul>
-                <li><a href="#">Unete a nosotros!</a></li>
+                <li><a href="">Unete a nosotros!</a></li>
               </ul>
             </li>
           </ul>
@@ -310,7 +311,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
           data: {newusername:newusername, newemail:newemail, newgender:newgender, newcountry:newcountry, newbirthday:newbirthday, newbio:newbio, newavatar:newavatar, funcion:"actualiza_valores"},  
           success:function(msg) 
           { 
-            console.log(msg);
+            //console.log(msg);
             if(msg == 'ok')
             {
               alert("Se han actualizado los valores");
@@ -332,7 +333,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
 
         if((newpassword == newpassword2 && !newpassword.includes(oldpassword)))
         {
-          console.log('PASS OK');
+          //console.log('PASS OK');
           $.ajax(
           {  
             url:"login.php",  
@@ -340,7 +341,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
             data: {oldpassword:oldpassword, newpassword:newpassword, funcion:"actualiza_contraseña"},  
             success:function(msg) 
             { 
-              console.log(msg);
+              //console.log(msg);
               if(msg == 'ok')
               {
                 alert("La contraseña se ha actualizado correctamente");
@@ -388,7 +389,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
     {
       var imagen = target.files[0];
       var peso = target.files[0].size;
-      console.log(peso);
+      //console.log(peso);
       if(peso < 3000000)
       {
         loadImage(imagen);
@@ -409,7 +410,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
       img.onload = function(){
         var ancho = img.width;
         var alto = img.height;
-        console.log(ancho + ' ' + alto + ' ' + ancho/alto);
+        //console.log(ancho + ' ' + alto + ' ' + ancho/alto);
         proporcion = (ancho/alto).toFixed(2);
         if(proporcion < 1.20 && proporcion > 0.80 && alto > 150)
         {
@@ -435,7 +436,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
         data: {funcion:"comprobar_sesion"},
         success:function(msg) 
         {
-          console.log("COOKIE: " + msg);
+          //console.log("COOKIE: " + msg);
           if(msg == 'si')
           {
             $('#boton_modal').css('display','none'); 

@@ -48,6 +48,7 @@
         <button id="menu_usuario" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu" data-bs-toggle="dropdown" aria-expanded="false"><div id="cuadro_usuario"><h6><?php if (isset($_SESSION['username'])){ echo $_SESSION['username']; }?></h6><img id="avatar" src="assets/img/avatar.png" alt="Avatar"></div></button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
           <li><a href="perfil.php"><button class="dropdown-item" type="button"><i class="bi bi-person-lines-fill"></i>  Mi Perfil</button></a></li>
+          <li><a href="entradas_usuario.php"><button class="dropdown-item" type="button"><i class="bi bi-card-checklist"></i>  Mis Entradas</button></a></li>
           <li><button id="boton_logout" class="dropdown-item" type="button"><i class="bi bi-box-arrow-left"></i>  Logout</button></li>
         </ul>
         <button id="boton_modal" type="button" class="btn btn-success" style="background:#ffa343; margin-left: 20px; border-radius: 0;" data-bs-toggle="modal" href="#login">Iniciar Sesión</button>
@@ -158,17 +159,17 @@
         <a id="boton_inicio" href="index.php"><img style="width:75px" src="assets/img/cineGalaxy.png" alt=""></a>
         <nav id="navbar" class="navbar">
           <ul>
-            <li><a class="nav-link scrollto" href="#about">Todas las Películas</a></li>
-            <li><a class="nav-link scrollto" href="#services">Proximos Estrenos</a></li>
+            <li><a class="nav-link scrollto" href="">Todas las Películas</a></li>
+            <li><a class="nav-link scrollto" href="">Proximos Estrenos</a></li>
             <li><a class="nav-link scrollto " href="contacto.php">Contacto</a></li>
             <li><a class="nav-link scrollto" href="lista_cines.php">Lista de Cines</a></li>
             <li><a class="nav-link scrollto" href="">Promociones</a></li>
-            <li class="dropdown"><a href="#"><span>Negocios</span> <i class="bi bi-chevron-down"></i></a>
+            <li class="dropdown"><a href=""><span>Negocios</span> <i class="bi bi-chevron-down"></i></a>
               <ul>
-                <li><a href="#">Colaboradores</a></li>
+                <li><a href="">Colaboradores</a></li>
               </ul>
               <ul>
-                <li><a href="#">Unete a nosotros!</a></li>
+                <li><a href="">Unete a nosotros!</a></li>
               </ul>
             </li>
           </ul>
@@ -270,7 +271,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
 
   <script>
-    console.log("INICIO");
     comprobarSesion(); 
     obtenerListaCines();  
     $(document).ready(function(){
@@ -314,7 +314,6 @@
               }
               else
               {
-                console.log("ERROR");
                 $('#error2').css('display','block'); 
                 setTimeout(function(){$('#error2').css('display','none');}, 6000);
                 document.getElementById('error2').textContent = msg;
@@ -331,7 +330,6 @@
         var recordar = false;
         if ($("#remember").prop('checked')) 
         {
-          console.log("Hola");
           recordar = true;
         }
         $.ajax(
@@ -341,7 +339,7 @@
           data: {username:username, password:password, recordar:recordar, funcion:"login"},  
           success:function(msg) 
           { 
-            console.log(msg);
+            //console.log(msg);
             if(msg == 'ok')
             {
               document.getElementById('cerrar').click();

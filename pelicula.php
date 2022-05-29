@@ -49,6 +49,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
         <button id="menu_usuario" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu" data-bs-toggle="dropdown" aria-expanded="false"><div id="cuadro_usuario"><h6><?php  if (isset($_SESSION['username'])){ echo $_SESSION['username']; } ?></h6><img id="avatar" src="assets/img/avatar.png" alt="Avatar"></div></button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
           <li><a href="perfil.php"><button class="dropdown-item" type="button"><i class="bi bi-person-lines-fill"></i>  Mi Perfil</button></a></li>
+          <li><a href="entradas_usuario.php"><button class="dropdown-item" type="button"><i class="bi bi-card-checklist"></i>  Mis Entradas</button></a></li>
           <li><button id="boton_logout" class="dropdown-item" type="button"><i class="bi bi-box-arrow-left"></i>  Logout</button></li>
         </ul>
         <button id="boton_modal" type="button" class="btn btn-success" style="background:#ffa343; margin-left: 20px; border-radius: 0;" data-bs-toggle="modal" href="#login">Iniciar Sesión</button>
@@ -159,17 +160,17 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
         <a id="boton_inicio" href="index.php"><img style="width:75px" src="assets/img/cineGalaxy.png" alt=""></a>
         <nav id="navbar" class="navbar">
           <ul>
-            <li><a class="nav-link scrollto" href="#about">Todas las Películas</a></li>
-            <li><a class="nav-link scrollto" href="#services">Proximos Estrenos</a></li>
-            <li><a class="nav-link scrollto " href="#contact">Contacto</a></li>
-            <li><a class="nav-link scrollto" href="#team">Lista de Cines</a></li>
+            <li><a class="nav-link scrollto" href="">Todas las Películas</a></li>
+            <li><a class="nav-link scrollto" href="">Proximos Estrenos</a></li>
+            <li><a class="nav-link scrollto " href="contacto.php">Contacto</a></li>
+            <li><a class="nav-link scrollto" href="lista_cines.php">Lista de Cines</a></li>
             <li><a class="nav-link scrollto" href="">Promociones</a></li>
-            <li class="dropdown"><a href="#"><span>Negocios</span> <i class="bi bi-chevron-down"></i></a>
+            <li class="dropdown"><a href=""><span>Negocios</span> <i class="bi bi-chevron-down"></i></a>
               <ul>
-                <li><a href="#">Colaboradores</a></li>
+                <li><a href="">Colaboradores</a></li>
               </ul>
               <ul>
-                <li><a href="#">Unete a nosotros!</a></li>
+                <li><a href="">Unete a nosotros!</a></li>
               </ul>
             </li>
           </ul>
@@ -343,7 +344,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
         var newemail = $('#newemail').val();
         var newpassword = $('#newpassword').val();
         var newpassword2 = $('#newpassword2').val();
-        console.log('Datos: ' + newusername + ' ' + newemail + ' ' + newpassword + ' ' + newpassword2 + '');
+        //console.log('Datos: ' + newusername + ' ' + newemail + ' ' + newpassword + ' ' + newpassword2 + '');
         if(newpassword != newpassword2)
         {
           $('#error2').css('display','block'); 
@@ -359,7 +360,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
             data: {newusername:newusername, newemail:newemail, newpassword:newpassword, funcion:"registro"},  
             success:function(msg) 
             { 
-              console.log(msg);
+              //console.log(msg);
               $('#ok').css('display','none'); 
               $('#error2').css('display','none'); 
               if(msg == 'ok')
@@ -392,7 +393,6 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
         var recordar = false;
         if ($("#remember").prop('checked')) 
         {
-          console.log("Hola");
           recordar = true;
         }
         $.ajax(
@@ -402,7 +402,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
           data: {username:username, password:password, recordar:recordar, funcion:"login"},  
           success:function(msg) 
           { 
-            console.log(msg);
+            //console.log(msg);
             if(msg == 'ok')
             {
               document.getElementById('cerrar').click();
@@ -416,7 +416,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
               setTimeout(function(){$('#error').css('display','none');}, 6000);
               document.getElementById('error').textContent = msg;
             }
-            console.log(idpelicula);
+            //console.log(idpelicula);
           }
         });
       });
@@ -452,7 +452,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
         let hoy2 = new Date(hoy.getTime() - 30*60000);//La fecha de hoy 30 min antes
         const diaActual = 9 //hoy.getDay();
         const horaLimite = hoy2.toLocaleTimeString();
-        console.log(hora+", "+horaLimite+", "+dia+", "+diaActual);
+        //console.log(hora+", "+horaLimite+", "+dia+", "+diaActual);
         
         if(seleccion_horario != "-" && seleccion_horario.includes(" | "))
         {
@@ -462,7 +462,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
           }
           else
           {
-            console.log("BIEN")
+            //console.log("BIEN")
             $.ajax(
             {  
               url:"entradas_funciones.php",  
@@ -470,7 +470,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
               data: {funcion:"preparar_compra", cine:id_cine, hora:hora, sala:id_sala, pelicula:idpelicula},  
               success:function(msg) 
               { 
-                console.log(msg);
+                //console.log(msg);
                 if(msg == 'ok')
                 {
                   $('#boton_modal').css('display','block'); 
@@ -529,7 +529,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
         data: {funcion:"comprobar_sesion"},
         success:function(msg) 
         {
-          console.log("COOKIE: " + msg);
+          //console.log("COOKIE: " + msg);
           if(msg == 'si')
           {
             $('#boton_modal').css('display','none'); 
@@ -590,10 +590,10 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
             $('.imdbRatingPlugin').attr("data-title", ""+datos[9]);
             actualizaValorImbd();
             
-            console.log(datos[8]);
+            //console.log(datos[8]);
             if(datos[8] != 0)
             {
-              console.log("HOLA");
+              //console.log("HOLA");
               if(datos[8] == 2)
               {
                 $('#compra_entradas').find('h4').text("Reserva de Entradas");
@@ -638,12 +638,12 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
         data: {funcion:"obtener_cines", idpelicula:idpelicula},
         success:function(msg) 
         {
-          console.log("DATOS CINE: " + msg);
+          //console.log("DATOS CINE: " + msg);
           if($.parseJSON(msg) != "no")
           {
             let datos = $.parseJSON(msg);
 
-            console.log(datos.length);
+            //console.log(datos.length);
             for(let i=0; i<datos.length; i++)
             {
               var opt = document.createElement('option');
@@ -670,7 +670,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
     {
       var seleccionValor = $('#cuadro_cine option:selected').val();
       var opcionSeleccionada = $('#cuadro_cine option:selected').text();
-      console.log(seleccionValor);
+      //console.log(seleccionValor);
 
       $('#cuadro_horario').empty();
       $('#cuadro_horario').append('<option selected="selected" value="0">-</option>');
@@ -683,12 +683,12 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
           data: {funcion:"obtener_horarios", idcine:seleccionValor, idpelicula:idpelicula},
           success:function(msg) 
           {
-            console.log("DATOS HORARIO: " + msg);
+            //console.log("DATOS HORARIO: " + msg);
             if($.parseJSON(msg) != 'no')
             {
               let datos = $.parseJSON(msg);
 
-              console.log(datos.length);
+              //console.log(datos.length);
               for(let i=0; i<datos.length; i++)
               {
                 var fecha = (new Date (datos[i]['fecha']));
@@ -708,7 +708,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
             {
               $('#cuadro_horario').prop('disabled', true);
               $('#cuadro_horario option').text("No hay sesiones próximas en este cine");
-              console.log("No hay sesiones próximas en este cine");
+              //console.log("No hay sesiones próximas en este cine");
             }
           }  
         });
@@ -721,7 +721,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
       $('#cuadro_cine').prop('disabled', true);
       $('#cuadro_horario').prop('disabled', true);
       $('#cuadro_cine option').text("La película no esta disponible");
-      console.log("La película no esta disponible");
+      //console.log("La película no esta disponible");
     }
   </script>
 </body>

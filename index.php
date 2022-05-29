@@ -158,17 +158,17 @@
         <a id="boton_inicio" href="index.php"><img style="width:75px" src="assets/img/cineGalaxy.png" alt=""></a>
         <nav id="navbar" class="navbar">
           <ul>
-            <li><a class="nav-link scrollto" href="#about">Todas las Películas</a></li>
-            <li><a class="nav-link scrollto" href="#services">Proximos Estrenos</a></li>
-            <li><a class="nav-link scrollto " href="#contact">Contacto</a></li>
+            <li><a class="nav-link scrollto" href="">Todas las Películas</a></li>
+            <li><a class="nav-link scrollto" href="">Proximos Estrenos</a></li>
+            <li><a class="nav-link scrollto " href="">Contacto</a></li>
             <li><a class="nav-link scrollto" href="lista_cines.php">Lista de Cines</a></li>
             <li><a class="nav-link scrollto" href="">Promociones</a></li>
-            <li class="dropdown"><a href="#"><span>Negocios</span> <i class="bi bi-chevron-down"></i></a>
+            <li class="dropdown"><a href=""><span>Negocios</span> <i class="bi bi-chevron-down"></i></a>
               <ul>
-                <li><a href="#">Colaboradores</a></li>
+                <li><a href="">Colaboradores</a></li>
               </ul>
               <ul>
-                <li><a href="#">Unete a nosotros!</a></li>
+                <li><a href="">Unete a nosotros!</a></li>
               </ul>
             </li>
           </ul>
@@ -348,7 +348,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
 
   <script>
-    console.log("INICIO");
     comprobarSesion(); 
     $(document).ready(function(){
       for(let i=0; i < $('#carrusel .carousel-item').length; i++)
@@ -404,7 +403,6 @@
               }
               else
               {
-                console.log("ERROR");
                 $('#error2').css('display','block'); 
                 setTimeout(function(){$('#error2').css('display','none');}, 6000);
                 document.getElementById('error2').textContent = msg;
@@ -421,7 +419,6 @@
         var recordar = false;
         if ($("#remember").prop('checked')) 
         {
-          console.log("Hola");
           recordar = true;
         }
         $.ajax(
@@ -431,7 +428,7 @@
           data: {username:username, password:password, recordar:recordar, funcion:"login"},  
           success:function(msg) 
           { 
-            console.log(msg);
+            //console.log(msg);
             if(msg == 'ok')
             {
               document.getElementById('cerrar').click();
@@ -476,7 +473,7 @@
         data: {funcion:"comprobar_sesion"},
         success:function(msg) 
         {
-          console.log("COOKIE: " + msg);
+          //console.log("COOKIE: " + msg);
           if(msg == 'si')
           {
             $('#boton_modal').css('display','none'); 
@@ -491,7 +488,7 @@
               {
                 if(msg != "no")
                 {
-                  console.log(msg);
+                  //console.log(msg);
                   document.getElementById('avatar').src = msg;
                 }
               }

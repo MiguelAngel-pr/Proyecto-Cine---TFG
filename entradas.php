@@ -49,6 +49,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
         <button id="menu_usuario" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu" data-bs-toggle="dropdown" aria-expanded="false"><div id="cuadro_usuario"><h6><?php  if (isset($_SESSION['username'])){ echo $_SESSION['username']; } ?></h6><img id="avatar" src="assets/img/avatar.png" alt="Avatar"></div></button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
           <li><a href="perfil.php"><button class="dropdown-item" type="button"><i class="bi bi-person-lines-fill"></i>  Mi Perfil</button></a></li>
+          <li><a href="entradas_usuario.php"><button class="dropdown-item" type="button"><i class="bi bi-card-checklist"></i>  Mis Entradas</button></a></li>
           <li><button id="boton_logout" class="dropdown-item" type="button"><i class="bi bi-box-arrow-left"></i>  Logout</button></li>
         </ul>
         <button id="boton_modal" type="button" class="btn btn-success" style="background:#ffa343; margin-left: 20px; border-radius: 0;" data-bs-toggle="modal" href="#login">Iniciar Sesión</button>
@@ -159,17 +160,17 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
         <a id="boton_inicio" href="index.php"><img style="width:75px" src="assets/img/cineGalaxy.png" alt=""></a>
         <nav id="navbar" class="navbar">
           <ul>
-            <li><a class="nav-link scrollto" href="#about">Todas las Películas</a></li>
-            <li><a class="nav-link scrollto" href="#services">Proximos Estrenos</a></li>
-            <li><a class="nav-link scrollto " href="#contact">Contacto</a></li>
-            <li><a class="nav-link scrollto" href="#team">Lista de Cines</a></li>
+            <li><a class="nav-link scrollto" href="">Todas las Películas</a></li>
+            <li><a class="nav-link scrollto" href="">Proximos Estrenos</a></li>
+            <li><a class="nav-link scrollto " href="contacto.php">Contacto</a></li>
+            <li><a class="nav-link scrollto" href="lista_cines.php">Lista de Cines</a></li>
             <li><a class="nav-link scrollto" href="">Promociones</a></li>
             <li class="dropdown"><a href="lista_cines.php"><span>Negocios</span> <i class="bi bi-chevron-down"></i></a>
               <ul>
-                <li><a href="#">Colaboradores</a></li>
+                <li><a href="">Colaboradores</a></li>
               </ul>
               <ul>
-                <li><a href="#">Unete a nosotros!</a></li>
+                <li><a href="">Unete a nosotros!</a></li>
               </ul>
             </li>
           </ul>
@@ -204,9 +205,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
             <small>Vendido</small>
           </li>
         </ul>
-        <div class="container_seats">
-          
-        </div>
+        <div class="container_seats"></div>
 
         <p class="text">Has elegido <span id="count">0</span> asientos por el precio de <span id="total">0</span> €</p>  
         <div class="text-center"><button type="button" id="boton_compra" class="btn btn-outline-warning">Comprar</button></div> 
@@ -307,7 +306,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
         var newemail = $('#newemail').val();
         var newpassword = $('#newpassword').val();
         var newpassword2 = $('#newpassword2').val();
-        console.log('Datos: ' + newusername + ' ' + newemail + ' ' + newpassword + ' ' + newpassword2 + '');
+        //console.log('Datos: ' + newusername + ' ' + newemail + ' ' + newpassword + ' ' + newpassword2 + '');
         if(newpassword != newpassword2)
         {
           $('#error2').css('display','block'); 
@@ -323,7 +322,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
             data: {newusername:newusername, newemail:newemail, newpassword:newpassword, funcion:"registro"},  
             success:function(msg) 
             { 
-              console.log(msg);
+              //console.log(msg);
               $('#ok').css('display','none'); 
               $('#error2').css('display','none'); 
               if(msg == 'ok')
@@ -356,7 +355,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
         var recordar = false;
         if ($("#remember").prop('checked')) 
         {
-          console.log("Hola");
+          //console.log("Hola");
           recordar = true;
         }
         $.ajax(
@@ -366,7 +365,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
           data: {username:username, password:password, recordar:recordar, funcion:"login"},  
           success:function(msg) 
           { 
-            console.log(msg);
+            //console.log(msg);
             if(msg == 'ok')
             {
               document.getElementById('cerrar').click();
@@ -413,7 +412,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
           //Conseguir asientos seleccionados
           var filas = $('.row').length;
           var filaSeleccionada = document.querySelectorAll(".row");
-          let array_asientos = [[],[]];
+          let array_asientos = new Array(asientosSeleccionados);
           let x = 0;
           for(let i = 0; i < filas; i++)
           {
@@ -424,33 +423,45 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
               //console.log(asientoSeleccionado[j].className);
               if(asientoSeleccionado[j].className == 'seat selected')
               {
+                //console.log(x);
+                array_asientos[x] = new Array(2);
                 array_asientos[x][0] = i;
                 array_asientos[x][1] = j;
                 x++;
-                console.log("Asiento Seleccionado: " + i + ", " + j);
+                //console.log("Asiento Seleccionado: " + i + ", " + j);
               }
             }
           }
+          var error = "no";
+          //console.log(array_asientos);
+          //console.log(asientosSeleccionados + ", " + array_asientos[0][0]);
           for(let i = 0; i < asientosSeleccionados; i++)
           {
+            //console.log("Vuelta " + i);
             $.ajax(
             {  
               url:"entradas_funciones.php",  
               type:"POST",  
-              data: {funcion:"añadir_entradas", fila_asiento:array_asientos[i][0], fila_asiento:array_asientos[i][1]},  
+              data: {funcion:"añadir_entradas", fila_asiento:array_asientos[i][0], columna_asiento:array_asientos[i][1]},  
               success:function(msg) 
               { 
-                if(msg == 'ok')
+                //console.log(msg);
+                if(msg != "ok")
                 {
-                  alert("La entrada se ha tramitado correctamente");
-                  document.getElementById('boton_inicio').click();       
-                }
-                else
-                {
-                  alert("Ha habido un problema al introducir los datos");
+                  error = "si";
                 }
               }
             });
+          }
+
+          if(error == "si")
+          {
+            alert("Ha habido un problema al introducir los datos");
+          }
+          else
+          {
+            alert("El envio ha sido tramitado correctamente");
+            //document.getElementById('boton_inicio').click();   
           }
         }
       }); 
@@ -464,7 +475,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
         data: {funcion:"comprobar_sesion"},
         success:function(msg) 
         {
-          console.log("COOKIE: " + msg);
+          //console.log("COOKIE: " + msg);
           if(msg == 'si')
           {
             $('#boton_modal').css('display','none'); 
@@ -497,8 +508,8 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
         data: {funcion:"obtener_valores"},
         success:function(msg) 
         {
-          console.log("MSG: " + msg);
-          if(msg == 'no')
+          //console.log("MSG: " + msg);
+          if(msg == "no")
           {
             alert("La sesión no esta disponible");
             document.getElementById('boton_inicio').click();            
@@ -506,44 +517,83 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
           else
           {      
             let datos = $.parseJSON(msg);
-            $('#n_sala').append(datos[1]);
-            $('#idioma').append(datos[5]);
-            $('#subs').append(datos[6]);
+            $('#n_sala').append(datos[1] + " - " + datos[4]);
+            $('#idioma').append(datos[11]);
+            $('#subs').append(datos[12]);
 
             var opt = document.createElement('option');
             opt.appendChild(document.createTextNode(datos[0]));
-            opt.value = datos[7]; 
+            opt.value = datos[13]; 
             movieSelect.appendChild(opt);
             ticketPrice = + movieSelect.value;
 
-            var asiento = "";
+            
             //Formación de la sala asientos
-            var total_html = "<div class='screen'></div>";
-            for(let i = 0; i < datos[3]; i++)
-            {
-              var row = "<div class='row'>";
-              var seat_html = "";
-              for(let j = 0; j < datos[2]; j++)
+            
+            $.ajax(
+            {  
+              url:"entradas_funciones.php",  
+              type:"POST",
+              data: {funcion:"obtener_asientos_vendidos", horario:datos[5]},
+              success:function(msg) 
               {
-                seat_html = seat_html + "<div class='seat'></div>";  
-              }
-              row = row + seat_html + "</div>";
-              if(datos[3] >= 7)
-              {
-                if(i==1 || i == datos[3] - 3)
+                if(msg != "no")
                 {
-                  row = row + "<br>";
+                  var asientos_vendidos = $.parseJSON(msg);
+                  formacionAsientos(asientos_vendidos, datos);
+                }
+                else
+                {
+                  formacionAsientos("", datos);
                 }
               }
-              total_html = total_html + row;
-            }
-            container.insertAdjacentHTML("afterbegin",total_html);
+            });
 
             populateUI();
             updateSelectedCount();
           }           
         }
       });
+    }
+
+    function formacionAsientos(asientos_vendidos, datos)
+    {
+      var vendido = "";
+      let n_asientos = 0;
+      //console.log(asientos_vendidos);
+
+      var total_html = "<div class='screen'></div>";
+      for(let i = 0; i < datos[2]; i++)
+      {
+        var row = "<div class='row'>";
+        var seat_html = "";
+        for(let j = 0; j < datos[3]; j++)
+        {
+          vendido = "";
+          if(asientos_vendidos != "")
+          {
+            if(asientos_vendidos[n_asientos]['asiento_fila'] == i && asientos_vendidos[n_asientos]['asiento_columna'] == j)
+            {
+              vendido = "sold";
+              if(n_asientos < asientos_vendidos.length-1)
+              {
+                n_asientos++;
+              }
+            }
+          }         
+          seat_html = seat_html + "<div class='seat " + vendido + "'></div>";  
+        }
+        row = row + seat_html + "</div>";
+        if(datos[2] >= 7)
+        {
+          if(i==1 || i == datos[2] - 3)
+          {
+            row = row + "<br>";
+          }
+        }
+        total_html = total_html + row;
+      }
+      container.insertAdjacentHTML("afterbegin",total_html);  
     }
 
     const container = document.querySelector(".container_seats");
