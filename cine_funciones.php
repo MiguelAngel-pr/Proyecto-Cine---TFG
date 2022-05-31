@@ -149,7 +149,7 @@ function obtenerPeliculas()
             }
         }
     }
-    $query = "SELECT DISTINCT p.id_pelicula, p.titulo FROM pelicula p INNER JOIN horario h ON p.id_pelicula = h.pelicula WHERE 1=1 ".$filtro." ORDER BY  h.fecha asc, h.hora asc, p.estreno desc";
+    $query = "SELECT DISTINCT p.id_pelicula, p.titulo FROM pelicula p INNER JOIN horario h ON p.id_pelicula = h.pelicula WHERE 1=1 ".$filtro." ORDER BY p.estreno desc";
     $consulta = mysqli_query($mysqli, $query);
     $numCines = $consulta -> num_rows;
 

@@ -201,66 +201,6 @@
         </div>
         <br><br>
         <div id="contenedor_peliculas"></div>
-        <!-- <div class="row">
-            <div class="col">
-                <div class="img_container2">
-                    <a class="pelicula_cartelera0" href="#" value="2"><img src="assets/img/pelicula_default.jpg" alt="The Batman"></a>
-                    <div class="overlay">The Batman</div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="img_container2">
-                    <a class="pelicula_cartelera1" href="#" value="2"><img src="assets/img/pelicula_default.jpg" alt="The Batman"></a>
-                    <div class="overlay">The Batman</div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="img_container2">
-                    <a class="pelicula_cartelera2" href="#" value="2"><img src="assets/img/pelicula_default.jpg" alt="The Batman"></a>
-                    <div class="overlay">The Batman</div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <div class="img_container2">
-                    <a class="pelicula_cartelera0" href="#" value="2"><img src="assets/img/pelicula_default.jpg" alt="The Batman"></a>
-                    <div class="overlay">The Batman</div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="img_container2">
-                    <a class="pelicula_cartelera1" href="#" value="2"><img src="assets/img/pelicula_default.jpg" alt="The Batman"></a>
-                    <div class="overlay">The Batman</div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="img_container2">
-                    <a class="pelicula_cartelera2" href="#" value="2"><img src="assets/img/pelicula_default.jpg" alt="The Batman"></a>
-                    <div class="overlay">The Batman</div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <div class="img_container2">
-                    <a class="pelicula_cartelera0" href="#" value="2"><img src="assets/img/pelicula_default.jpg" alt="The Batman"></a>
-                    <div class="overlay">The Batman</div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="img_container2">
-                    <a class="pelicula_cartelera1" href="#" value="2"><img src="assets/img/pelicula_default.jpg" alt="The Batman"></a>
-                    <div class="overlay">The Batman</div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="img_container2">
-                    <a class="pelicula_cartelera2" href="#" value="2"><img src="assets/img/pelicula_default.jpg" alt="The Batman"></a>
-                    <div class="overlay">The Batman</div>
-                </div>
-            </div>
-        </div> -->
         <br><br>
         <div class="row align-items-center seccion_cine">
             <div class="col">
@@ -357,7 +297,7 @@
 
   <script>
     comprobarSesion(); 
-    let n_pagina = 1;
+    let n_pagina = 0;
     limpiarSelector('eleccion_cine');
     limpiarSelector('eleccion_fecha');
     limpiarSelector('eleccion_horario');
@@ -618,29 +558,33 @@
         var contenedor_peliculas = document.getElementById('contenedor_peliculas');
         contenedor_peliculas.innerHTML = "";
         console.log(datosPeliculas);
-
-        let filas = Math.ceil((datosPeliculas.length)/3);
-        if(filas < 3)
+        let filas = 3;
+        let resto = datosPeliculas.length%9;
+        if(resto != 0 && n_pagina > 0)
         {
-            filas = 3;
+            filas = Math.ceil(resto/3);
+            $('#boton_der').prop('disabled', true);
         }
+        
+        console.log(filas);
+        let posicion = 0;
         var total_html = "";
-        for(let i = 1; i < filas; i++)
+        for(let i = 0; i < filas; i++)
         {
             var row = "<div class='row'>";
-            var pelicula_html = "";
-            
-            for(let j = 3; j > 0; j--)
-            {        
-                let posicion = ((n_pagina*3)*i)-j;
-                console.log(posicion + ", " + filas + ", " + j + ", " + datosPeliculas.length);
+            var pelicula_html = ""; 
+            for(let j = 0; j < 3; j++)
+            {         
+                //console.log(posicion*n_pagina + ", " + filas + ", " + j + ", " + datosPeliculas.length);
                 var contenedor_img = "";
-                if(datosPeliculas.length > posicion)
+                if(datosPeliculas.length > (9*n_pagina)+posicion)
                 {
-                    console.log(datosPeliculas[posicion]['titulo']);
-                    contenedor_img = contenedor_img + "<div class='img_container2'><a href='pelicula.php?pelicula=" + datosPeliculas[posicion]['id_pelicula'] + "' value='" + datosPeliculas[posicion]['id_pelicula'] + "'><img src='assets/img/pelicula" + datosPeliculas[posicion]['id_pelicula'] + ".jpg' alt='" + datosPeliculas[posicion]['titulo'] + "'></a>";
-                    contenedor_img = contenedor_img + "<div class='overlay'>" + datosPeliculas[posicion]['titulo'] + "</div></div>"
+                    //console.log(datosPeliculas[posicion + (9*n_pagina)]['titulo']);
+                    contenedor_img = contenedor_img + "<div class='img_container2'><a href='pelicula.php?pelicula=" + datosPeliculas[posicion + (9*n_pagina)]['id_pelicula'] + "' value='" + datosPeliculas[posicion + (9*n_pagina)]['id_pelicula'] + "'><img src='assets/img/pelicula" + datosPeliculas[posicion + (9*n_pagina)]['id_pelicula'] + ".jpg' alt='" + datosPeliculas[posicion + (9*n_pagina)]['titulo'] + "'></a>";
+                    contenedor_img = contenedor_img + "<div class='overlay'>" + datosPeliculas[posicion + (9*n_pagina)]['titulo'] + "</div></div>"
+                    
                 }
+                posicion++;
                 pelicula_html = pelicula_html + "<div class='col'>" + contenedor_img + "</div>";  
             }
             row = row + pelicula_html + "</div>";
@@ -652,11 +596,12 @@
     function cambioPagina(direccion)
     {
         $('#boton_der').prop('disabled', false);
+        console.log(n_pagina);
         n_pagina += parseInt(direccion + 1);
-        //$('#n_pagina').text("Hola");
         $('#n_pagina').text(parseInt(n_pagina + 1));
         console.log(n_pagina);
-        if(n_pagina != 1)
+        filtrarPeliculas();
+        if(n_pagina != 0)
         {
             $('#boton_izq').prop('disabled', false);
         }
