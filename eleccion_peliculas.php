@@ -181,13 +181,98 @@
     <!-- ======= Lista Cines ======= -->
     <div id="fondo2"></div>
     <div id="contenedor">
-        <div class="seccion_cine">
-            <label for="name">Selecciona el Cine:&nbsp;</label>
-            <select id="eleccion_cine" name="cine" onchange="cambiaUbicacion()">
-            </select>
+        <div class="seccion_cine seccion_horizontal">
+            <div>
+                <label for="name">Selecciona el Cine:&nbsp;</label>
+                <select id="eleccion_cine" name="cine" onchange="obtenerLista('fecha')"></select>
+            </div>
+            &nbsp;&nbsp;&nbsp;
+            <div>
+                <label for="name">Selecciona la Fecha:&nbsp;</label>
+                <select id="eleccion_fecha" name="fecha" onchange="obtenerLista('hora')"></select>
+            </div>
+            &nbsp;&nbsp;&nbsp;
+            <div>
+                <label for="name">Selecciona el Horario:&nbsp;</label>
+                <select id="eleccion_horario" name="horario"></select>
+            </div>
+            &nbsp;&nbsp;&nbsp;
+            <button id="boton_filtro" class="text-right" onclick="filtrarPeliculas()"><i class="bi bi-search"></i></button>
         </div>
-        <br>
-        <iframe id="cuadro_ubicacion" src="" width="100%" height="500px" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <br><br>
+        <div id="contenedor_peliculas"></div>
+        <!-- <div class="row">
+            <div class="col">
+                <div class="img_container2">
+                    <a class="pelicula_cartelera0" href="#" value="2"><img src="assets/img/pelicula_default.jpg" alt="The Batman"></a>
+                    <div class="overlay">The Batman</div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="img_container2">
+                    <a class="pelicula_cartelera1" href="#" value="2"><img src="assets/img/pelicula_default.jpg" alt="The Batman"></a>
+                    <div class="overlay">The Batman</div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="img_container2">
+                    <a class="pelicula_cartelera2" href="#" value="2"><img src="assets/img/pelicula_default.jpg" alt="The Batman"></a>
+                    <div class="overlay">The Batman</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="img_container2">
+                    <a class="pelicula_cartelera0" href="#" value="2"><img src="assets/img/pelicula_default.jpg" alt="The Batman"></a>
+                    <div class="overlay">The Batman</div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="img_container2">
+                    <a class="pelicula_cartelera1" href="#" value="2"><img src="assets/img/pelicula_default.jpg" alt="The Batman"></a>
+                    <div class="overlay">The Batman</div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="img_container2">
+                    <a class="pelicula_cartelera2" href="#" value="2"><img src="assets/img/pelicula_default.jpg" alt="The Batman"></a>
+                    <div class="overlay">The Batman</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="img_container2">
+                    <a class="pelicula_cartelera0" href="#" value="2"><img src="assets/img/pelicula_default.jpg" alt="The Batman"></a>
+                    <div class="overlay">The Batman</div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="img_container2">
+                    <a class="pelicula_cartelera1" href="#" value="2"><img src="assets/img/pelicula_default.jpg" alt="The Batman"></a>
+                    <div class="overlay">The Batman</div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="img_container2">
+                    <a class="pelicula_cartelera2" href="#" value="2"><img src="assets/img/pelicula_default.jpg" alt="The Batman"></a>
+                    <div class="overlay">The Batman</div>
+                </div>
+            </div>
+        </div> -->
+        <br><br>
+        <div class="row align-items-center seccion_cine">
+            <div class="col">
+                <button id="boton_izq" onclick="cambioPagina('-')"><i class="bi bi-arrow-left-short"></i></button>
+            </div>
+            <div class="col text-center">
+                <p id="n_pagina">1</p>
+            </div>
+            <div class="col text-end">
+                <button id="boton_der" onclick="cambioPagina('+')"><i class="bi bi-arrow-right-short"></i></button>
+            </div>
+        </div>
     </div>
     <div id="fondo2"></div>
 
@@ -272,7 +357,12 @@
 
   <script>
     comprobarSesion(); 
-    obtenerListaCines();  
+    let n_pagina = 1;
+    limpiarSelector('eleccion_cine');
+    limpiarSelector('eleccion_fecha');
+    limpiarSelector('eleccion_horario');
+    obtenerLista('cine');  
+    filtrarPeliculas();
     $(document).ready(function(){
       
       $('#boton_registro').click(function(){
@@ -408,48 +498,182 @@
       });
     }
 
-    function obtenerListaCines(){
+    function obtenerLista(tabla){
+        var selector = "";
+        var idcine = $('#eleccion_cine option:selected').val();
+        var fecha = $('#eleccion_fecha option:selected').val();
+        console.log(idcine + ", " + fecha);
+
+        switch(tabla)
+        {
+            case "cine":
+                selector = "eleccion_cine";
+                break;
+            case "fecha":
+                selector = "eleccion_fecha";
+                break;
+            case "hora":
+                selector = "eleccion_horario";
+                break;
+        }
+
+        limpiarSelector(selector);
+        if(tabla == 'cine')
+        {
+            $.ajax(
+            { 
+                url:"cine_funciones.php",  
+                type:"POST",
+                data: {funcion:"obtener_lista_cines"},
+                success:function(msg) 
+                {
+                    //console.log("DATOS CINE: " + msg);
+                    if($.parseJSON(msg) != "no")
+                    {
+                        let datos = $.parseJSON(msg);
+                        for(let i=0; i<datos.length; i++)
+                        {
+                            var opt = document.createElement('option');
+                            var info = datos[i]['ciudad'];
+                            if(datos[i]['nombre'] != null)
+                            {
+                                info = datos[i]['ciudad'] + " - " + datos[i]['nombre'];
+                            }
+                            opt.appendChild(document.createTextNode(info));
+                            opt.value = (datos[i]['id_cine']) + ''; 
+                            document.getElementById(selector).appendChild(opt);
+                        }
+                    }
+                    else
+                    {
+                        $(selector + ' #vacio').text('No hay cines disponibles');
+                    }
+                }  
+            });
+        }
+        
+        else
+        {
+            if(idcine != "-")
+            {
+                $.ajax(
+                { 
+                    url:"cine_funciones.php",  
+                    type:"POST",
+                    data: {funcion:"obtener_lista_horarios", idcine:idcine, fecha:fecha},
+                    success:function(msg) 
+                    {
+                        //console.log("DATOS CINE: " + msg);
+                        //console.log(tabla);
+                        if($.parseJSON(msg) != "no")
+                        {
+                            let datos = $.parseJSON(msg);
+                            for(let i=0; i<datos.length; i++)
+                            {
+                                var opt = document.createElement('option');
+                                opt.appendChild(document.createTextNode(datos[i][tabla]));
+                                opt.value = (datos[i][tabla]) + ''; 
+                                document.getElementById(selector).appendChild(opt);
+                            }
+                        }
+                        else
+                        {
+                            $(selector + ' #vacio').text('No hay sesiones disponibles');
+                        }
+                    }  
+                });
+            }
+        }
+    }
+
+    function filtrarPeliculas()
+    {
+        var idcine = $('#eleccion_cine option:selected').val();
+        var fecha = $('#eleccion_fecha option:selected').val();
+        var hora = $('#eleccion_horario option:selected').val();
+
         $.ajax(
         {  
             url:"cine_funciones.php",  
             type:"POST",
-            data: {funcion:"obtener_lista_cines"},
+            data: {funcion:"obtener_peliculas", idcine:idcine, fecha:fecha, hora:hora},
             success:function(msg) 
             {
-                //console.log("DATOS CINE: " + msg);
+                console.log("DATOS CINE: " + msg);
                 if($.parseJSON(msg) != "no")
                 {
                     let datos = $.parseJSON(msg);
-                    for(let i=0; i<datos.length; i++)
-                    {
-                        var opt = document.createElement('option');
-                        var info = datos[i]['ciudad'];
-                        if(datos[i]['nombre'] != null)
-                        {
-                            info = datos[i]['ciudad'] + " - " + datos[i]['nombre'];
-                        }
-                        opt.appendChild(document.createTextNode(info));
-                        opt.value = (datos[i]['ubicacion']) + ''; 
-                        document.getElementById('eleccion_cine').appendChild(opt);
-                    }
-                    $('#cuadro_ubicacion').attr("src", "https://www.google.com/maps/embed?pb=" + datos[0]['ubicacion']);
+                    formacionPeliculas(datos);
                 }
                 else
                 {
-                    alert("No hay cines disponibles");
-                    document.getElementById('boton_inicio').click();
+                    alert("No hay películas disponibles");
                 }
             }  
         });
     }
 
-    function cambiaUbicacion()
+    function formacionPeliculas(datosPeliculas)
     {
-        var seleccionUbicacion = $('#eleccion_cine option:selected').val();
-        if(seleccionUbicacion != "")
+        var contenedor_peliculas = document.getElementById('contenedor_peliculas');
+        contenedor_peliculas.innerHTML = "";
+        console.log(datosPeliculas);
+
+        let filas = Math.ceil((datosPeliculas.length)/3);
+        if(filas < 3)
         {
-            $('#cuadro_ubicacion').attr("src", "https://www.google.com/maps/embed?pb=" + seleccionUbicacion);
+            filas = 3;
         }
+        var total_html = "";
+        for(let i = 1; i < filas; i++)
+        {
+            var row = "<div class='row'>";
+            var pelicula_html = "";
+            
+            for(let j = 3; j > 0; j--)
+            {        
+                let posicion = ((n_pagina*3)*i)-j;
+                console.log(posicion + ", " + filas + ", " + j + ", " + datosPeliculas.length);
+                var contenedor_img = "";
+                if(datosPeliculas.length > posicion)
+                {
+                    console.log(datosPeliculas[posicion]['titulo']);
+                    contenedor_img = contenedor_img + "<div class='img_container2'><a href='pelicula.php?pelicula=" + datosPeliculas[posicion]['id_pelicula'] + "' value='" + datosPeliculas[posicion]['id_pelicula'] + "'><img src='assets/img/pelicula" + datosPeliculas[posicion]['id_pelicula'] + ".jpg' alt='" + datosPeliculas[posicion]['titulo'] + "'></a>";
+                    contenedor_img = contenedor_img + "<div class='overlay'>" + datosPeliculas[posicion]['titulo'] + "</div></div>"
+                }
+                pelicula_html = pelicula_html + "<div class='col'>" + contenedor_img + "</div>";  
+            }
+            row = row + pelicula_html + "</div>";
+            total_html = total_html + row;
+        }
+        contenedor_peliculas.insertAdjacentHTML("afterbegin",total_html);  
+    }
+
+    function cambioPagina(direccion)
+    {
+        $('#boton_der').prop('disabled', false);
+        n_pagina += parseInt(direccion + 1);
+        //$('#n_pagina').text("Hola");
+        $('#n_pagina').text(parseInt(n_pagina + 1));
+        console.log(n_pagina);
+        if(n_pagina != 1)
+        {
+            $('#boton_izq').prop('disabled', false);
+        }
+        else
+        {
+            $('#boton_izq').prop('disabled', true);
+        }
+    }
+
+    function limpiarSelector(id_selector)
+    {
+        $("#" + id_selector).empty();
+        var opt = document.createElement('option');
+        opt.appendChild(document.createTextNode('-'));
+        opt.value = '-';
+        opt.setAttribute("id","vacio");
+        document.getElementById(id_selector).appendChild(opt);
     }
   </script>
 </body>

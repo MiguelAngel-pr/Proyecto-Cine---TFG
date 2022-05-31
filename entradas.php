@@ -160,7 +160,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
         <a id="boton_inicio" href="index.php"><img style="width:75px" src="assets/img/cineGalaxy.png" alt=""></a>
         <nav id="navbar" class="navbar">
           <ul>
-            <li><a class="nav-link scrollto" href="">Todas las Películas</a></li>
+            <li><a class="nav-link scrollto" href="eleccion_peliculas.php">Todas las Películas</a></li>
             <li><a class="nav-link scrollto" href="">Proximos Estrenos</a></li>
             <li><a class="nav-link scrollto " href="contacto.php">Contacto</a></li>
             <li><a class="nav-link scrollto" href="lista_cines.php">Lista de Cines</a></li>
@@ -294,11 +294,8 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
 
   <script>
     $(document).ready(function(){
-      
       comprobarSesion();
       obtenerDatosCompra();
-      //console.log(getCookie("sesion_activa[usuario_nombre]"));
-      //document.getElementById('cuadro_nombre').value = getCookie("sesion_activa[usuario_nombre]");
     
       $('#boton_registro').click(function(){
         $('#error2').css('display','none');
@@ -410,20 +407,16 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
         else
         {
           //Conseguir asientos seleccionados
-          var filas = $('.row').length;
           var filaSeleccionada = document.querySelectorAll(".row");
           let array_asientos = new Array(asientosSeleccionados);
           let x = 0;
-          for(let i = 0; i < filas; i++)
+          for(let i = 0; i < filaSeleccionada.length; i++)
           {
-            var asientos = filaSeleccionada[i].querySelectorAll(".seat").length;
             var asientoSeleccionado = filaSeleccionada[i].querySelectorAll(".seat");
-            for(let j = 0; j < asientos; j++)
+            for(let j = 0; j < asientoSeleccionado.length; j++)
             {
-              //console.log(asientoSeleccionado[j].className);
               if(asientoSeleccionado[j].className == 'seat selected')
               {
-                //console.log(x);
                 array_asientos[x] = new Array(2);
                 array_asientos[x][0] = i;
                 array_asientos[x][1] = j;
@@ -433,11 +426,9 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
             }
           }
           var error = "no";
-          //console.log(array_asientos);
-          //console.log(asientosSeleccionados + ", " + array_asientos[0][0]);
+          console.log(array_asientos);
           for(let i = 0; i < asientosSeleccionados; i++)
           {
-            //console.log("Vuelta " + i);
             $.ajax(
             {  
               url:"entradas_funciones.php",  
@@ -461,7 +452,8 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
           else
           {
             alert("El envio ha sido tramitado correctamente");
-            //document.getElementById('boton_inicio').click();   
+            //location.reload(); <- Para pruebas
+            document.getElementById('boton_inicio').click();   
           }
         }
       }); 
@@ -508,7 +500,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
         data: {funcion:"obtener_valores"},
         success:function(msg) 
         {
-          //console.log("MSG: " + msg);
+          console.log("MSG: " + msg);
           if(msg == "no")
           {
             alert("La sesión no esta disponible");

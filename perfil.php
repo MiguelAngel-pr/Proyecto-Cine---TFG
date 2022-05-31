@@ -60,7 +60,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
         <a id="boton_inicio" href="index.php"><img style="width:75px" src="assets/img/cineGalaxy.png" alt=""></a>
         <nav id="navbar" class="navbar">
           <ul>
-            <li><a class="nav-link scrollto" href="">Todas las Películas</a></li>
+            <li><a class="nav-link scrollto" href="eleccion_peliculas.php">Todas las Películas</a></li>
             <li><a class="nav-link scrollto" href="">Proximos Estrenos</a></li>
             <li><a class="nav-link scrollto " href="contacto.php">Contacto</a></li>
             <li><a class="nav-link scrollto" href="lista_cines.php">Lista de Cines</a></li>

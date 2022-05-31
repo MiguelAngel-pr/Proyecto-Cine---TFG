@@ -60,7 +60,7 @@
         <a id="boton_inicio" href="index.php"><img style="width:75px" src="assets/img/cineGalaxy.png" alt=""></a>
         <nav id="navbar" class="navbar">
           <ul>
-            <li><a class="nav-link scrollto" href="">Todas las Películas</a></li>
+            <li><a class="nav-link scrollto" href="eleccion_peliculas.php">Todas las Películas</a></li>
             <li><a class="nav-link scrollto" href="">Proximos Estrenos</a></li>
             <li><a class="nav-link scrollto " href="contacto.php">Contacto</a></li>
             <li><a class="nav-link scrollto" href="lista_cines.php">Lista de Cines</a></li>
@@ -79,10 +79,147 @@
       </div>
     </header>
 
-    <div id="fondo2"></div>
   <!-- ======= Mis Entradas ======= -->
+    <div id="fondo2"></div>
     <div id="contenedor">
-        
+        <table id="tabla_entradas" class="table table-hover table-dark">
+            <thead>
+                <tr>
+                    <th scope="col">Nº Sala</th>
+                    <th scope="col">Fila</th>
+                    <th scope="col">Nº Asiento</th>
+                    <th scope="col">Hora</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Idioma</th>
+                    <th scope="col">Cine</th>
+                    <th scope="col">Película</th>
+                    <th scope="col">Usuario</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>-</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>-</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>-</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>-</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>-</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>-</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>-</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>-</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>-</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>-</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="row align-items-center">
+            <div class="col">
+                <button id="boton_izq" onclick="cambioPagina('-')"><i class="bi bi-arrow-left-short"></i></button>
+            </div>
+            <div class="col text-center">
+                <p id="n_pagina">1</p>
+            </div>
+            <div class="col text-end">
+                <button id="boton_der" onclick="cambioPagina('+')"><i class="bi bi-arrow-right-short"></i></button>
+            </div>
+        </div>
     </div>
     <div id="fondo2"></div>
 
@@ -166,9 +303,26 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
 
   <script>
+    $('#boton_izq').prop('disabled', true);
+    let n_pagina = 0;
     comprobarSesion(); 
+    construyeTabla();
     $(document).ready(function(){
-      
+        $('#boton_logout').click(function(){
+        $.ajax(
+        {  
+          url:"login.php",  
+          type:"POST",  
+          data: {funcion:"logout"},  
+          success:function(msg) 
+          { 
+            if(msg == 'ok')
+            {
+              document.getElementById('boton_inicio').click();
+            }
+          }
+        });
+      });
     });
 
     function comprobarSesion(){
@@ -206,6 +360,88 @@
           }
         }
       });
+    }
+
+    function construyeTabla(){
+      $.ajax(
+      {  
+        url:"entradas_funciones.php",  
+        type:"POST",
+        data: {funcion:"obtener_entradas_usuario"},
+        success:function(msg) 
+        {
+          console.log("DATOS: " + msg);
+          if(msg != "no")
+          {
+            var datos_tabla = $.parseJSON(msg);
+            console.log("DATOS1" + datos_tabla.length + ", " + n_pagina);
+            if(datos_tabla.length <= (9*(n_pagina+1)))
+            {
+                $('#boton_der').prop('disabled', true);
+            }
+            formacionTabla(datos_tabla);
+          }
+          else
+          {
+            $('#boton_der').prop('disabled', true);
+            if(n_pagina != 0)
+            {
+                limpiaTabla();
+            }
+          }
+        }
+      });
+    }
+    
+    function formacionTabla(datos_tabla)
+    {
+        console.log("DATOS2" + datos_tabla.length + ", " + n_pagina);
+        if(datos_tabla.length >= (9*n_pagina))
+        {
+            var titulos = document.querySelectorAll("thead tr th");
+            var filaSeleccionada = document.querySelectorAll("tbody tr");
+            for(let i = 0; i < filaSeleccionada.length; i++)
+            {
+                var columnaSeleccionada = filaSeleccionada[i].querySelectorAll("td");
+                for(let j = 0; j < columnaSeleccionada.length; j++)
+                {
+                    
+                    if(i < datos_tabla.length - (9*n_pagina))
+                    {
+                        columnaSeleccionada[j].textContent = datos_tabla[i + (9*n_pagina)][j];
+                    }
+                }
+            }
+        }
+        else
+        {
+            $('#boton_der').prop('disabled', true);
+        }
+    }
+
+    function cambioPagina(direccion)
+    {
+        $('#boton_der').prop('disabled', false);
+        n_pagina += parseInt(direccion + 1);
+        //$('#n_pagina').text("Hola");
+        $('#n_pagina').text(parseInt(n_pagina + 1));
+        console.log(n_pagina);
+        construyeTabla();
+        limpiaTabla();
+        if(n_pagina != 0)
+        {
+            $('#boton_izq').prop('disabled', false);
+        }
+        else
+        {
+            $('#boton_izq').prop('disabled', true);
+        }
+    }
+
+    function limpiaTabla()
+    {
+        $('#tabla_entradas').find('td').empty();
+        $('#tabla_entradas').find('td:first-child').text('-');
     }
   </script>
 </body>

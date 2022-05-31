@@ -160,7 +160,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
         <a id="boton_inicio" href="index.php"><img style="width:75px" src="assets/img/cineGalaxy.png" alt=""></a>
         <nav id="navbar" class="navbar">
           <ul>
-            <li><a class="nav-link scrollto" href="">Todas las Películas</a></li>
+            <li><a class="nav-link scrollto" href="eleccion_peliculas.php">Todas las Películas</a></li>
             <li><a class="nav-link scrollto" href="">Proximos Estrenos</a></li>
             <li><a class="nav-link scrollto " href="contacto.php">Contacto</a></li>
             <li><a class="nav-link scrollto" href="lista_cines.php">Lista de Cines</a></li>
@@ -450,13 +450,13 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
 
         const hoy = new Date(Date.now());
         let hoy2 = new Date(hoy.getTime() - 30*60000);//La fecha de hoy 30 min antes
-        const diaActual = 9 //hoy.getDay();
+        const diaActual = hoy.getDay(); //9 <- Para pruebas
         const horaLimite = hoy2.toLocaleTimeString();
-        //console.log(hora+", "+horaLimite+", "+dia+", "+diaActual);
+        console.log(hora+", "+horaLimite+", "+dia+", "+diaActual);
         
         if(seleccion_horario != "-" && seleccion_horario.includes(" | "))
         {
-          if(diaActual == dia && horaLimite > hora)
+          if(diaActual == dia && horaLimite < hora) //Si la película es hoy solo permitirá comprar entradas 30 min antes del inicio de la sesión
           {
             alert("La sesión ya esta en curso");
           }
@@ -470,11 +470,9 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
               data: {funcion:"preparar_compra", cine:id_cine, hora:hora, sala:id_sala, pelicula:idpelicula},  
               success:function(msg) 
               { 
-                //console.log(msg);
+                console.log(msg);
                 if(msg == 'ok')
                 {
-                  $('#boton_modal').css('display','block'); 
-                  $('#menu_usuario').css('display','none'); 
                   location.href = "entradas.php";
                 }
                 else

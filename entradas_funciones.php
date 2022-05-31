@@ -9,6 +9,7 @@ switch ($funcion)
     case "obtener_valores":obtenerValores(); break;
     case "añadir_entradas":añadirEntrada(); break;
     case "obtener_asientos_vendidos":obtenerAsientosVendidos(); break;
+    case "obtener_entradas_usuario":obtenerEntradasUsuario(); break;
 }
 
 function prepararCompra()
@@ -53,8 +54,7 @@ function obtenerAsientosVendidos()
     else
     {
         echo "no";
-    }
-    
+    } 
 }
 
 function obtenerValores()
@@ -138,6 +138,31 @@ function obtenerUsuarioId()
     {
         return $msg["id_usuario"];
     }
+}
+
+function obtenerEntradasUsuario()
+{
+    if(isset($_SESSION['username']))
+    {
+        $usuario = obtenerUsuarioId();
+    }
+    $mysqli = conectaBBDD(); 
+    $query = "SELECT e.n_sala, e.asiento_fila, e.asiento_columna, h.hora, h.fecha , h.idioma, c.ciudad, p.titulo, u.nombre_usuario FROM entradas e INNER JOIN horario h, cine c, pelicula p, usuarios u WHERE u.id_usuario = $usuario AND e.id_usuario = $usuario AND e.id_pelicula = p.id_pelicula AND e.id_cine = c.id_cine AND e.id_horario = h.id ORDER BY fecha asc, hora asc";
+    $consulta = mysqli_query($mysqli, $query);
+    $numEntradas = $consulta -> num_rows;
+    
+    if($numEntradas > 0)
+    {
+        for ($i = 0; $i < $numEntradas; $i++)
+        {
+            $msg[] = mysqli_fetch_row($consulta);
+        }
+        echo json_encode($msg, JSON_UNESCAPED_UNICODE);
+    }
+    else
+    {
+        echo "no";
+    } 
 }
 
 ?>
