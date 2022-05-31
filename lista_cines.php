@@ -408,7 +408,7 @@
       });
     }
 
-    function obtenerListaCines(){
+    function obtenerListaCines(){//obtiene la lista de cienes y la ubicacion
         $.ajax(
         {  
             url:"cine_funciones.php",  
@@ -443,7 +443,7 @@
         });
     }
 
-    function cambiaUbicacion()
+    function cambiaUbicacion()//dependiendo del cine elegido, la ubicación cambia
     {
         var seleccionUbicacion = $('#eleccion_cine option:selected').val();
         if(seleccionUbicacion != "")

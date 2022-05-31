@@ -398,7 +398,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
         });
       });
 
-      $('#boton_compra').click(function(){
+      $('#boton_compra').click(function(){//realiza la petición de compra y obtiene los asientos seleccionados para actualizarlos a vendidos
         var asientosSeleccionados = JSON.parse(localStorage.getItem("selectedSeats")).length;
         if(asientosSeleccionados == 0)
         {
@@ -459,7 +459,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
       }); 
     });
 
-    function comprobarSesion(){
+    function comprobarSesion(){//Comprueba si estas conectado para cambiar entre el boton de iniciar sesión y el menú de usuario.
       $.ajax(
       {  
         url:"login.php",  
@@ -491,7 +491,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
       });
     }
 
-    function obtenerDatosCompra()
+    function obtenerDatosCompra()//obtiene los datos de compra y los coloca
     {
       $.ajax(
       {  
@@ -548,7 +548,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
       });
     }
 
-    function formacionAsientos(asientos_vendidos, datos)
+    function formacionAsientos(asientos_vendidos, datos)//forma la estructura de los asientos a partir del nº de filas y columnas
     {
       var vendido = "";
       let n_asientos = 0;

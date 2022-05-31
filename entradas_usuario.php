@@ -325,7 +325,7 @@
       });
     });
 
-    function comprobarSesion(){
+    function comprobarSesion(){//Comprueba si estas conectado para enviarte al inicio o no
       $.ajax(
       {  
         url:"login.php",  
@@ -393,7 +393,7 @@
       });
     }
     
-    function formacionTabla(datos_tabla)
+    function formacionTabla(datos_tabla)//forma la tabla a partir de las entradas compradas por el usuario
     {
         console.log("DATOS2" + datos_tabla.length + ", " + n_pagina);
         if(datos_tabla.length >= (9*n_pagina))

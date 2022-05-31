@@ -14,7 +14,7 @@ switch ($funcion)
     case "consulta_tabla":consultaTabla(); break;
     case "obtener_avatar":obtenerUsuarioAvatar(); break;
 }
-function login()
+function login()//Realiza el inicio de sesión
 {
     $usuario_nombre = limpiaPalabra($_POST['username']);
     $usuario_password = limpiaPalabra($_POST['password']);
@@ -22,11 +22,10 @@ function login()
 
     $mysqli = conectaBBDD(); //me conecto a la base de datos
 
-    //Consulta Bien Hecha
     $consultaUsuario = $mysqli ->prepare("SELECT nombre_usuario, contraseña, avatar FROM usuarios WHERE nombre_usuario = '$usuario_nombre' or email = '$usuario_nombre'");
     $consultaUsuario -> execute();
-    $consultaUsuario -> store_result();//guarda el resultado en la query
-    $consultaUsuario -> bind_result($user_name, $user_pass, $user_avatar);//guarda en variables la consulta
+    $consultaUsuario -> store_result();
+    $consultaUsuario -> bind_result($user_name, $user_pass, $user_avatar);
     $consultaUsuario->fetch();
     $numUsuarios = $consultaUsuario -> num_rows;
 
@@ -65,7 +64,7 @@ function login()
     echo $msg;
 }
 
-function registro()
+function registro()//Realiza el registro de una nueva cuenta
 {
     $usuario_nombre = limpiaPalabra($_POST['newusername']);
     $usuario_email = limpiaPalabra($_POST['newemail']);
@@ -84,7 +83,7 @@ function registro()
         {
             $_SESSION['username'] = $usuario_nombre;
             $user_name_pass = password_hash($usuario_nombre, PASSWORD_BCRYPT);
-            setcookie("sesion_activa[usuario_nombre]", $usuario_nombre, time()+3600);
+            setcookie("sesion_activa[usuario_nombre]", $usuario_nombre, time()+3600);//1 hora
             setcookie("sesion_activa[usuario_nombre_pass]", $user_name_pass, time()+3600);
             $msg = "ok";
         }
@@ -96,7 +95,7 @@ function registro()
     echo $msg;
 }
 
-function logout()
+function logout()//destruye todas las cookies y sesiones para cerrar la sesión
 {  
     desactivaCookies();
     $_SESSION=[];
@@ -105,7 +104,7 @@ function logout()
     echo $msg;
 }
 
-function comprobarSesion()
+function comprobarSesion()//comprueba que la sesión este activa
 {
     if (isset($_COOKIE['sesion_activa'])) 
     {
@@ -126,9 +125,9 @@ function comprobarSesion()
     echo $msg;
 }
 
-function actualizaValores()
+function actualizaValores()//modifica los datos del usuario
 {
-    $mysqli = conectaBBDD(); //me conecto a la base de datos
+    $mysqli = conectaBBDD();
     $msg = "no";
 
     $usuario_actual = limpiaPalabra($_SESSION['userid']);
@@ -165,7 +164,7 @@ function actualizaValores()
     echo $msg;
 }
 
-function consultaTabla()
+function consultaTabla()//recoge todos los valores del usuario para la ventana de perfil
 {
     $mysqli = conectaBBDD();
     $consulta = $mysqli ->prepare("SELECT * FROM usuarios WHERE nombre_usuario = ?");
@@ -184,7 +183,7 @@ function consultaTabla()
     echo json_encode($msg, JSON_UNESCAPED_UNICODE);
 }
 
-function actualizaContraseña()
+function actualizaContraseña()//actualiza la contraseña del usuario
 {
     $msg = "no";
     $mysqli = conectaBBDD(); 
@@ -214,7 +213,7 @@ function actualizaContraseña()
     }
 }
 
-function obtenerUsuarioAvatar()
+function obtenerUsuarioAvatar()//obtiene la imagen de perfil si existe
 {
     $mysqli = conectaBBDD(); 
     $usuario_actual = limpiaPalabra($_SESSION['username']);

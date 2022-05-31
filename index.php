@@ -466,7 +466,7 @@
       });
     });
 
-    function comprobarSesion(){
+    function comprobarSesion(){//Comprueba si estas conectado para cambiar entre el boton de iniciar sesión y el menú de usuario.
       $.ajax(
       {  
         url:"login.php",  
@@ -490,7 +490,7 @@
                 if(msg != "no")
                 {
                   //console.log(msg);
-                  document.getElementById('avatar').src = msg;
+                  document.getElementById('avatar').src = msg;//Si el usuario tiene una foto de perfil se la pondrá
                 }
               }
             });

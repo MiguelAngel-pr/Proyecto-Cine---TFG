@@ -40,9 +40,8 @@ function comprobarExistencia($tabla,$campo,$valor)//Comprueba si el valor esta r
     return $msg;
 }
 
-function desactivaCookies()
+function desactivaCookies()//Desactiva todas las cookies de la página
 {
-    //Desactivar todas las cookies de la página
     if (isset($_SERVER['HTTP_COOKIE'])) 
     { 
         $cookies = explode(';', $_SERVER['HTTP_COOKIE']); 

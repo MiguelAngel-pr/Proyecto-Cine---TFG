@@ -12,7 +12,7 @@ switch ($funcion)
     case "obtener_entradas_usuario":obtenerEntradasUsuario(); break;
 }
 
-function prepararCompra()
+function prepararCompra()//manda todos los datos para generar la sala y los asientos, y poder mostrar la información de esta
 {
     $msg = "no";
     $id_cine = limpiaPalabra($_POST['cine']);
@@ -35,7 +35,7 @@ function prepararCompra()
     echo $msg;
 }
 
-function obtenerAsientosVendidos()
+function obtenerAsientosVendidos()//obtiene todos los asientos ya vendidos
 {
     $id_horario = limpiaPalabra($_POST['horario']);
     $mysqli = conectaBBDD(); 
@@ -57,7 +57,7 @@ function obtenerAsientosVendidos()
     } 
 }
 
-function obtenerValores()
+function obtenerValores()//obtiene los valores de la entrada
 {   
     if(isset($_COOKIE['entrada_valores']))
     {
@@ -69,7 +69,7 @@ function obtenerValores()
     } 
 }
 
-function añadirEntrada()
+function añadirEntrada()//realiza la petición de la entrada. Dependiendo de si el usuario esta conectado o no se pondrá su id para identificar al propietario de la entrada
 {
     $msg = "no";
     $usuario = 'NULL';
@@ -110,7 +110,7 @@ function añadirEntrada()
     echo $msg;
 }
 
-function comprobarExistenciaEntrada($id_horario, $fila, $columna)
+function comprobarExistenciaEntrada($id_horario, $fila, $columna)//Comprueba la existencia de la entrada para asegurarse que no este cogida ya
 {
     $mysqli = conectaBBDD(); //me conecto a la base de datos
     $query = "SELECT cod_entrada FROM entradas WHERE id_horario = '$id_horario' AND asiento_fila = '$fila' AND asiento_columna = '$columna'";
@@ -124,7 +124,7 @@ function comprobarExistenciaEntrada($id_horario, $fila, $columna)
     return $msg;
 }
 
-function obtenerUsuarioId()
+function obtenerUsuarioId()//obtiene el usuario id del usuario que esta conectado
 {
     $mysqli = conectaBBDD(); 
     $usuario_actual = limpiaPalabra($_SESSION['username']);
@@ -140,7 +140,7 @@ function obtenerUsuarioId()
     }
 }
 
-function obtenerEntradasUsuario()
+function obtenerEntradasUsuario()//obtiene las entradas del usuario
 {
     if(isset($_SESSION['username']))
     {

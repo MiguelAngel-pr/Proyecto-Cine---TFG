@@ -367,25 +367,25 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
       });
     });
 
-    function getCookie(cname) 
-    {
+    // function getCookie(cname) 
+    // {
       
-      let name = cname + "=";
-      let decodedCookie = decodeURIComponent(document.cookie);
-      let ca = decodedCookie.split(';');
-      for(let i = 0; i <ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) == ' ') {
-          c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-          return c.substring(name.length, c.length);
-        }
-      }
-      return "";
-    }
+    //   let name = cname + "=";
+    //   let decodedCookie = decodeURIComponent(document.cookie);
+    //   let ca = decodedCookie.split(';');
+    //   for(let i = 0; i <ca.length; i++) {
+    //     let c = ca[i];
+    //     while (c.charAt(0) == ' ') {
+    //       c = c.substring(1);
+    //     }
+    //     if (c.indexOf(name) == 0) {
+    //       return c.substring(name.length, c.length);
+    //     }
+    //   }
+    //   return "";
+    // }
 
-    function cambioImagen(target) 
+    function cambioImagen(target) //si la imagen tiene el peso correcto cambia la imagen anterior por la nueva
     {
       var imagen = target.files[0];
       var peso = target.files[0].size;
@@ -401,7 +401,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
       }
     }
 
-    function loadImage(imagen) 
+    function loadImage(imagen) //carga la imagen si esta tiene las dimensiones correctas
     {
       var _url = window.URL || window.webkitURL;
       var img = new Image();
@@ -428,7 +428,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
       } 
     }
 
-    function comprobarSesion(){
+    function comprobarSesion(){//Comprueba si estas conectado para desconectarte o no
       $.ajax(
       {  
         url:"login.php",  
@@ -476,7 +476,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
       });
     }
 
-    function seleccionaOpcionActual(nombre, valor)
+    function seleccionaOpcionActual(nombre, valor)//selecciona en el selector la opcion que le digas
     {
       
       var lg_selector = document.getElementById(nombre).length;

@@ -495,31 +495,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
       });
     });
 
-    function getCookie(cname) 
-    {
-      try
-      {
-        let name = cname + "=";
-        let decodedCookie = decodeURIComponent(document.cookie);
-        let ca = decodedCookie.split(';');
-        for(let i = 0; i <ca.length; i++) {
-          let c = ca[i];
-          while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-          }
-          if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-          }
-        }
-      }
-      catch (e)
-      {
-        return "no";
-      }   
-      return "no";
-    }
-
-    function comprobarSesion(){
+    function comprobarSesion(){//Comprueba si estas conectado para cambiar entre el boton de iniciar sesión y el menú de usuario.
       $.ajax(
       {  
         url:"login.php",  
@@ -550,7 +526,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
         }
       });
   
-      $.ajax(
+      $.ajax(//coloca los datos obtenidos de la película seleccionada
       { 
         
         url:"cine_funciones.php",  
@@ -609,7 +585,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
       });
     }
 
-    function seleccionaOpcionActual(nombre, valor)
+    function seleccionaOpcionActual(nombre, valor)//selecciona en el selector la opcion que le digas
     {
       var lg_selector = document.getElementById(nombre).length;
       for(var i=0; i<lg_selector; i++)
@@ -621,13 +597,13 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
       }
     }
 
-    function actualizaValorImbd()
+    function actualizaValorImbd()//actualiza el valor de Imdb con el campo de BBDD
     {
       (function(d,s,id){var js,stags=d.getElementsByTagName(s)[0];if(d.getElementById(id)){return;}js=d.createElement(s);js.id=id;js.src="https://ia.media-imdb.com/images/G/01/imdb/plugins/rating/js/rating.js";stags.parentNode.insertBefore(js,stags);})
       (document,"script","imdb-rating-api");
     }
 
-    function obtenerLista(idpelicula)
+    function obtenerLista(idpelicula)//obtiene la lista de los cines y los coloca en el selector
     {
       $.ajax(
       { 
@@ -664,7 +640,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
       });
     }
 
-    function cambiaHorario()
+    function cambiaHorario()//dependiendo del cine elegido obtiene los horarios de este y los coloca en el selector
     {
       var seleccionValor = $('#cuadro_cine option:selected').val();
       var opcionSeleccionada = $('#cuadro_cine option:selected').text();
@@ -713,7 +689,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
       }
     }
 
-    function deshabilitarPelicula()
+    function deshabilitarPelicula()//si la película no esta disponible desactiva su compra
     {
       $('#boton_comprar').prop('disabled', true);
       $('#cuadro_cine').prop('disabled', true);

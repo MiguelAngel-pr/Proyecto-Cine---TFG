@@ -13,7 +13,7 @@ switch ($funcion)
     case "obtener_peliculas":obtenerPeliculas(); break;
 }
 
-function consultaPelicula()
+function consultaPelicula()//obtiene todos los datos de la película elegida
 {
     $mysqli = conectaBBDD();
     $id_pelicula = $_POST['idpelicula'];
@@ -31,7 +31,7 @@ function consultaPelicula()
     echo json_encode($msg, JSON_UNESCAPED_UNICODE);
 }
 
-function obtenerCines()
+function obtenerCines()//obtiene todos los cines disponibles para la película elegida
 {
     $mysqli = conectaBBDD();
     $id_pelicula = limpiaPalabra($_POST['idpelicula']);
@@ -54,7 +54,7 @@ function obtenerCines()
     echo json_encode($msg, JSON_UNESCAPED_UNICODE);
 }
 
-function obtenerHorarios()
+function obtenerHorarios()//obtiene una lista de los horarios dependiendo de la película elegida
 {
     $mysqli = conectaBBDD();
     $id_pelicula = limpiaPalabra($_POST['idpelicula']);
@@ -80,7 +80,7 @@ function obtenerHorarios()
     echo json_encode($msg, JSON_UNESCAPED_UNICODE);
 }
 
-function obtenerListaCines()
+function obtenerListaCines()//obtiene una lista de todos los cines disponibles
 {
     $mysqli = conectaBBDD();
     $query = "SELECT * FROM cine";
@@ -101,7 +101,7 @@ function obtenerListaCines()
     echo json_encode($msg, JSON_UNESCAPED_UNICODE);
 }
 
-function obtenerListaHorarios()
+function obtenerListaHorarios()//obtiene una lista de los horarios o las fechas para colocarla en el selector
 {
     $mysqli = conectaBBDD();
     $id_cine = limpiaPalabra($_POST['idcine']);
@@ -130,7 +130,7 @@ function obtenerListaHorarios()
     echo json_encode($msg, JSON_UNESCAPED_UNICODE);
 }
 
-function obtenerPeliculas()
+function obtenerPeliculas()//obtiene una lista de películas con un filtro
 {
     $mysqli = conectaBBDD();
     $id_cine = limpiaPalabra($_POST['idcine']);

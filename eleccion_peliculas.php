@@ -406,7 +406,7 @@
       });
     });
 
-    function comprobarSesion(){
+    function comprobarSesion(){//Comprueba si estas conectado para cambiar entre el boton de iniciar sesión y el menú de usuario.
       $.ajax(
       {  
         url:"login.php",  
@@ -429,7 +429,7 @@
               {
                 if(msg != "no")
                 {
-                  document.getElementById('avatar').src = msg;
+                  document.getElementById('avatar').src = msg;//Si el usuario tiene una foto de perfil se la pondrá
                 }
               }
             });
@@ -438,7 +438,7 @@
       });
     }
 
-    function obtenerLista(tabla){
+    function obtenerLista(tabla){//Obtiene la lista para los filtros
         var selector = "";
         var idcine = $('#eleccion_cine option:selected').val();
         var fecha = $('#eleccion_fecha option:selected').val();
@@ -526,8 +526,7 @@
         }
     }
 
-    function filtrarPeliculas()
-    {
+    function filtrarPeliculas(){//Dependiendo de lo que halla en los filtros añadirá condiciones a la query
         var idcine = $('#eleccion_cine option:selected').val();
         var fecha = $('#eleccion_fecha option:selected').val();
         var hora = $('#eleccion_horario option:selected').val();
@@ -553,11 +552,11 @@
         });
     }
 
-    function formacionPeliculas(datosPeliculas)
+    function formacionPeliculas(datosPeliculas)//forma toda la estructura del contenedor de películas, el nº dependerá del filtro. Como max 9 por cada pág
     {
         var contenedor_peliculas = document.getElementById('contenedor_peliculas');
         contenedor_peliculas.innerHTML = "";
-        console.log(datosPeliculas);
+        //console.log(datosPeliculas);
         let filas = 3;
         let resto = datosPeliculas.length%9;
         if(resto != 0 && n_pagina > 0)
@@ -566,7 +565,7 @@
             $('#boton_der').prop('disabled', true);
         }
         
-        console.log(filas);
+        //console.log(filas);
         let posicion = 0;
         var total_html = "";
         for(let i = 0; i < filas; i++)
@@ -593,7 +592,7 @@
         contenedor_peliculas.insertAdjacentHTML("afterbegin",total_html);  
     }
 
-    function cambioPagina(direccion)
+    function cambioPagina(direccion)//Aumenta o disminuye de pág dependiendo del botón al que de el usuario
     {
         $('#boton_der').prop('disabled', false);
         console.log(n_pagina);
@@ -611,7 +610,7 @@
         }
     }
 
-    function limpiarSelector(id_selector)
+    function limpiarSelector(id_selector)//Realiza la limpieza de los selectores para actualizarlos con otros valores
     {
         $("#" + id_selector).empty();
         var opt = document.createElement('option');
