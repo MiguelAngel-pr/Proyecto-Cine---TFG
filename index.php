@@ -107,12 +107,12 @@
 
                     <div class="mb-3">
                         <label style="color:black" for="newemail">Email<span class="text-danger">*</span></label>
-                        <input type="email" name="newemail" class="form-control" id="newemail" placeholder="Introduce tu email" maxlength="50" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
+                        <input type="email" name="newemail" class="form-control" id="newemail" placeholder="Introduce tu email" maxlength="50" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{4,}$" required>
                     </div>
 
                     <div class="mb-3">
                         <label style="color:black" for="newpassword">Nueva Contraseña<span class="text-danger">*</span></label>
-                        <input type="password" name="newpassword" class="form-control" id="newpassword" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="La contraseña debe contener al menos un numero, una mayúsculas y una minúscula, y debe tener 6 o más carácteres" required>
+                        <input type="password" name="newpassword" class="form-control" id="newpassword" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" title="La contraseña debe contener al menos un numero, una mayúsculas y una minúscula, y debe tener 6 o más carácteres" required>
                     </div>
 
                     <div class="mb-3">
@@ -121,7 +121,7 @@
                     </div>
                   </div>
                   <div class="modal-footer pt-4">                  
-                    <button id="boton_registro" class="btn btn-success mx-auto w-100" style="background:#ff5821">Registrarte</button>
+                    <button id="boton_registro" type="button" value="Enviar" class="btn btn-success mx-auto w-100" style="background:#ff5821">Registrarte</button>
                   </div>
                   <p style="color:black" class="text-center">¿Ya tienes cuenta?, <a data-bs-target="#login" data-bs-toggle="modal" data-bs-dismiss="modal" href="">Inicia Sesión</a></p> 
                 </div>
@@ -347,6 +347,8 @@
   <script src="assets/js/main.js"></script>
   <script src="assets/js/extended-carousel.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
 
   <script>
     comprobarSesion(); 
@@ -371,6 +373,8 @@
         var newemail = $('#newemail').val();
         var newpassword = $('#newpassword').val();
         var newpassword2 = $('#newpassword2').val();
+
+        var patron_email = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
         //console.log('Datos: ' + newusername + ' ' + newemail + ' ' + newpassword + ' ' + newpassword2 + '');
         if(newpassword != newpassword2)
         {
@@ -380,36 +384,40 @@
         }
         else
         {
-          $.ajax(
-          {  
-            url:"login.php",  
-            type:"POST",  
-            data: {newusername:newusername, newemail:newemail, newpassword:newpassword, funcion:"registro"},  
-            success:function(msg) 
-            { 
-              //console.log(msg);
-              $('#ok').css('display','none'); 
-              $('#error2').css('display','none'); 
-              if(msg == 'ok')
-              {
-                $('#ok').css('display','block'); 
-                setTimeout(
-                  function(){$('#ok').css('display','none'); 
-                  document.getElementById('cerrar2').click();
-                  location.reload();
-                }, 6000);
-                document.getElementById('ok').textContent = 'El usuario se ha añadido correctamente';
-                $('#boton_modal').css('display','none'); 
-                $('#menu_usuario').css('display','flex'); 
+          if(newusername.length > 4 && newemail.length > 4 && newpassword.length > 4 && patron_email.test(newemail))
+          {
+            console.log("Hola");
+            $.ajax(
+            {  
+              url:"login.php",  
+              type:"POST",  
+              data: {newusername:newusername, newemail:newemail, newpassword:newpassword, funcion:"registro"},  
+              success:function(msg) 
+              { 
+                //console.log(msg);
+                $('#ok').css('display','none'); 
+                $('#error2').css('display','none'); 
+                if(msg == 'ok')
+                {
+                  $('#ok').css('display','block'); 
+                  setTimeout(
+                    function(){$('#ok').css('display','none'); 
+                    document.getElementById('cerrar2').click();
+                    location.reload();
+                  }, 6000);
+                  document.getElementById('ok').textContent = 'El usuario se ha añadido correctamente';
+                  $('#boton_modal').css('display','none'); 
+                  $('#menu_usuario').css('display','flex'); 
+                }
+                else
+                {
+                  $('#error2').css('display','block'); 
+                  setTimeout(function(){$('#error2').css('display','none');}, 6000);
+                  document.getElementById('error2').textContent = msg;
+                }
               }
-              else
-              {
-                $('#error2').css('display','block'); 
-                setTimeout(function(){$('#error2').css('display','none');}, 6000);
-                document.getElementById('error2').textContent = msg;
-              }
-            }
-          });
+            });
+          }
         }
       });
 

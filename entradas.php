@@ -303,6 +303,8 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
         var newemail = $('#newemail').val();
         var newpassword = $('#newpassword').val();
         var newpassword2 = $('#newpassword2').val();
+
+        var patron_email = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
         //console.log('Datos: ' + newusername + ' ' + newemail + ' ' + newpassword + ' ' + newpassword2 + '');
         if(newpassword != newpassword2)
         {
@@ -312,36 +314,39 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
         }
         else
         {
-          $.ajax(
-          {  
-            url:"login.php",  
-            type:"POST",  
-            data: {newusername:newusername, newemail:newemail, newpassword:newpassword, funcion:"registro"},  
-            success:function(msg) 
-            { 
-              //console.log(msg);
-              $('#ok').css('display','none'); 
-              $('#error2').css('display','none'); 
-              if(msg == 'ok')
-              {
-                $('#ok').css('display','block'); 
-                setTimeout(
-                  function(){$('#ok').css('display','none'); 
-                  document.getElementById('cerrar2').click();
-                  location.reload();
-                }, 6000);
-                document.getElementById('ok').textContent = 'El usuario se ha añadido correctamente';
-                $('#boton_modal').css('display','none'); 
-                $('#menu_usuario').css('display','flex'); 
+          if(newusername.length > 4 && newemail.length > 4 && newpassword.length > 4 && patron_email.test(newemail))
+          {
+            $.ajax(
+            {  
+              url:"login.php",  
+              type:"POST",  
+              data: {newusername:newusername, newemail:newemail, newpassword:newpassword, funcion:"registro"},  
+              success:function(msg) 
+              { 
+                //console.log(msg);
+                $('#ok').css('display','none'); 
+                $('#error2').css('display','none'); 
+                if(msg == 'ok')
+                {
+                  $('#ok').css('display','block'); 
+                  setTimeout(
+                    function(){$('#ok').css('display','none'); 
+                    document.getElementById('cerrar2').click();
+                    location.reload();
+                  }, 6000);
+                  document.getElementById('ok').textContent = 'El usuario se ha añadido correctamente';
+                  $('#boton_modal').css('display','none'); 
+                  $('#menu_usuario').css('display','flex'); 
+                }
+                else
+                {
+                  $('#error2').css('display','block'); 
+                  setTimeout(function(){$('#error2').css('display','none');}, 6000);
+                  document.getElementById('error2').textContent = msg;
+                }
               }
-              else
-              {
-                $('#error2').css('display','block'); 
-                setTimeout(function(){$('#error2').css('display','none');}, 6000);
-                document.getElementById('error2').textContent = msg;
-              }
-            }
-          });
+            });
+          }
         }
       });
 
