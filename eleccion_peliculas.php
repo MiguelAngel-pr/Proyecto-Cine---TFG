@@ -160,7 +160,7 @@
         <nav id="navbar" class="navbar">
           <ul>
             <li><a class="nav-link scrollto" href="eleccion_peliculas.php">Todas las Películas</a></li>
-            <li><a class="nav-link scrollto" href="">Proximos Estrenos</a></li>
+            <li><a class="nav-link scrollto" href="eleccion_peliculas.php?estrenos=si">Proximos Estrenos</a></li>
             <li><a class="nav-link scrollto " href="contacto.php">Contacto</a></li>
             <li><a class="nav-link scrollto" href="lista_cines.php">Lista de Cines</a></li>
             <li><a class="nav-link scrollto" href="">Promociones</a></li>
@@ -181,38 +181,44 @@
     <!-- ======= Lista Cines ======= -->
     <div id="fondo2"></div>
     <div id="contenedor">
-        <div class="seccion_cine seccion_horizontal">
-            <div>
-                <label for="name">Selecciona el Cine:&nbsp;</label>
-                <select id="eleccion_cine" name="cine" onchange="obtenerLista('fecha')"></select>
-            </div>
-            &nbsp;&nbsp;&nbsp;
-            <div>
-                <label for="name">Selecciona la Fecha:&nbsp;</label>
-                <select id="eleccion_fecha" name="fecha" onchange="obtenerLista('hora')"></select>
-            </div>
-            &nbsp;&nbsp;&nbsp;
-            <div>
-                <label for="name">Selecciona el Horario:&nbsp;</label>
-                <select id="eleccion_horario" name="horario"></select>
-            </div>
-            &nbsp;&nbsp;&nbsp;
-            <button id="boton_filtro" class="text-right" onclick="filtrarPeliculas()"><i class="bi bi-search"></i></button>
-        </div>
-        <br><br>
-        <div id="contenedor_peliculas"></div>
-        <br><br>
-        <div class="row align-items-center seccion_cine">
-            <div class="col">
-                <button id="boton_izq" onclick="cambioPagina('-')"><i class="bi bi-arrow-left-short"></i></button>
-            </div>
-            <div class="col text-center">
-                <p id="n_pagina">1</p>
-            </div>
-            <div class="col text-end">
-                <button id="boton_der" onclick="cambioPagina('+')"><i class="bi bi-arrow-right-short"></i></button>
-            </div>
-        </div>
+      <h3>Filtrar Películas:</h3>
+      <br>
+      <div class="seccion_cine seccion_horizontal" id="buscador">
+        <input type="text" class="editField" maxlength="30" value="">
+        &nbsp;&nbsp;&nbsp;
+        <button id="boton_filtro" class="text-right"><i class="bi bi-search"></i></button>
+      </div>
+      <br><br>
+      <div class="seccion_cine seccion_horizontal" id="filtro_cines">
+          <div>
+              <label for="name">Selecciona el Cine:&nbsp;</label>
+              <select id="eleccion_cine" name="cine" onchange="obtenerLista('fecha')"></select>
+          </div>
+          &nbsp;&nbsp;&nbsp;
+          <div>
+              <label for="name">Selecciona la Fecha:&nbsp;</label>
+              <select id="eleccion_fecha" name="fecha" onchange="obtenerLista('hora')"></select>
+          </div>
+          &nbsp;&nbsp;&nbsp;
+          <div>
+              <label for="name">Selecciona el Horario:&nbsp;</label>
+              <select id="eleccion_horario" name="horario"></select>
+          </div>            
+      </div>
+      <br><br>
+      <div id="contenedor_peliculas"></div>
+      <br><br>
+      <div class="row align-items-center seccion_cine">
+          <div class="col">
+              <button id="boton_izq" onclick="cambioPagina('-')"><i class="bi bi-arrow-left-short"></i></button>
+          </div>
+          <div class="col text-center">
+              <p id="n_pagina">1</p>
+          </div>
+          <div class="col text-end">
+              <button id="boton_der" onclick="cambioPagina('+')"><i class="bi bi-arrow-right-short"></i></button>
+          </div>
+      </div>
     </div>
     <div id="fondo2"></div>
 
@@ -298,9 +304,11 @@
   <script>
     comprobarSesion(); 
     let n_pagina = 0;
+    $('#boton_izq').prop('disabled', true);
     limpiarSelector('eleccion_cine');
     limpiarSelector('eleccion_fecha');
     limpiarSelector('eleccion_horario');
+
     obtenerLista('cine');  
     filtrarPeliculas();
     $(document).ready(function(){
@@ -404,6 +412,12 @@
           }
         });
       });
+
+      $('#boton_filtro').click(function(){
+        n_pagina = 0;
+        $('#n_pagina').text(parseInt(n_pagina + 1));
+        filtrarPeliculas();
+      });
     });
 
     function comprobarSesion(){//Comprueba si estas conectado para cambiar entre el boton de iniciar sesión y el menú de usuario.
@@ -442,7 +456,6 @@
         var selector = "";
         var idcine = $('#eleccion_cine option:selected').val();
         var fecha = $('#eleccion_fecha option:selected').val();
-        console.log(idcine + ", " + fecha);
 
         switch(tabla)
         {
@@ -530,12 +543,28 @@
         var idcine = $('#eleccion_cine option:selected').val();
         var fecha = $('#eleccion_fecha option:selected').val();
         var hora = $('#eleccion_horario option:selected').val();
+        var busqueda = $('#buscador input').val();
+
+        //Diferencio si es la ventana de proximos estrenos o la de todas las películas
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        var estrenos = urlParams.get('estrenos');
+        if(estrenos != "" && estrenos != null)
+        {
+          $('#filtro_cines').prop('hidden', true);
+          $('#contenedor h3').text("Próximos Estrenos:");
+        }
+        else
+        {
+          $('#filtro_cines').prop('hidden', false);
+          $('#contenedor h3').text("Filtrar Películas:");
+        }
 
         $.ajax(
         {  
             url:"cine_funciones.php",  
             type:"POST",
-            data: {funcion:"obtener_peliculas", idcine:idcine, fecha:fecha, hora:hora},
+            data: {funcion:"obtener_peliculas", idcine:idcine, fecha:fecha, hora:hora, estrenos:estrenos, busqueda:busqueda},
             success:function(msg) 
             {
                 console.log("DATOS CINE: " + msg);
@@ -556,15 +585,20 @@
     {
         var contenedor_peliculas = document.getElementById('contenedor_peliculas');
         contenedor_peliculas.innerHTML = "";
-        //console.log(datosPeliculas);
+        console.log(datosPeliculas);
         let filas = 3;
         let resto = datosPeliculas.length%9;
+        console.log(resto);
+        console.log(datosPeliculas.length);
         if(resto != 0 && n_pagina > 0)
         {
             filas = Math.ceil(resto/3);
-            $('#boton_der').prop('disabled', true);
         }
-        
+        if(datosPeliculas.length/(n_pagina+1) < 9)
+        {
+          $('#boton_der').prop('disabled', true);
+        }
+    
         //console.log(filas);
         let posicion = 0;
         var total_html = "";
@@ -595,10 +629,9 @@
     function cambioPagina(direccion)//Aumenta o disminuye de pág dependiendo del botón al que de el usuario
     {
         $('#boton_der').prop('disabled', false);
-        console.log(n_pagina);
         n_pagina += parseInt(direccion + 1);
         $('#n_pagina').text(parseInt(n_pagina + 1));
-        console.log(n_pagina);
+        //console.log(n_pagina);
         filtrarPeliculas();
         if(n_pagina != 0)
         {

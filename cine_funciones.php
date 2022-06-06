@@ -136,16 +136,27 @@ function obtenerPeliculas()//obtiene una lista de películas con un filtro
     $id_cine = limpiaPalabra($_POST['idcine']);
     $fecha = limpiaPalabra($_POST['fecha']);
     $hora = limpiaPalabra($_POST['hora']);
+    $estrenos = limpiaPalabra($_POST['estrenos']);
+    $busqueda = limpiaPalabra($_POST['busqueda']);
     $filtro = "";
+
+    if($estrenos != "")
+    {
+        $filtro = $filtro."AND p.estado_estreno = '2' ";
+    }
+    if($busqueda != "")
+    {
+        $filtro = $filtro."AND p.direccion LIKE '%$busqueda%' OR p.titulo LIKE '%$busqueda%' OR p.titulo_original LIKE '%$busqueda%' ";
+    }
     if($id_cine != "" && $id_cine != "-")
     {
-        $filtro = "AND cine = $id_cine ";
+        $filtro = "AND h.cine = $id_cine ";
         if($fecha != "" && $fecha != "-")
         {
             $filtro = $filtro."AND h.fecha = '$fecha' ";
             if($hora != "" && $hora != "-")
             {
-                $filtro = $filtro."AND h.hora = '$hora'";
+                $filtro = $filtro."AND h.hora = '$hora' ";
             }
         }
     }
