@@ -331,7 +331,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
         var newpassword = $('#newpass').val();
         var newpassword2 = $('#newpass2').val();
 
-        if((newpassword == newpassword2 && !newpassword.includes(oldpassword) && patron_email.test(newemail))
+        if(newpassword == newpassword2 && !newpassword.includes(oldpassword) && patron_email.test(newemail))
         {
           //console.log('PASS OK');
           $.ajax(
