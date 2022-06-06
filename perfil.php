@@ -275,9 +275,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
         });
 
         comprobarSesion();
-        //console.log(getCookie("sesion_activa[usuario_nombre]"));
-        document.getElementById('cuadro_nombre').value = getCookie("sesion_activa[usuario_nombre]");
-      
+              
       $('#boton_logout').click(function(){
         $.ajax(
         {  
@@ -331,7 +329,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
         var newpassword = $('#newpass').val();
         var newpassword2 = $('#newpass2').val();
 
-        if(newpassword == newpassword2 && !newpassword.includes(oldpassword) && patron_email.test(newemail))
+        if(newpassword == newpassword2 && !newpassword.includes(oldpassword))
         {
           //console.log('PASS OK');
           $.ajax(
@@ -366,24 +364,6 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
         }
       });
     });
-
-    // function getCookie(cname) 
-    // {
-      
-    //   let name = cname + "=";
-    //   let decodedCookie = decodeURIComponent(document.cookie);
-    //   let ca = decodedCookie.split(';');
-    //   for(let i = 0; i <ca.length; i++) {
-    //     let c = ca[i];
-    //     while (c.charAt(0) == ' ') {
-    //       c = c.substring(1);
-    //     }
-    //     if (c.indexOf(name) == 0) {
-    //       return c.substring(name.length, c.length);
-    //     }
-    //   }
-    //   return "";
-    // }
 
     function cambioImagen(target) //si la imagen tiene el peso correcto cambia la imagen anterior por la nueva
     {
