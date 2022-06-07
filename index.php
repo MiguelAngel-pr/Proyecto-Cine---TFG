@@ -421,6 +421,7 @@
       });
 
       $('#boton_login').click(function(){
+        //Pruebas; Cuenta: pepe@gmail.com Pass: Pepe1234
         $('#error').css('display','none');
         var username = $('#username').val();
         var password = $('#password').val();
