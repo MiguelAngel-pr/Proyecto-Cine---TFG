@@ -370,11 +370,10 @@
         data: {funcion:"obtener_entradas_usuario"},
         success:function(msg) 
         {
-          console.log("DATOS: " + msg);
+          //console.log("DATOS: " + msg);
           if(msg != "no")
           {
             var datos_tabla = $.parseJSON(msg);
-            console.log("DATOS1" + datos_tabla.length + ", " + n_pagina);
             if(datos_tabla.length <= (9*(n_pagina+1)))
             {
                 $('#boton_der').prop('disabled', true);
@@ -395,7 +394,7 @@
     
     function formacionTabla(datos_tabla)//forma la tabla a partir de las entradas compradas por el usuario
     {
-        console.log("DATOS2" + datos_tabla.length + ", " + n_pagina);
+        //console.log("DATOS2" + datos_tabla.length + ", " + n_pagina);
         if(datos_tabla.length >= (9*n_pagina))
         {
             var titulos = document.querySelectorAll("thead tr th");
@@ -425,7 +424,6 @@
         n_pagina += parseInt(direccion + 1);
         //$('#n_pagina').text("Hola");
         $('#n_pagina').text(parseInt(n_pagina + 1));
-        console.log(n_pagina);
         construyeTabla();
         limpiaTabla();
         if(n_pagina != 0)

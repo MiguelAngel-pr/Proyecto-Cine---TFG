@@ -309,7 +309,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
           data: {newusername:newusername, newemail:newemail, newgender:newgender, newcountry:newcountry, newbirthday:newbirthday, newbio:newbio, newavatar:newavatar, funcion:"actualiza_valores"},  
           success:function(msg) 
           { 
-            console.log(msg);
+            //console.log(msg);
             if(msg == 'ok')
             {
               alert("Se han actualizado los valores");

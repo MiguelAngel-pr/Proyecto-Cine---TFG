@@ -386,7 +386,6 @@
         {
           if(newusername.length > 4 && newemail.length > 4 && newpassword.length > 4 && patron_email.test(newemail))
           {
-            console.log("Hola");
             $.ajax(
             {  
               url:"login.php",  

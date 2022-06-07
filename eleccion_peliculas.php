@@ -572,7 +572,7 @@
             data: {funcion:"obtener_peliculas", idcine:idcine, fecha:fecha, hora:hora, estrenos:estrenos, busqueda:busqueda},
             success:function(msg) 
             {
-                console.log("DATOS CINE: " + msg);
+                //console.log("DATOS CINE: " + msg);
                 if($.parseJSON(msg) != "no")
                 {
                     let datos = $.parseJSON(msg);
@@ -590,11 +590,10 @@
     {
         var contenedor_peliculas = document.getElementById('contenedor_peliculas');
         contenedor_peliculas.innerHTML = "";
-        console.log(datosPeliculas);
+        //console.log(datosPeliculas);
         let filas = 3;
         let resto = datosPeliculas.length%9;
-        console.log(resto);
-        console.log(datosPeliculas.length);
+
         if(resto != 0 && n_pagina > 0)
         {
             filas = Math.ceil(resto/3);

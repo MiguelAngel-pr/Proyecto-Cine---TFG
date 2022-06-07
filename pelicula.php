@@ -457,7 +457,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
         let hoy2 = new Date(hoy.getTime() - 30*60000);//La fecha de hoy 30 min antes
         const diaActual = hoy.getDay(); //9 <- Para pruebas
         const horaLimite = hoy2.toLocaleTimeString();
-        console.log(hora+", "+horaLimite+", "+dia+", "+diaActual);
+        //console.log(hora+", "+horaLimite+", "+dia+", "+diaActual);
         
         if(seleccion_horario != "-" && seleccion_horario.includes(" | "))
         {
@@ -467,7 +467,6 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
           }
           else
           {
-            //console.log("BIEN")
             $.ajax(
             {  
               url:"entradas_funciones.php",  
@@ -475,7 +474,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
               data: {funcion:"preparar_compra", cine:id_cine, hora:hora, sala:id_sala, pelicula:idpelicula},  
               success:function(msg) 
               { 
-                console.log(msg);
+                //console.log(msg);
                 if(msg == 'ok')
                 {
                   location.href = "entradas.php";
@@ -572,7 +571,6 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
             //console.log(datos[8]);
             if(datos[8] != 0)
             {
-              //console.log("HOLA");
               if(datos[8] == 2)
               {
                 $('#compra_entradas').find('h4').text("Reserva de Entradas");
@@ -622,7 +620,6 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
           {
             let datos = $.parseJSON(msg);
 
-            //console.log(datos.length);
             for(let i=0; i<datos.length; i++)
             {
               var opt = document.createElement('option');
@@ -649,7 +646,6 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
     {
       var seleccionValor = $('#cuadro_cine option:selected').val();
       var opcionSeleccionada = $('#cuadro_cine option:selected').text();
-      //console.log(seleccionValor);
 
       $('#cuadro_horario').empty();
       $('#cuadro_horario').append('<option selected="selected" value="0">-</option>');
@@ -667,7 +663,6 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
             {
               let datos = $.parseJSON(msg);
 
-              //console.log(datos.length);
               for(let i=0; i<datos.length; i++)
               {
                 var fecha = (new Date (datos[i]['fecha']));

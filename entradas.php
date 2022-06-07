@@ -357,7 +357,6 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
         var recordar = false;
         if ($("#remember").prop('checked')) 
         {
-          //console.log("Hola");
           recordar = true;
         }
         $.ajax(
@@ -431,7 +430,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
             }
           }
           var error = "no";
-          console.log(array_asientos);
+          //console.log(array_asientos);
           for(let i = 0; i < asientosSeleccionados; i++)
           {
             $.ajax(
@@ -505,7 +504,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
         data: {funcion:"obtener_valores"},
         success:function(msg) 
         {
-          console.log("MSG: " + msg);
+          //console.log("MSG: " + msg);
           if(msg == "no")
           {
             alert("La sesión no esta disponible");
