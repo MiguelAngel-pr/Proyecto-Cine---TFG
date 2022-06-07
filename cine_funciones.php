@@ -150,7 +150,7 @@ function obtenerPeliculas()//obtiene una lista de películas con un filtro
     }
     if($id_cine != "" && $id_cine != "-")
     {
-        $filtro = "AND h.cine = $id_cine ";
+        $filtro = $filtro."AND h.cine = $id_cine ";
         if($fecha != "" && $fecha != "-")
         {
             $filtro = $filtro."AND h.fecha = '$fecha' ";

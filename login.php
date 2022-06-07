@@ -139,9 +139,11 @@ function actualizaValores()//modifica los datos del usuario
     $usuario_bio = limpiaPalabra(comprobarNulo($_POST['newbio']));
     $usuario_avatar = $_POST['newavatar'];    
 
-    if(comprobarExistencia('usuarios','nombre_usuario',$usuario_nombre) == "no" && $usuario_nombre != $_SESSION['username'])
+    if(comprobarExistencia('usuarios','nombre_usuario',$usuario_nombre) == "no" && $usuario_nombre != $_SESSION['username'] || comprobarExistencia('usuarios','nombre_usuario',$usuario_nombre) == "si" && $usuario_nombre == $_SESSION['username'])
     {
-        $actualizaUsuario = $mysqli ->prepare("UPDATE usuarios SET email = '$usuario_email', nombre_usuario = '$usuario_nombre', genero = '$usuario_genero', pais = '$usuario_pais', fecha_nacimiento = '$usuario_nacimiento', descripcion = '$usuario_bio', avatar = '$usuario_avatar' WHERE id_usuario = '$usuario_actual'");
+        $query = "UPDATE usuarios SET email = '$usuario_email', nombre_usuario = '$usuario_nombre', genero = '$usuario_genero', pais = '$usuario_pais', fecha_nacimiento = '$usuario_nacimiento', descripcion = '$usuario_bio', avatar = '$usuario_avatar' WHERE id_usuario = '$usuario_actual'";
+        $actualizaUsuario = $mysqli ->prepare($query);
+
         $actualizaUsuario -> execute();
         $usuariosAfectados = $mysqli -> affected_rows;         
         if($usuariosAfectados > 0)
