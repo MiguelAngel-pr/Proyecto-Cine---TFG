@@ -421,6 +421,7 @@
       $('#boton_filtro').click(function(){
         n_pagina = 0;
         $('#n_pagina').text(parseInt(n_pagina + 1));
+        $('#boton_der').prop('disabled', false);
         filtrarPeliculas();
       });
     });
@@ -572,7 +573,7 @@
             data: {funcion:"obtener_peliculas", idcine:idcine, fecha:fecha, hora:hora, estrenos:estrenos, busqueda:busqueda},
             success:function(msg) 
             {
-                //console.log("DATOS CINE: " + msg);
+                console.log("DATOS CINE: " + msg);
                 if($.parseJSON(msg) != "no")
                 {
                     let datos = $.parseJSON(msg);

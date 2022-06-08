@@ -454,14 +454,14 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
         let hora = seleccion_horario.substring(separacion+3, seleccion_horario.length);
 
         const hoy = new Date(Date.now());
-        let hoy2 = new Date(hoy.getTime() - 30*60000);//La fecha de hoy 30 min antes
-        const diaActual = hoy.getDay(); //9 <- Para pruebas
-        const horaLimite = hoy2.toLocaleTimeString();
+        let hoy2 = new Date(hoy.getTime() + 30*60000);//La fecha de hoy 30 min antes
+        const diaActual = hoy.getDate(); //9 <- Para pruebas
+        const horaLimite = hoy2.toLocaleTimeString('es-ES', {hour: '2-digit', minute:'2-digit', second: '2-digit'});
         //console.log(hora+", "+horaLimite+", "+dia+", "+diaActual);
         
         if(seleccion_horario != "-" && seleccion_horario.includes(" | "))
         {
-          if(diaActual == dia && horaLimite < hora) //Si la película es hoy solo permitirá comprar entradas 30 min antes del inicio de la sesión
+          if(diaActual == dia && horaLimite > hora) //Si la película es hoy solo permitirá comprar entradas 30 min antes del inicio de la sesión
           {
             alert("La sesión ya esta en curso");
           }
@@ -484,7 +484,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
                   alert("Por el momento la compra de entradas no esta disponible");
                 }
               }
-            });
+            }); 
           }
         }
         else

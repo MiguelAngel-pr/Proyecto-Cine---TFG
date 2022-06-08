@@ -140,11 +140,11 @@ function obtenerPeliculas()//obtiene una lista de películas con un filtro
     $busqueda = limpiaPalabra($_POST['busqueda']);
     $filtro = "";
 
-    if($estrenos != "")
+    if($estrenos != "" && $estrenos != null)
     {
         $filtro = $filtro."AND p.estado_estreno = '2' ";
     }
-    if($busqueda != "")
+    if($busqueda != "" && $busqueda != null)
     {
         $filtro = $filtro."AND p.direccion LIKE '%$busqueda%' OR p.titulo LIKE '%$busqueda%' OR p.titulo_original LIKE '%$busqueda%' ";
     }

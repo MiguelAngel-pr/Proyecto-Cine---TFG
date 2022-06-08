@@ -210,7 +210,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
                 <li><i class="bx bx-chevron-right"></i> <a href="#">Gestión de cookies</a></li>
                 <li><i class="bx bx-chevron-right"></i> <a href="#">Aviso Legal</a></li>
               </ul>
-            </div>
+            </div> 
 
             <div class="col-lg-4 col-md-6 footer-newsletter">
               <h4>Unete a nuestro boletín</h4>
@@ -301,26 +301,33 @@ if (session_status() !== PHP_SESSION_ACTIVE) //Con esto detecto si la sesión es
         var newbirthday = $('#cuadro_fecha').val();
         var newbio = $('#cuadro_descripcion').val();
         var newavatar = document.getElementById('img_perfil').getAttribute("src");
-
-        $.ajax(
-        {  
-          url:"login.php",  
-          type:"POST",  
-          data: {newusername:newusername, newemail:newemail, newgender:newgender, newcountry:newcountry, newbirthday:newbirthday, newbio:newbio, newavatar:newavatar, funcion:"actualiza_valores"},  
-          success:function(msg) 
-          { 
-            //console.log(msg);
-            if(msg == 'ok')
-            {
-              alert("Se han actualizado los valores");
-              location.reload();
+        var patron_email = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+        if(newusername.length > 3 && newemail.length > 3 && patron_email.test(newemail))
+        {
+          $.ajax(
+          {  
+            url:"login.php",  
+            type:"POST",  
+            data: {newusername:newusername, newemail:newemail, newgender:newgender, newcountry:newcountry, newbirthday:newbirthday, newbio:newbio, newavatar:newavatar, funcion:"actualiza_valores"},  
+            success:function(msg) 
+            { 
+              //console.log(msg);
+              if(msg == 'ok')
+              {
+                alert("Se han actualizado los valores");
+                location.reload();
+              }
+              else
+              {
+                alert("Ha habido un error al actualizar los datos");
+              }
             }
-            else
-            {
-              alert("Ha habido un error al actualizar los datos");
-            }
-          }
-        });
+          });
+        }
+        else
+        {
+          alert("Los datos introducidos tienen un formato incorrecto");
+        }
       });
 
       //Cambio de contraseña
